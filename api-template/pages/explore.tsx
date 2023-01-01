@@ -88,7 +88,7 @@ const Apps: React.FC = () => {
                           return (
                             <div key={index}>
                               <img
-                                style={{ borderRadius: "4px", height: 400 }}
+                                style={{ borderRadius: "4px", height: 480 }}
                                 src={app.image}
                               />
                             </div>
@@ -99,8 +99,8 @@ const Apps: React.FC = () => {
                   </Grid>
                 </Grid>
               </Box>
-              <Box sx={{ textAlign: "center" }}>
-                <Typography sx={{ my: 2 }} variant="h5">
+              <Box >
+                <Typography sx={{ my: 4 }} variant="h5">
                   All apps
                 </Typography>
               </Box>
