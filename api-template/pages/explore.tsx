@@ -76,7 +76,7 @@ const Apps: React.FC = () => {
                     </Paper>
                   </Grid>
                   <Grid item xs>
-                    <Box sx={{ width: "100%" }}>
+                    <Paper sx={{ width: "100%" }}>
                       <Carousel
                         showIndicators={false}
                         showStatus={false}
@@ -95,7 +95,7 @@ const Apps: React.FC = () => {
                           );
                         })}
                       </Carousel>
-                    </Box>
+                    </Paper>
                   </Grid>
                 </Grid>
               </Box>
