@@ -46,6 +46,7 @@ function useActions() {
   const resourceGroup = usePagesStateValue("resourceGroup");
   const loaders = usePagesStateValue("loaders");
   const loadingApps = usePagesStateValue("loaders.resourceGroup");
+  const router = useRouter();
   const updateResourceGrps = React.useCallback(
     (payload: any) => {
       const type = "update_all";
@@ -68,8 +69,51 @@ function useActions() {
     },
     [resourceGroup, loaders, loadingApps]
   );
+
+  const updateImages = React.useCallback(
+    (images) => {
+      try {
+        const queryId = router.query.id;
+        let all = [...(resourceGroup ?? [])];
+        let item = all.find(({ id }) => id === queryId);
+        const indexOfItem = all.indexOf(item);
+        item.images = [...item.images, ...images];
+        all[indexOfItem] = item;
+        const type = "update_all";
+        const key = "resourceGroup";
+        dispatchToPages({ payload: [...all], type, key });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [resourceGroup, loaders, loadingApps]
+  );
+
+  const updateTables = React.useCallback(
+    (table) => {
+      try {
+        const queryId = router.query.id;
+        let all = [...(resourceGroup ?? [])];
+        let item = all.find(({ id }) => id === queryId);
+        const indexOfItem = all.indexOf(item);
+        item.tables = [...item.tables, table];
+        all[indexOfItem] = item;
+        const type = "update_all";
+        const key = "resourceGroup";
+        dispatchToPages({ payload: [...all], type, key });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [resourceGroup, loaders, loadingApps]
+  );
+
   return {
     updateApps: updateResourceGrps,
     toggleAppsLoader: toggleresourceGroupLoader,
+    updateImages,
+    updateTables
   };
 }
+
+export const useResourceGroupActions = useActions;

@@ -13,6 +13,7 @@ import ImageField from "./ImageField";
 import useUpload from "../hooks/useUpload";
 import { useRouter } from "next/router";
 import { useAxios } from "../hooks/useAxios";
+import { useResourceGroupActions } from "../hooks/useResourceGroup";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -34,6 +35,8 @@ export default function UploadImageDialog({ resourceGroup }) {
   const axios = useAxios();
   const resourceGroupId = resourceGroup.id;
 
+  const { updateImages } = useResourceGroupActions();
+
   async function handleUpload() {
     try {
       setUploading(true);
@@ -49,6 +52,7 @@ export default function UploadImageDialog({ resourceGroup }) {
         const imagesRes = await axios.post(`/api/resource/data/images`, images);
         const imageData = imagesRes.data;
         if (imageData) {
+          updateImages([...imagesRes.data]);
           setUploading(false);
           setOpen(false);
         }

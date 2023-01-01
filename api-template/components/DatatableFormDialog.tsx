@@ -17,6 +17,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useAxios } from "../hooks/useAxios";
+import { useResourceGroupActions } from "../hooks/useResourceGroup";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,7 +29,6 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export default function DatatableFormDialog({ resourceGroup }) {
-  console.log(resourceGroup);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -76,6 +76,8 @@ export default function DatatableFormDialog({ resourceGroup }) {
 
   const [saving, setSaving] = React.useState(false);
 
+  const { updateTables } = useResourceGroupActions();
+
   const handleSubmit = async (e) => {
     setSaving(true);
     try {
@@ -86,6 +88,7 @@ export default function DatatableFormDialog({ resourceGroup }) {
         resourceGroupId: resourceGroup?.id,
       });
       if (res.data) {
+        updateTables(res.data);
         setSaving(false);
         setOpen(false);
       }

@@ -1,36 +1,26 @@
 import React from "react";
 import { GetServerSideProps } from "next";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { AppProps } from "../../components/App";
 import { useSession } from "next-auth/react";
 import prisma from "../../lib/prisma";
 
-
 import Preview from "../../components/Preview";
 import { AuthSpinner } from "..";
 import Layout from "../../components/Layout";
+import useApp from "../../hooks/useApp";
+import { usePagesStateValue } from "../../lib/builder";
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.app.findUnique({
-    where: {
-      id: String(params?.id),
-    },
-    include: {
-      author: {
-        select: { name: true, email: true },
-      },
-    },
-  });
-  return {
-    props: post,
-  };
-};
-
-
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<AppProps> = () => {
   const { data: session, status } = useSession();
 
-  if (status === "loading") {
+  const router = useRouter();
+
+  const props = useApp({ id: router.query.id });
+
+  const loadingData = usePagesStateValue("loaders.apps");
+
+  if (status === "loading" || loadingData) {
     return <AuthSpinner />;
   }
 
@@ -47,13 +37,9 @@ const App: React.FC<AppProps> = (props) => {
     title = `${title} (Draft)`;
   }
 
-
-
-
   if (true) {
     return <Preview fullScreen />;
   }
-
 };
 
 export default App;
