@@ -91,7 +91,7 @@ export default function CaategoryDialog({ appId }) {
         variant="outlined"
         onClick={handleClickOpen}
       >
-        Categories & Filters
+        Filters
       </Button>
       <Dialog
         fullScreen

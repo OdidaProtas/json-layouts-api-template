@@ -18,6 +18,8 @@ import {
   CircularProgress,
   Typography,
   Button,
+  Paper,
+  Divider,
 } from "@mui/material";
 import CaategoryDialog from "../components/CategoryDialog";
 import useApps from "../hooks/useApps";
@@ -39,7 +41,7 @@ const Apps: React.FC = () => {
             <Box sx={{ flexGrow: 1 }}>
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ flexGrow: 1 }}>
-                  <Typography sx={{ my: 1 }} variant="h5">
+                  <Typography sx={{ my: 3 }} variant="h5">
                     Featured apps
                   </Typography>
                 </Box>
@@ -68,7 +70,10 @@ const Apps: React.FC = () => {
               <Box sx={{ my: 1 }}>
                 <Grid container spacing={4}>
                   <Grid item xs={3}>
-                    <Typography>Categories</Typography>
+                    <Paper sx={{ p: 2, mt: 3 }}>
+                      <Typography>Categories</Typography>
+                      <Divider />
+                    </Paper>
                   </Grid>
                   <Grid item xs>
                     <Box sx={{ width: "100%" }}>
@@ -83,7 +88,7 @@ const Apps: React.FC = () => {
                           return (
                             <div key={index}>
                               <img
-                                style={{ borderRadius: "4px" }}
+                                style={{ borderRadius: "4px", height: 400 }}
                                 src={app.image}
                               />
                             </div>
