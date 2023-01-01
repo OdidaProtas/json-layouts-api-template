@@ -66,25 +66,27 @@ const Apps: React.FC = () => {
                 </Box>
               </Box>
               <Box sx={{ my: 1 }}>
-                <Box sx={{ display: "flex" }}>
-                  <Box sx={{ flexGrow: 1 }}></Box>
-                  <Box sx={{ width: 650, mt: 3 }}>
-                    <Carousel autoPlay>
-                      {apps.map((app, index) => {
-                        return (
-                          <div key={index}>
-                            <img
-                              style={{ borderRadius: "4px" }}
-                              src={app.image}
-                            />
-                          </div>
-                        );
-                      })}
-                    </Carousel>
-                  </Box>
-
-                  <Box sx={{ flexGrow: 1 }}></Box>
-                </Box>
+                <Grid container spacing={4}>
+                  <Grid item xs={3}>
+                    <Typography>Categories</Typography>
+                  </Grid>
+                  <Grid item xs>
+                    <Box sx={{ width: "100%", mt: 3 }}>
+                      <Carousel autoPlay>
+                        {apps.map((app, index) => {
+                          return (
+                            <div key={index}>
+                              <img
+                                style={{ borderRadius: "4px" }}
+                                src={app.image}
+                              />
+                            </div>
+                          );
+                        })}
+                      </Carousel>
+                    </Box>
+                  </Grid>
+                </Grid>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ my: 5 }} variant="h5">
