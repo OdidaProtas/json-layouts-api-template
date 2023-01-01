@@ -36,7 +36,7 @@ function useActions() {
   const dispatch = usePagesStateDisptch();
   const toast = usePagesStateValue("toast") ?? {};
   function handleShowToast(severity, message) {
-    const type = "update_toast";
+    const type = "update_all";
     const key = "toast";
     dispatch({
       type,
@@ -45,7 +45,7 @@ function useActions() {
     });
   }
   function handleHideToast() {
-    const type = "update_toast";
+    const type = "update_all";
     const key = "toast";
     dispatch({
       type,
