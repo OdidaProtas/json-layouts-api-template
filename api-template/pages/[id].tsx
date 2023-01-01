@@ -31,7 +31,7 @@ import { useSession } from "next-auth/react";
 
 const App: React.FC<AppProps> = () => {
   const router = useRouter();
-  const app = useApp({ id: router.query.id });
+  const app = useApp({ id: router.query.id }) ?? { draft: undefined };
   const loading = usePagesStateValue("loaders.apps");
   const pages = JSON.parse(app.draft ?? "[]");
   const { status: authStatus } = useSession();
