@@ -71,8 +71,14 @@ const Apps: React.FC = () => {
                     <Typography>Categories</Typography>
                   </Grid>
                   <Grid item xs>
-                    <Box sx={{ width: "100%", mt: 3 }}>
-                      <Carousel autoPlay>
+                    <Box sx={{ width: "100%" }}>
+                      <Carousel
+                        showIndicators={false}
+                        showStatus={false}
+                        showArrows={false}
+                        showThumbs={false}
+                        autoPlay
+                      >
                         {apps.map((app, index) => {
                           return (
                             <div key={index}>
@@ -89,7 +95,7 @@ const Apps: React.FC = () => {
                 </Grid>
               </Box>
               <Box sx={{ textAlign: "center" }}>
-                <Typography sx={{ my: 5 }} variant="h5">
+                <Typography sx={{ my: 2 }} variant="h5">
                   All apps
                 </Typography>
               </Box>
