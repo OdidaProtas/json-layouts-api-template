@@ -19,8 +19,9 @@ import { useSession } from "next-auth/react";
 import { AuthSpinner } from ".";
 import useApps, { useAppActions } from "../hooks/useApps";
 import { useAxios } from "../hooks/useAxios";
+import useToast from "../hooks/useToast";
 
-const Draft: React.FC = () => {
+const Create: React.FC = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -33,6 +34,7 @@ const Draft: React.FC = () => {
   const uploadFiles = useUpload();
 
   const apps = useApps();
+  const { showToast } = useToast();
 
   const { updateApps } = useAppActions();
   const axios = useAxios();
@@ -65,9 +67,11 @@ const Draft: React.FC = () => {
             },
           },
         ]);
+        showToast("success", "App created successfully");
         await Router.push("/m");
       }
     } catch (error) {
+      showToast("error", "App creation failed");
       setSaving(false);
     }
   };
@@ -186,4 +190,4 @@ const Draft: React.FC = () => {
   );
 };
 
-export default Draft;
+export default Create;

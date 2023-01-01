@@ -14,6 +14,7 @@ import React from "react";
 import prisma from "../lib/prisma";
 import { Router, useRouter } from "next/router";
 import helloWorld from "../lib/defaultApp";
+import useToast from "../hooks/useToast";
 
 export default function ToggleButtons({ app }) {
   const pages = usePagesStateValue("pages");
@@ -24,6 +25,8 @@ export default function ToggleButtons({ app }) {
 
   const [saving, setSaving] = React.useState(false);
 
+  const { showToast } = useToast();
+
   function updateApp(id: string, payload) {
     fetch(`/api/app/${id}`, {
       method: "PUT",
@@ -31,11 +34,12 @@ export default function ToggleButtons({ app }) {
     })
       .then(() => {
         setSaving(false);
+        showToast("success", "App saved");
         router.push(`/a/${id}`);
       })
       .catch((e) => {
+        showToast("error", "Save failed");
         setSaving(false);
-        alert("An error occured, try again");
       });
   }
 
