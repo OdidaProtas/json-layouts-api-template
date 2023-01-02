@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import useApps from "../hooks/useApps";
 import { usePagesStateValue } from "../lib/builder";
 import { Typography } from "@mui/material";
+import { Add, AppRegistration } from "@mui/icons-material";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
@@ -36,26 +37,29 @@ const Apps: React.FC<any> = () => {
               <Box sx={{ my: 5 }}>
                 <Box sx={{ display: "flex" }}>
                   <Box sx={{ flexGrow: 1 }}>
-                    <Autocomplete
-                      size="small"
-                      disablePortal
-                      id="combo-box-demo"
-                      options={apps.map((app) => ({
-                        value: app.id,
-                        label: app.name,
-                      }))}
-                      sx={{ width: 300 }}
-                      onChange={(e, v) => {
-                        if ((v as any)?.value)
-                          router.push(`/${(v as any).value}`);
-                      }}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          placeholder="Search apps/categories..."
-                        />
-                      )}
-                    />
+                    {Boolean(apps?.length) && (
+                      <Autocomplete
+                        size="small"
+                        disablePortal
+                        id="combo-box-demo"
+                        options={apps.map((app) => ({
+                          value: app.id,
+                          label: app.name,
+                        }))}
+                        sx={{ width: 300 }}
+                        onChange={(e, v) => {
+                          if ((v as any)?.value)
+                            router.push(`/${(v as any).value}`);
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            placeholder="Search apps/categories..."
+                          />
+                        )}
+                      />
+                    )}
+
                   </Box>
 
                   <Box>
@@ -85,24 +89,28 @@ const Apps: React.FC<any> = () => {
                 </>
 
                 {!apps.length && (
-                  <div>
-                    <Typography variant="h4" sx={{ my: 3 }}>
-                      There are published apps
-                    </Typography>
-                    <Button
-                      sx={{ textTransform: "none" }}
-                      variant={"outlined"}
-                      onClick={() => router.push("/create")}
-                    >
-                      Create app
-                    </Button>
-                    <Button
-                      sx={{ ml: 2, textTransform: "none" }}
-                      variant={"outlined"}
-                      onClick={() => router.push("/m")}
-                    >
-                      My apps
-                    </Button>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: 300 }} >
+                    <div>
+                      <Typography variant="h4" sx={{ my: 3 }}>
+                        There are no published apps
+                      </Typography>
+                      <Button
+                        sx={{ textTransform: "none" }}
+                        variant={"outlined"}
+                        onClick={() => router.push("/create")}
+                        startIcon={<Add />}
+                      >
+                        Create app
+                      </Button>
+                      <Button
+                        startIcon={<AppRegistration />}
+                        sx={{ ml: 2, textTransform: "none" }}
+                        variant={"outlined"}
+                        onClick={() => router.push("/m")}
+                      >
+                        My apps
+                      </Button>
+                    </div>
                   </div>
                 )}
               </Grid>

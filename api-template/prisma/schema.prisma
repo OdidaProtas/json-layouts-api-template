@@ -116,6 +116,7 @@ model App {
   draft                     String?
   category                  AppCategory?    @relation(fields: [appCategoryId], references: [id])
   appCategoryId             String?
+  appId                     String?
 }
 
 model Account {

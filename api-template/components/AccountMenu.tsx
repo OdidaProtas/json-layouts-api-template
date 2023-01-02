@@ -13,7 +13,11 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { AddCircle, Apps } from "@mui/icons-material";
 import AttachMoneyIcon from
- '@mui/icons-material/AttachMoney';
+  '@mui/icons-material/AttachMoney';
+
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import Link from "next/link";
+
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -32,9 +36,9 @@ export default function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        {/* <Link href="/m">
-          <a data-active={isActive("/m")}>My apps</a>
-        </Link> */}
+        <Link href="/about-us">
+          <Typography sx={{ minWidth: 100 }}>About us</Typography>
+        </Link>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -113,6 +117,16 @@ export default function AccountMenu() {
             <AttachMoneyIcon fontSize="small" />
           </ListItemIcon>
           Plans and Billing
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            router.push("/admin");
+          }}
+        >
+          <ListItemIcon>
+            <AdminPanelSettingsIcon fontSize="small" />
+          </ListItemIcon>
+          Admin Panel
         </MenuItem>
         <MenuItem
           onClick={() => {

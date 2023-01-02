@@ -116,14 +116,17 @@ const Apps: React.FC = () => {
                 </>
 
                 {!apps.length && userHasValidSession && (
-                  <div>
-                    <h6>There are 0 published apps</h6>
-                    <button onClick={() => router.push("/create")}>
-                      Create app
-                    </button>
-                    <button onClick={() => router.push("/drafts")}>
-                      Go to drafts
-                    </button>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight:300 }} >
+                    <div>
+                      <h6>There are no published apps</h6>
+                      <button onClick={() => router.push("/create")}>
+                        Create app
+                      </button>
+                      <button onClick={() => router.push("/drafts")}>
+                        Go to drafts
+                      </button>
+                    </div>
+
                   </div>
                 )}
               </Grid>
