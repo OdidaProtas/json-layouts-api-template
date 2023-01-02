@@ -25,7 +25,7 @@ import { usePagesStateValue } from "../../lib/builder";
 const App: React.FC = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const app = useApp({ id: router.query.id });
+  const app = useApp();
   const props = app ?? { name: "" }; // to ref
   const loadingApp = usePagesStateValue("loaders.apps");
   const [state, setState] = React.useState(() => props);

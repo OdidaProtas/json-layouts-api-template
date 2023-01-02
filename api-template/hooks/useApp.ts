@@ -38,7 +38,7 @@ export default function useApp() {
     updateAll();
   }, []);
 
-  return app;
+  return app ?? {};
 }
 
 function useActions() {

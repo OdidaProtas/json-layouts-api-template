@@ -27,7 +27,7 @@ const App: React.FC<AppProps> = () => {
 
   const router = useRouter();
 
-  const app = useApp({ id: router.query.id });
+  const app = useApp() 
   const apps = useApps();
   const props = app ?? {}; // to ref
 
