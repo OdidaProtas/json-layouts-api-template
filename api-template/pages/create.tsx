@@ -7,7 +7,6 @@ import {
   Button,
   CircularProgress,
   FormControl,
-  Grid,
   InputLabel,
   LinearProgress,
   MenuItem,
@@ -51,7 +50,7 @@ const Create: React.FC = () => {
     const images = (uploads as unknown as any).reduce((p, c) => {
       return { ...p, [c.field]: c.url };
     }, {});
-    let currentState = { name, description, type, email: session?.user?.email };
+    let currentState = { name, description, appCategoryId: type, email: session?.user?.email, appId };
 
     if (Boolean(images)) {
       currentState = { ...currentState, ...images };
