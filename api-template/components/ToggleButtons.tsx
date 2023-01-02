@@ -18,7 +18,7 @@ import useToast from "../hooks/useToast";
 
 export default function ToggleButtons({ app }) {
   const pages = usePagesStateValue("pages");
-  const pageIndex = usePagesStateValue("pageIndex");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   const { changePage } = useActions();
 
   const router = useRouter();

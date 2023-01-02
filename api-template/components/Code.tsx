@@ -20,7 +20,7 @@ export default function Code({ state, size = "large", setState }: ICode) {
   const editor = useRef();
 
   const pages = usePages();
-  const pageIndex = usePagesStateValue("pageIndex");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
 
   const page = pages[pageIndex];
   const [code, setCode] = useState(() => state ? JSON.stringify(state, null, "\t") : JSON.stringify(page, null, "\t"));
@@ -69,7 +69,7 @@ export default function Code({ state, size = "large", setState }: ICode) {
 
 function useActions() {
   const dispatch = usePagesStateValue("dispatch");
-  const pageIndex = usePagesStateValue("pageIndex");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   const pages = usePagesStateValue("pages");
 
   return {

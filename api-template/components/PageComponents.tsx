@@ -3,7 +3,7 @@ import { usePagesStateValue } from "../lib/builder";
 import CompontentsAccordion from "./ComponentAccordion";
 
 export default function ComponentsTab() {
-  const pageIndex = usePagesStateValue("pageIndex");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   const pages = usePagesStateValue("pages")[pageIndex];
   const componentsData = pages?.components ?? [];
   return (

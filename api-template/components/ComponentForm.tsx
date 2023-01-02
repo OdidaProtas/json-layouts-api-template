@@ -420,7 +420,7 @@ export default function ComponentForm({
 export function useActions() {
   const pages = usePagesStateValue("pages");
   const dispatch = usePagesStateValue("dispatch");
-  const pageIndex = usePagesStateValue("pageIndex");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
 
   return {
     handleSubmit(state, index) {

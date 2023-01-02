@@ -15,9 +15,9 @@ import renderPage from "./util/renderPage";
 
 export default function Preview({ fullScreen = false }) {
   const pages = usePages();
-  const pageIndex = usePagesStateValue("pageIndex");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   const pageData = pages[pageIndex];
-  const loader = usePagesStateValue("loaders.page");
+  const loader = usePagesStateValue("loaders.pages");
   if (!pageData)
     return (
       <Paper

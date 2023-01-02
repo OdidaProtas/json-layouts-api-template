@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   const router = useRouter();
 
-  const app = useApp({ id: router.query.id });
+  const app = useApp();
   const props = app ?? {}; // to ref
   const loadingApp = usePagesStateValue("loaders.apps");
 
@@ -28,14 +28,14 @@ const App: React.FC = () => {
     return <AuthSpinner />;
   }
 
-  if (!session) {
-    return (
-      <Layout>
-        <h1>Drafts</h1>
-        <div>You need to be authenticated to view this page.</div>
-      </Layout>
-    );
-  }
+  // if (!session) {
+  //   return (
+  //     <Layout>
+  //       <h1>Drafts</h1>
+  //       <div>You need to be authenticated to view this page.</div>
+  //     </Layout>
+  //   );
+  // }
   let title = props?.name;
   if (!props?.published) {
     title = `${title} (Draft)`;

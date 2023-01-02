@@ -1,9 +1,14 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { usePagesStateDisptch, usePagesStateValue } from "../lib/builder";
 import { useAxios } from "./useAxios";
 
-export default function useApp({ id }) {
+export default function useApp() {
   const apps = usePagesStateValue("apps") ?? [];
+
+  const router = useRouter()
+
+  const id = router.query.id
 
   const app = apps.find((app) => app.id === id);
 
@@ -28,14 +33,10 @@ export default function useApp({ id }) {
     }
   }
 
-  const couldBeEmpty =
-    !apps.length &&
-    (loadingApps === null || loadingApps === undefined) &&
-    !loadingApps;
 
   React.useEffect(() => {
-    if (couldBeEmpty) updateAll();
-  }, [couldBeEmpty]);
+    updateAll();
+  }, []);
 
   return app;
 }

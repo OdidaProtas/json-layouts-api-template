@@ -76,7 +76,7 @@ export default function CompontentsAccordion({ component, index }) {
 function useActions() {
   const dispatch = usePagesStateValue("dispatch");
   const pages = usePagesStateValue("pages");
-  const pageIndex = usePagesStateValue("pageIndex");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   return {
     handleChange(component, index) {
       try {

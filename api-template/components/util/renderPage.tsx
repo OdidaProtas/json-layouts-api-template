@@ -21,7 +21,7 @@ const defaultPageProps = { layout: "", name: "Page", components: [], opts: {} };
 export default function renderPage(page: Ipage = defaultPageProps) {
   const { layout, components, name, opts } = page;
 
-  const children = renderStack(renderComponents(components));
+  const children = (renderComponents(components));
 
   switch (layout) {
     case "page": {

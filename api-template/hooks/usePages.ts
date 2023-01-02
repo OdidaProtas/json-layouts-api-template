@@ -8,8 +8,6 @@ export default function usePages() {
   const pages = usePagesStateValue("pages");
 
 
-  const [p, setP] = React.useState([helloWorld]);
-
   const router = useRouter();
   const { id: appId } = router.query;
 
@@ -25,7 +23,6 @@ export default function usePages() {
       const data = response.data;
       if (data.length) {
         updatePages([...data]);
-        setP([...data]);
       } else updatePages([helloWorld]);
       togglePagesLoader(false);
       return;
@@ -41,12 +38,12 @@ export default function usePages() {
     !loadingPages;
 
   React.useEffect(() => {
-    if (couldBeEmpty && appId) updateAll();
-  }, [couldBeEmpty, appId]);
+    if (appId)
+      updateAll();
+  }, [appId]);
 
 
-  if (pages.length) return [...pages];
-  return p;
+  return [...pages];
 }
 
 function useActions() {
