@@ -79,7 +79,7 @@ const Apps: React.FC = () => {
               <Box sx={{ my: 1 }}>
                 <Grid container spacing={4}>
                   <Grid item xs={3}>
-                    <Paper sx={{ p: 2, mt: 3, height: 400, overflow: "auto" }}>
+                    <Paper sx={{ p: 2, mt: 1, height: 400, overflow: "auto" }}>
                       <Typography>Categories</Typography>
                       <Divider sx={{ my: 2 }} />
                       <List dense>
@@ -104,6 +104,9 @@ const Apps: React.FC = () => {
                         showArrows={false}
                         showThumbs={false}
                         autoPlay
+                        interval={2000}
+                        centerMode
+                        centerSlidePercentage={80}
                       >
                         {apps.map((app, index) => {
                           return (
