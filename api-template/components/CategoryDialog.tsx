@@ -86,12 +86,12 @@ export default function CaategoryDialog({ appId }) {
   return (
     <>
       <Button
-        sx={{ textTransform: "none" }}
+        sx={{ textTransform: "none", mt:2 }}
         size="small"
         variant="outlined"
         onClick={handleClickOpen}
       >
-        Filters
+        More filters
       </Button>
       <Dialog
         fullScreen

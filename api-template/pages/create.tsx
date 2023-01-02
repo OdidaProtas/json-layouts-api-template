@@ -23,13 +23,14 @@ import { useAxios } from "../hooks/useAxios";
 import useToast from "../hooks/useToast";
 import useIsUniqueAppId from "../hooks/useIsUniqueAppId";
 import useCategories from "../hooks/useCategories";
+import { usePagesStateValue } from "../lib/builder";
 
 const Create: React.FC = () => {
   const [name, setName] = useState("");
   const [appId, setAppId] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [type, setType] = useState("Other");
+  const [type, setType] = useState("");
 
   const { data: session, status } = useSession();
 
@@ -87,6 +88,8 @@ const Create: React.FC = () => {
   const [isUniqueAppId, loading] = useIsUniqueAppId(appId);
   const categories = useCategories();
 
+  const loadingCategories = usePagesStateValue("loaders.categories");
+
   if (status === "loading") {
     return <AuthSpinner />;
   }
@@ -105,8 +108,13 @@ const Create: React.FC = () => {
       <Box sx={{ display: "flex", mb: 4 }}>
         <Box sx={{ flexGrow: 1 }}></Box>
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
-          <Stack spacing={2}>
-            <h1>New App</h1>
+          <Stack spacing={4}>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <h1>New App</h1>
+              <Box>
+                <Button>Go back</Button>
+              </Box>
+            </Box>
             <Box>
               <TextField
                 error={isUniqueAppId || /[^\w-]/.test(appId)}
@@ -129,23 +137,32 @@ const Create: React.FC = () => {
               type="text"
               value={name}
             />
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={type}
-                label="Category"
-                onChange={(e) => setType(e.target.value as string)}
-              >
-                {/* {(categories ??[])} */}
-                <MenuItem value={"Other"}>Other</MenuItem>
-              </Select>
-            </FormControl>
+            <Box>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={type}
+                  label="Category"
+                  onChange={(e) => setType(e.target.value as string)}
+                >
+                  {(categories ?? []).map((cat, ind) => {
+                    return (
+                      <MenuItem key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+              {loadingCategories && <LinearProgress />}
+            </Box>
+
             <TextField
               multiline
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="A short description for your app"
+              placeholder="A short description for your app. Markdown is supported"
               rows={8}
               value={description}
             />

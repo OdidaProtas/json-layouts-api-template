@@ -20,19 +20,26 @@ import {
   Button,
   Paper,
   Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
 import CaategoryDialog from "../components/CategoryDialog";
 import useApps from "../hooks/useApps";
+import useCategories from "../hooks/useCategories";
 
 const Apps: React.FC = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const apps = useApps();
+
+  const userHasValidSession = Boolean(session);
+
+  const categories = useCategories();
   if (status === "loading") {
     return <AuthSpinner />;
   }
-  const userHasValidSession = Boolean(session);
-
   return (
     <Layout>
       <div className="page">
@@ -45,8 +52,10 @@ const Apps: React.FC = () => {
                     Featured apps
                   </Typography>
                 </Box>
-                <Box sx={{ display: "lex" }}>
-                  <CaategoryDialog appId={undefined} />
+                <Box sx={{ display: "flex" }}>
+                  <Box>
+                    <CaategoryDialog appId={undefined} />
+                  </Box>
                   {/* <Autocomplete
                     size="small"
                     sx={{ width: 100, ml: 3 }}
@@ -70,9 +79,21 @@ const Apps: React.FC = () => {
               <Box sx={{ my: 1 }}>
                 <Grid container spacing={4}>
                   <Grid item xs={3}>
-                    <Paper sx={{ p: 2, mt: 3 }}>
+                    <Paper sx={{ p: 2, mt: 3, height: 400, overflow: "auto" }}>
                       <Typography>Categories</Typography>
-                      <Divider />
+                      <Divider sx={{ my: 2 }} />
+                      <List dense>
+                        {" "}
+                        {categories.map((cat) => {
+                          return (
+                            <ListItem key={cat.id}>
+                              <ListItemButton>
+                                <ListItemText primary={cat.name}></ListItemText>
+                              </ListItemButton>
+                            </ListItem>
+                          );
+                        })}
+                      </List>
                     </Paper>
                   </Grid>
                   <Grid item xs>
@@ -88,7 +109,7 @@ const Apps: React.FC = () => {
                           return (
                             <div key={index}>
                               <img
-                                style={{ borderRadius: "4px", height: 480 }}
+                                style={{ borderRadius: "4px", height: 400 }}
                                 src={app.image}
                               />
                             </div>
@@ -99,8 +120,8 @@ const Apps: React.FC = () => {
                   </Grid>
                 </Grid>
               </Box>
-              <Box >
-                <Typography sx={{ my: 4 }} variant="h5">
+              <Box>
+                <Typography sx={{ my: 9 }} variant="h5">
                   All apps
                 </Typography>
               </Box>
@@ -116,7 +137,14 @@ const Apps: React.FC = () => {
                 </>
 
                 {!apps.length && userHasValidSession && (
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight:300 }} >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: 300,
+                    }}
+                  >
                     <div>
                       <h6>There are no published apps</h6>
                       <button onClick={() => router.push("/create")}>
@@ -126,7 +154,6 @@ const Apps: React.FC = () => {
                         Go to drafts
                       </button>
                     </div>
-
                   </div>
                 )}
               </Grid>
