@@ -39,14 +39,22 @@ const Index: React.FC = () => {
               <Typography sx={{ mt: 3 }} variant="h3">
                 My apps
               </Typography>
-              <Grid sx={{ mt: 2 }} spacing={2} container>
-                {apps.map((app) => (
-                  <Grid item lg={3} md={6} xs={12} key={app.id}>
-                    <div className="post">
-                      <App app={app} />
-                    </div>
+              <Grid
+                sx={{ mt: 2, justifyContent: "center" }}
+                spacing={2}
+                container
+              >
+                <Grid item xs={6}>
+                  <Grid container spacing={2}>
+                    {apps.map((app) => (
+                      <Grid item lg={3} md={6} xs={12} key={app.id}>
+                        <div className="post">
+                          <App app={app} />
+                        </div>
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
+                </Grid>
               </Grid>
               {!hasApps && (
                 <div>

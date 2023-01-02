@@ -7,7 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import { Settings } from "@mui/icons-material";
 
 export type AppProps = {
   id: string;
@@ -29,7 +30,7 @@ export type AppProps = {
   isNew: boolean;
 };
 
-const App: React.FC<{ app: AppProps; noStatus: boolean; height?: number }> = ({
+const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
   app,
   noStatus = false,
   height,
@@ -61,27 +62,20 @@ const App: React.FC<{ app: AppProps; noStatus: boolean; height?: number }> = ({
       <Box sx={{ p: 1, textAlign: "center" }}>
         <Typography variant="caption">{app.name}</Typography>
       </Box>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ flexGrow: 1 }}>
-          {/* <Chip
-            size="small"
-            avatar={<Avatar alt="Natacha" src={app.author.image} />}
-            label={`By ${authorName}`}
-            variant="outlined"
-          /> */}
-        </Box>
-
+      <Box>
         <Box>
           {session?.user?.email === app?.author.email && !noStatus && (
-            <IconButton
+            <Button
               size="small"
+              fullWidth
+              variant="outlined"
               onClick={(e) => {
                 e.stopPropagation();
                 Router.push("/a/[id]", `/a/${app.id}`);
               }}
             >
-              <Edit />
-            </IconButton>
+              <Settings />
+            </Button>
           )}
         </Box>
       </Box>
