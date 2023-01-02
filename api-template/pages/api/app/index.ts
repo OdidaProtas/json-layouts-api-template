@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
 
 export default async function handle(req, res) {
-  const { name, description, type, image, email, appId, appCategoryId } = req.body;
+  const { name, description, type, image, email, appId } = req.body;
   const password = generatePassword();
   const result = await prisma.app.create({
     data: {
@@ -13,7 +13,7 @@ export default async function handle(req, res) {
       author: { connect: { email } },
       password,
       appId,
-      appCategoryId: (appCategoryId as unknown as any)
+      // cate?
     } as any,
   });
   res.json(result);
