@@ -93,8 +93,9 @@ model ResourceGroup {
 model AppCategory {
   id          String  @id @default(cuid())
   name        String  @unique()
+  image       String?
   description String?
-  App App[]
+  App         App[]
 }
 
 model App {

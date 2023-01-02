@@ -62,14 +62,17 @@ export const PagesContextProvider: React.FC<IPagesProvider> = ({
   );
 };
 
-export const usePagesStateValue = (label = "") => {
+export const usePagesStateValue = (label = "", defaultState = undefined) => {
   const keys = label.split(".");
   const state = React.useContext(PagesContext);
   const interest = (state as any)[keys[0]] ?? null;
-  return React.useMemo(
+  const data = React.useMemo(
     () => keys.reduce(nestedObjectReducer, interest),
     [interest, label]
   );
+  if (data) return data;
+  if (defaultState) return defaultState;
+  return null;
 };
 
 export const usePagesStateDisptch = () => usePagesStateValue("dispatch");

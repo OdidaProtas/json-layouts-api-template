@@ -1,5 +1,5 @@
 import { List, ListItemButton, ListItemText } from "@mui/material";
-import Dash from "../../components/DashboardLayout";
+import Dash from "../../../components/DashboardLayout";
 
 export default function DashHome() {
   return (

@@ -22,6 +22,8 @@ import { useSession } from "next-auth/react";
 import AccountMenu from "./AccountMenu";
 import Layout from "./Layout";
 import { AuthSpinner } from "../pages";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const drawerWidth = 240;
 
@@ -76,6 +78,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Dash({ children }) {
   const { status, data: session } = useSession();
+
+  const router = useRouter();
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -137,6 +141,9 @@ export default function Dash({ children }) {
         open={open}
       >
         <DrawerHeader>
+          <Link href={"/"}>
+            <Typography variant="body2">DREAMFEEL SPACES</Typography>
+          </Link>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -147,9 +154,9 @@ export default function Dash({ children }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Home"].map((text, index) => (
+          {["Overview"].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => router.push("/admin")}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
@@ -162,7 +169,12 @@ export default function Dash({ children }) {
         <List>
           {["Apps", "Categories"].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => {}}>
+              <ListItemButton
+                onClick={() => {
+                  if (index === 0) router.push("/admin/apps");
+                  else if (index === 1) router.push("/admin/categories");
+                }}
+              >
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
@@ -173,7 +185,20 @@ export default function Dash({ children }) {
         </List>
         <Divider />
         <List>
-          {["Users", "Plans"].map((text, index) => (
+          {["Users"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => router.push("/admin/users")}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["Plans", "Statuses"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

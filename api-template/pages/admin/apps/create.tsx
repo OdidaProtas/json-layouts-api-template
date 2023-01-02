@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import Layout from "../components/Layout";
-import Router from "next/router";
-import ImageField from "../components/ImageField";
 import {
   Box,
   Button,
@@ -9,23 +6,23 @@ import {
   FormControl,
   Grid,
   InputLabel,
-  LinearProgress,
   MenuItem,
   Select,
   Stack,
   TextField,
 } from "@mui/material";
-import useUpload from "../hooks/useUpload";
 import { useSession } from "next-auth/react";
-import { AuthSpinner } from ".";
-import useApps, { useAppActions } from "../hooks/useApps";
-import { useAxios } from "../hooks/useAxios";
-import useToast from "../hooks/useToast";
-import useIsUniqueAppId from "../hooks/useIsUniqueAppId";
+import useUpload from "../../../hooks/useUpload";
+import useApps, { useAppActions } from "../../../hooks/useApps";
+import useToast from "../../../hooks/useToast";
+import { useAxios } from "../../../hooks/useAxios";
+import { Router, useRouter } from "next/router";
+import { AuthSpinner } from "../..";
+import Layout from "../../../components/Layout";
+import ImageField from "../../../components/ImageField";
 
 const Create: React.FC = () => {
   const [name, setName] = useState("");
-  const [appId, setAppId] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [type, setType] = useState("Other");
@@ -35,6 +32,8 @@ const Create: React.FC = () => {
   const [saving, setSaving] = useState(false);
 
   const uploadFiles = useUpload();
+
+  const Router = useRouter();
 
   const apps = useApps();
   const { showToast } = useToast();
@@ -83,10 +82,6 @@ const Create: React.FC = () => {
     setImage(data[0]);
   }, []);
 
-  const [isUniqueAppId, loading] = useIsUniqueAppId(appId);
-
-  console.log(isUniqueAppId);
-
   if (status === "loading") {
     return <AuthSpinner />;
   }
@@ -107,18 +102,6 @@ const Create: React.FC = () => {
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
           <Stack spacing={2}>
             <h1>New App</h1>
-            <Box>
-              <TextField
-                error={isUniqueAppId}
-                autoFocus
-                onChange={(e) => setAppId(e.target.value)}
-                placeholder="Choose an app id"
-                type="text"
-                helperText="App id must be unique, and can only contain - as special characters."
-                value={name}
-              />
-              {loading && <LinearProgress />}
-            </Box>
             <TextField
               autoFocus
               onChange={(e) => setName(e.target.value)}

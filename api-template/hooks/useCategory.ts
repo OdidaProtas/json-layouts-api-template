@@ -1,11 +1,18 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { usePagesStateDisptch, usePagesStateValue } from "../lib/builder";
 import { useAxios } from "./useAxios";
 
-export default function useApps() {
-  const apps = usePagesStateValue("apps") ?? [];
+export default function useCategory() {
+  const categories = usePagesStateValue("categories") ?? [];
 
-  const loadingApps = usePagesStateValue("loaders.apps");
+  const router = useRouter();
+
+  const id = router.query.id;
+
+  const category = categories.find((cat) => cat.id === id);
+
+  const loadingCategories = usePagesStateValue("loaders.categories");
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -13,7 +20,7 @@ export default function useApps() {
   async function updateAll() {
     try {
       toggleAppsLoader(true);
-      const response = await axios.get("/api/a");
+      const response = await axios.get("/api/c");
       const data = response.data;
       if (data) {
         updateApps(data);
@@ -26,41 +33,41 @@ export default function useApps() {
     }
   }
 
-  const couldBeEmpty = !apps.length && !loadingApps;
+  const couldBeEmpty = !categories.length && !loadingCategories;
 
   React.useEffect(() => {
-    updateAll();
-  }, []);
+    if (couldBeEmpty) updateAll();
+  }, [couldBeEmpty]);
 
-  return apps;
+  return category;
 }
 
 function useActions() {
   const dispatchToPages = usePagesStateDisptch();
-  const apps = usePagesStateValue("apps");
+  const categories = usePagesStateValue("categories");
   const loaders = usePagesStateValue("loaders");
-  const loadingApps = usePagesStateValue("loaders.apps");
+  const loadingCategroies = usePagesStateValue("loaders.categories");
   const updateApps = React.useCallback(
     (payload: any) => {
       const type = "update_all";
-      const key = "apps";
+      const key = "categories";
       dispatchToPages({ payload, type, key });
     },
-    [apps]
+    [categories]
   );
 
   const toggleAppsLoader = React.useCallback(
     (state: boolean) => {
       const type = "update_all";
       const key = "loaders";
-      let payload = { ...loaders, apps: state };
+      let payload = { ...loaders, categories: state };
       dispatchToPages({
         payload,
         type,
         key,
       });
     },
-    [apps, loaders, loadingApps]
+    [categories, loaders, loadingCategroies]
   );
   return { updateApps, toggleAppsLoader };
 }

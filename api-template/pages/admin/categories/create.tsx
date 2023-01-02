@@ -1,31 +1,23 @@
 import React, { useState } from "react";
-import Layout from "../components/Layout";
-import Router from "next/router";
-import ImageField from "../components/ImageField";
 import {
   Box,
   Button,
   CircularProgress,
-  FormControl,
-  Grid,
-  InputLabel,
-  LinearProgress,
-  MenuItem,
-  Select,
   Stack,
   TextField,
 } from "@mui/material";
-import useUpload from "../hooks/useUpload";
 import { useSession } from "next-auth/react";
-import { AuthSpinner } from ".";
-import useApps, { useAppActions } from "../hooks/useApps";
-import { useAxios } from "../hooks/useAxios";
-import useToast from "../hooks/useToast";
-import useIsUniqueAppId from "../hooks/useIsUniqueAppId";
+import useUpload from "../../../hooks/useUpload";
+import useApps, { useAppActions } from "../../../hooks/useCategories";
+import useToast from "../../../hooks/useToast";
+import { useAxios } from "../../../hooks/useAxios";
+import { Router, useRouter } from "next/router";
+import Layout from "../../../components/Layout";
+import ImageField from "../../../components/ImageField";
+import { AuthSpinner } from "../..";
 
 const Create: React.FC = () => {
   const [name, setName] = useState("");
-  const [appId, setAppId] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [type, setType] = useState("Other");
@@ -35,6 +27,8 @@ const Create: React.FC = () => {
   const [saving, setSaving] = useState(false);
 
   const uploadFiles = useUpload();
+
+  const Router = useRouter();
 
   const apps = useApps();
   const { showToast } = useToast();
@@ -55,7 +49,7 @@ const Create: React.FC = () => {
       currentState = { ...currentState, ...images };
     }
     try {
-      const res = await axios.post("/api/app", { ...currentState });
+      const res = await axios.post("/api/category", { ...currentState });
       if (res.data) {
         setSaving(false);
         updateApps([
@@ -63,15 +57,15 @@ const Create: React.FC = () => {
           {
             ...res.data,
             isNew: true,
-            author: {
-              email: session?.user?.email,
-              image: session?.user?.image,
-              name: session?.user?.name,
-            },
+            // author: {
+            //   email: session?.user?.email,
+            //   image: session?.user?.image,
+            //   name: session?.user?.name,
+            // },
           },
         ]);
         showToast("success", "App created successfully");
-        await Router.push("/m");
+        await Router.push(`/admin/categories/${res.data.id}`);
       }
     } catch (error) {
       showToast("error", "App creation failed");
@@ -82,10 +76,6 @@ const Create: React.FC = () => {
   const handleLogoChange = React.useCallback((data) => {
     setImage(data[0]);
   }, []);
-
-  const [isUniqueAppId, loading] = useIsUniqueAppId(appId);
-
-  console.log(isUniqueAppId);
 
   if (status === "loading") {
     return <AuthSpinner />;
@@ -106,44 +96,21 @@ const Create: React.FC = () => {
         <Box sx={{ flexGrow: 1 }}></Box>
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
           <Stack spacing={2}>
-            <h1>New App</h1>
-            <Box>
-              <TextField
-                error={isUniqueAppId}
-                autoFocus
-                onChange={(e) => setAppId(e.target.value)}
-                placeholder="Choose an app id"
-                type="text"
-                helperText="App id must be unique, and can only contain - as special characters."
-                value={name}
-              />
-              {loading && <LinearProgress />}
-            </Box>
+            <h1>New Category</h1>
             <TextField
+              label="Name"
               autoFocus
               onChange={(e) => setName(e.target.value)}
-              placeholder="App name"
+              placeholder="Category name"
               type="text"
               value={name}
             />
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                Type of application
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={type}
-                label="Type of application"
-                onChange={(e) => setType(e.target.value as string)}
-              >
-                <MenuItem value={"Other"}>Other</MenuItem>
-              </Select>
-            </FormControl>
+
             <TextField
+              label="Description"
               multiline
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="A short description for your app"
+              placeholder="Category description (Markdown is supported)"
               rows={8}
               value={description}
             />
@@ -158,7 +125,7 @@ const Create: React.FC = () => {
             <Button
               variant="contained"
               disableElevation
-              disabled={!name || !description || !image || saving}
+              disabled={!name || saving}
               type="submit"
             >
               {saving ? <CircularProgress size={20} /> : "Create app"}
