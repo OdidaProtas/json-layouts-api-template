@@ -8,11 +8,8 @@ import {
   Select,
 } from "@mui/material";
 import { usePagesStateValue } from "../lib/builder";
-import AddPageDialog from "./AddPageDialog";
-import { GetServerSideProps } from "next";
 import React from "react";
-import prisma from "../lib/prisma";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import helloWorld from "../lib/defaultApp";
 import useToast from "../hooks/useToast";
 

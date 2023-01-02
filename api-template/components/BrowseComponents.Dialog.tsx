@@ -31,7 +31,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function BrowseComponents({ select = (v) => {} }: any) {
+export default function BrowseComponents({ select = (v) => { } }: any) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -100,7 +100,7 @@ export default function BrowseComponents({ select = (v) => {} }: any) {
                   <Grid item xs={4} key={index}>
                     <Paper
                       elevation={0}
-                      sx={{ height: "100%", p: 2, elevation: 0 }}
+                      sx={{ height: "100%", p: 2, elevation: 0, position: "relative" }}
                     >
                       <Typography variant="h5"> {component?.type}</Typography>
                       <Divider sx={{ my: 3 }} />

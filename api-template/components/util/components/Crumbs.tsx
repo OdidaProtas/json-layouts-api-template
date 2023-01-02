@@ -30,19 +30,8 @@ export default function Crumbs() {
   ];
 
   return (
-    <Stack spacing={2}>
-      <Breadcrumbs separator="›" aria-label="breadcrumb">
-        {breadcrumbs}
-      </Breadcrumbs>
-      <Breadcrumbs separator="-" aria-label="breadcrumb">
-        {breadcrumbs}
-      </Breadcrumbs>
-      <Breadcrumbs
-        separator={<NavigateNextIcon fontSize="small" />}
-        aria-label="breadcrumb"
-      >
-        {breadcrumbs}
-      </Breadcrumbs>
-    </Stack>
+    <Breadcrumbs separator="›" aria-label="breadcrumb">
+      {breadcrumbs}
+    </Breadcrumbs>
   );
 }

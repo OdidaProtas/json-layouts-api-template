@@ -4,7 +4,9 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function SimpleSnackbar() {
+export default function SimpleSnackbar({
+  actionText = "UNDO", autoHideDuration = 6000, message = "Message archived", buttonText = "Open Snackbar"
+}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -22,7 +24,7 @@ export default function SimpleSnackbar() {
   const action = (
     <React.Fragment>
       <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
+        {actionText}
       </Button>
       <IconButton
         size="small"
@@ -37,12 +39,12 @@ export default function SimpleSnackbar() {
 
   return (
     <div>
-      <Button onClick={handleClick}>Open simple snackbar</Button>
+      <Button onClick={handleClick}>{buttonText}</Button>
       <Snackbar
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={autoHideDuration}
         onClose={handleClose}
-        message="Note archived"
+        message={message}
         action={action}
       />
     </div>

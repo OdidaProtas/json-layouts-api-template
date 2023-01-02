@@ -191,12 +191,12 @@ export default function ComponentForm({
                                                         label={"Label"}
                                                         name="label"
                                                         value={option.label}
-                                                        // onChange={(e) =>
-                                                        //   handleChangeOption(
-                                                        //     e,
-                                                        //     optImdex
-                                                        //   )
-                                                        // }
+                                                      // onChange={(e) =>
+                                                      //   handleChangeOption(
+                                                      //     e,
+                                                      //     optImdex
+                                                      //   )
+                                                      // }
                                                       />
                                                     </Grid>
                                                     <Grid item xs={6}>
@@ -206,12 +206,12 @@ export default function ComponentForm({
                                                         name="value"
                                                         label={"Value"}
                                                         value={option.value}
-                                                        // onChange={(e) =>
-                                                        //   handleChangeOption(
-                                                        //     e,
-                                                        //     optImdex
-                                                        //   )
-                                                        // }
+                                                      // onChange={(e) =>
+                                                      //   handleChangeOption(
+                                                      //     e,
+                                                      //     optImdex
+                                                      //   )
+                                                      // }
                                                       />
                                                     </Grid>
                                                   </Grid>
@@ -453,7 +453,11 @@ export function useActions() {
   };
 }
 
-var option = [{ label: "Label", value: "value" }];
+
+var sx = {
+
+}
+
 
 export var components = {
   image: {
@@ -562,7 +566,11 @@ export var components = {
   select: {
     type: "select",
     data: {
-      options: [{ ...option }],
+      options: [
+        { label: "IOS", value: "ios" },
+        { label: "Android", value: "android" },
+        { label: "Web", value: "web" },
+      ],
     },
   },
   slider: {
@@ -670,7 +678,12 @@ export var components = {
   },
   snackbar: {
     type: "snackbar",
-    data: {},
+    data: {
+      actionText: "UNDO",
+      autoHideDuration: 6000,
+      message: "Note Archived",
+      buttonText: "Open Snackbar"
+    },
   },
   accordion: {
     type: "accordion",
@@ -691,7 +704,13 @@ export var components = {
   },
   bottom_navigation: {
     type: "bottom_navigation",
-    data: {},
+    data: {
+      options: [
+        { label: "IOS", value: "ios" },
+        { label: "Android", value: "android" },
+        { label: "Web", value: "web" },
+      ],
+    },
   },
   breadcrumbs: {
     type: "breadcrumbs",
@@ -752,15 +771,111 @@ export var components = {
 
   stepper: {
     type: "stepper",
-    data: {},
+    data: {
+      items: [
+        {
+          label: "Select master blaster campaign settings", components: [{
+            type: "text",
+            data: {
+              text: "Containet",
+              variant: "h1",
+            },
+          },
+          {
+            type: "text",
+            data: {
+              text: "Grid 2",
+              variant: "h1",
+            },
+          },]
+        },
+        {
+          label: "Create an ad group", components: [{
+            type: "text",
+            data: {
+              text: "Containet",
+              variant: "h1",
+            },
+          },
+          {
+            type: "text",
+            data: {
+              text: "Grid 2",
+              variant: "h1",
+            },
+          },]
+        },
+        {
+          label: "Create an ad", components: [{
+            type: "text",
+            data: {
+              text: "Containet",
+              variant: "h1",
+            },
+          },
+          {
+            type: "text",
+            data: {
+              text: "Grid 2",
+              variant: "h1",
+            },
+          },]
+        },
+      ],
+    },
   },
   tabs: {
     type: "tabs",
     data: {
       items: [
-        { label: "Tab 1", components: [] },
-        { label: "Tab 2", components: [] },
-        { label: "Tab 3", components: [] },
+        {
+          label: "Tab 1", components: [{
+            type: "text",
+            data: {
+              text: "Containet",
+              variant: "h1",
+            },
+          },
+          {
+            type: "text",
+            data: {
+              text: "Grid 2",
+              variant: "h1",
+            },
+          },]
+        },
+        {
+          label: "Tab 2", components: [{
+            type: "text",
+            data: {
+              text: "Containet",
+              variant: "h1",
+            },
+          },
+          {
+            type: "text",
+            data: {
+              text: "Grid 2",
+              variant: "h1",
+            },
+          },]
+        },
+        {
+          label: "Tab 3", components: [{
+            type: "text",
+            data: {
+              text: "Containet",
+              variant: "h1",
+            },
+          },
+          {
+            type: "text",
+            data: {
+              text: "Grid 2",
+              variant: "h1",
+            },
+          },]
+        },
       ],
     },
   },

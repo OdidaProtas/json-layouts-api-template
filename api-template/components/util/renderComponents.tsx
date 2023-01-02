@@ -232,16 +232,19 @@ export default function renderComponents(components: any[] = []) {
         return <Skeleton />;
       }
       case "bottom_navigation": {
+        const { items = [] } = data
         return <BottomNav />;
       }
       case "snackbar": {
+        const { actionText, autoHideDuration, message, buttonText } = data
         return <SimpleSnackbar />;
       }
       case "progress": {
         return <Progress />;
       }
       case "stepper": {
-        return <HorizontalStepper />;
+        const { items = [] } = data;
+        return <HorizontalStepper items={items} />;
       }
       case "appbar": {
         return renderAppbar();
