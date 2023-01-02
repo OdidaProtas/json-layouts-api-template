@@ -21,6 +21,7 @@ import TextField from "@mui/material/TextField";
 
 import { usePagesStateValue } from "../lib/builder";
 import { useRouter } from "next/router";
+import { Tune } from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -86,10 +87,11 @@ export default function CaategoryDialog({ appId }) {
   return (
     <>
       <Button
-        sx={{ textTransform: "none", mt:2 }}
+        sx={{ textTransform: "none", mt: 2 }}
         size="small"
         variant="outlined"
         onClick={handleClickOpen}
+        startIcon={<Tune />}
       >
         More filters
       </Button>

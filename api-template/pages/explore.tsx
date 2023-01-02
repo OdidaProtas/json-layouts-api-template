@@ -28,6 +28,7 @@ import {
 import CaategoryDialog from "../components/CategoryDialog";
 import useApps from "../hooks/useApps";
 import useCategories from "../hooks/useCategories";
+import { Add, AppRegistration } from "@mui/icons-material";
 
 const Apps: React.FC = () => {
   const { data: session, status } = useSession();
@@ -44,7 +45,7 @@ const Apps: React.FC = () => {
     <Layout>
       <div className="page">
         <main>
-          <Container sx={{ display: "flex" }}>
+          <Container sx={{ display: "flex", mb: 9 }}>
             <Box sx={{ flexGrow: 1 }}>
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ flexGrow: 1 }}>
@@ -79,7 +80,10 @@ const Apps: React.FC = () => {
               <Box sx={{ my: 1 }}>
                 <Grid container spacing={4}>
                   <Grid item xs={3}>
-                    <Paper sx={{ p: 2, mt: 1, height: 400, overflow: "auto" }}>
+                    <Paper
+                      elevation={0}
+                      sx={{ p: 2, height: 400, overflow: "auto" }}
+                    >
                       <Typography>Categories</Typography>
                       <Divider sx={{ my: 2 }} />
                       <List dense>
@@ -97,7 +101,7 @@ const Apps: React.FC = () => {
                     </Paper>
                   </Grid>
                   <Grid item xs>
-                    <Paper sx={{ width: "100%" }}>
+                    <Paper elevation={0} sx={{ width: "100%" }}>
                       <Carousel
                         showIndicators={false}
                         showStatus={false}
@@ -111,10 +115,7 @@ const Apps: React.FC = () => {
                         {apps.map((app, index) => {
                           return (
                             <div key={index}>
-                              <img
-                                style={{ borderRadius: "4px", height: 400 }}
-                                src={app.image}
-                              />
+                              <img style={{ height: 400 }} src={app.image} />
                             </div>
                           );
                         })}
@@ -123,23 +124,52 @@ const Apps: React.FC = () => {
                   </Grid>
                 </Grid>
               </Box>
-              <Box>
-                <Typography sx={{ my: 9 }} variant="h5">
+              <Box sx={{ display: "flex", my: 12 }}>
+                <Typography sx={{ flexGrow: 1 }} variant="h5">
                   All apps
                 </Typography>
+                <Box>
+                  <Autocomplete
+                    size="small"
+                    disablePortal
+                    id="combo-box-demo"
+                    options={apps.map((app) => ({
+                      value: app.id,
+                      label: app.name,
+                    }))}
+                    sx={{ width: 300 }}
+                    onChange={(e, v) => {
+                      if ((v as any)?.value)
+                        router.push(`/${(v as any).value}`);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        size="small"
+                        {...params}
+                        placeholder="Search apps/categories..."
+                      />
+                    )}
+                  />
+                </Box>
               </Box>
-              <Grid container spacing={2}>
-                <>
-                  {apps.map((app) => (
-                    <Grid key={app.id} item lg={3} md={6} xs={12}>
-                      <div className="post">
-                        <App app={app} />
-                      </div>
-                    </Grid>
-                  ))}
-                </>
+              <Grid
+                sx={{ mb: 4, justifyContent: "center" }}
+                container
+                spacing={2}
+              >
+                <Grid item xs={8}>
+                  <Grid container spacing={2}>
+                    {apps.map((app) => (
+                      <Grid key={app.id} item lg={2} md={6} xs={12}>
+                        <div className="post">
+                          <App noStatus app={app} />
+                        </div>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Grid>
 
-                {!apps.length && userHasValidSession && (
+                {!apps.length && (
                   <div
                     style={{
                       display: "flex",
@@ -149,13 +179,25 @@ const Apps: React.FC = () => {
                     }}
                   >
                     <div>
-                      <h6>There are no published apps</h6>
-                      <button onClick={() => router.push("/create")}>
+                      <Typography variant="h4" sx={{ my: 3 }}>
+                        There are no published apps
+                      </Typography>
+                      <Button
+                        sx={{ textTransform: "none" }}
+                        variant={"outlined"}
+                        onClick={() => router.push("/create")}
+                        startIcon={<Add />}
+                      >
                         Create app
-                      </button>
-                      <button onClick={() => router.push("/drafts")}>
-                        Go to drafts
-                      </button>
+                      </Button>
+                      <Button
+                        startIcon={<AppRegistration />}
+                        sx={{ ml: 2, textTransform: "none" }}
+                        variant={"outlined"}
+                        onClick={() => router.push("/m")}
+                      >
+                        My apps
+                      </Button>
                     </div>
                   </div>
                 )}

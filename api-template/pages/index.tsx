@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import useApps from "../hooks/useApps";
 import { usePagesStateValue } from "../lib/builder";
 import { Typography } from "@mui/material";
-import { Add, AppRegistration } from "@mui/icons-material";
+import { Add, AppRegistration, Explore } from "@mui/icons-material";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
@@ -36,7 +36,8 @@ const Apps: React.FC<any> = () => {
             <Box sx={{ flexGrow: 1 }}>
               <Box sx={{ my: 5 }}>
                 <Box sx={{ display: "flex" }}>
-                  <Box sx={{ flexGrow: 1 }}>
+                  <Box sx={{ flexGrow: 1 }}></Box>
+                  <Box>
                     {Boolean(apps?.length) && (
                       <Autocomplete
                         size="small"
@@ -46,50 +47,64 @@ const Apps: React.FC<any> = () => {
                           value: app.id,
                           label: app.name,
                         }))}
-                        sx={{ width: 300 }}
+                        sx={{ width: 200 }}
                         onChange={(e, v) => {
                           if ((v as any)?.value)
                             router.push(`/${(v as any).value}`);
                         }}
                         renderInput={(params) => (
                           <TextField
+                            size="small"
                             {...params}
-                            placeholder="Search apps/categories..."
+                            placeholder="Search..."
                           />
                         )}
                       />
                     )}
-
                   </Box>
 
                   <Box>
                     {/* <CaategoryDialog appId={undefined} /> */}
                     <Button
-                      size="small"
+                      // size="small"
                       disabled={!apps?.length}
                       onClick={() => router.push("/explore")}
                       sx={{ textTransform: "none", ml: 2 }}
                       disableElevation
                       variant="contained"
+                      startIcon={<Explore />}
                     >
-                      Discover
+                      Discover Apps
                     </Button>
                   </Box>
                 </Box>
               </Box>
-              <Grid sx={{ mb: 4 }} container spacing={2}>
-                <>
-                  {apps.map((app) => (
-                    <Grid key={app.id} item lg={3} md={6} xs={12}>
-                      <div className="post">
-                        <App app={app} />
-                      </div>
-                    </Grid>
-                  ))}
-                </>
+              <Grid
+                sx={{ mb: 4, justifyContent: "center" }}
+                container
+                spacing={2}
+              >
+                <Grid item xs={8}>
+                  <Grid container spacing={2}>
+                    {apps.map((app) => (
+                      <Grid key={app.id} item lg={2} md={6} xs={12}>
+                        <div className="post">
+                          <App noStatus app={app} />
+                        </div>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Grid>
 
                 {!apps.length && (
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: 300 }} >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: 300,
+                    }}
+                  >
                     <div>
                       <Typography variant="h4" sx={{ my: 3 }}>
                         There are no published apps
