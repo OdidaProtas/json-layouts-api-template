@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Chip, Button, Typography } from "@mui/material";
-import { Home } from "@mui/icons-material";
+import { Home, Login } from "@mui/icons-material";
 import AccountMenu from "./AccountMenu";
 
 const Header: React.FC = () => {
@@ -100,12 +100,16 @@ const Header: React.FC = () => {
   if (!session) {
     right = (
       <div className="right">
+        <Link href="/about-us">
+          <Typography sx={{mr:2}} >About us</Typography>
+        </Link>
         <Link href="/api/auth/signin">
           <Button
             size="small"
             sx={{ textTransform: "none" }}
             disableElevation
-            variant="contained"
+            variant="outlined"
+            startIcon={<Login />}
             data-active={isActive("/signup")}
           >
             Sign in
@@ -124,6 +128,7 @@ const Header: React.FC = () => {
 
           .right {
             margin-left: auto;
+            display:flex;
           }
 
           .right a {
