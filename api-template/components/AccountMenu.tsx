@@ -11,11 +11,10 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { AddCircle, Apps } from "@mui/icons-material";
-import AttachMoneyIcon from
-  '@mui/icons-material/AttachMoney';
+import { AddCircle, Apps, Home } from "@mui/icons-material";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import Link from "next/link";
 
 export default function AccountMenu() {
@@ -100,6 +99,12 @@ export default function AccountMenu() {
           <Avatar /> My account
         </MenuItem> */}
         <Divider />
+        <MenuItem onClick={() => router.push("/")}>
+          <ListItemIcon>
+            <Home fontSize="small" />
+          </ListItemIcon>
+          Home
+        </MenuItem>
         <MenuItem onClick={() => router.push("/m")}>
           <ListItemIcon>
             <Apps fontSize="small" />

@@ -160,9 +160,9 @@ export default function Dash({ children }) {
         </List>
         <Divider />
         <List>
-          {["Apps", "App Categories"].map((text, index) => (
+          {["Apps", "Categories"].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => {}}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
@@ -173,7 +173,7 @@ export default function Dash({ children }) {
         </List>
         <Divider />
         <List>
-          {["Users"].map((text, index) => (
+          {["Users", "Plans"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
