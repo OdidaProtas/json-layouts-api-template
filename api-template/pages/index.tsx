@@ -71,10 +71,10 @@ const Apps: React.FC<any> = () => {
                       onClick={() => router.push("/explore")}
                       sx={{ textTransform: "none", ml: 2 }}
                       disableElevation
-                      variant="contained"
+                      variant="outlined"
                       startIcon={<Explore />}
                     >
-                      Discover Apps
+                      Discover
                     </Button>
                   </Box>
                 </Box>
