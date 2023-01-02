@@ -22,6 +22,7 @@ import useApps, { useAppActions } from "../hooks/useApps";
 import { useAxios } from "../hooks/useAxios";
 import useToast from "../hooks/useToast";
 import useIsUniqueAppId from "../hooks/useIsUniqueAppId";
+import useCategories from "../hooks/useCategories";
 
 const Create: React.FC = () => {
   const [name, setName] = useState("");
@@ -84,8 +85,7 @@ const Create: React.FC = () => {
   }, []);
 
   const [isUniqueAppId, loading] = useIsUniqueAppId(appId);
-
-  console.log(isUniqueAppId);
+  const categories = useCategories();
 
   if (status === "loading") {
     return <AuthSpinner />;
@@ -109,17 +109,20 @@ const Create: React.FC = () => {
             <h1>New App</h1>
             <Box>
               <TextField
-                error={isUniqueAppId}
+                error={isUniqueAppId || /[^\w-]/.test(appId)}
                 autoFocus
+                fullWidth
                 onChange={(e) => setAppId(e.target.value)}
                 placeholder="Choose an app id"
                 type="text"
                 helperText="App id must be unique, and can only contain - as special characters."
-                value={name}
+                value={appId}
+                required
               />
               {loading && <LinearProgress />}
             </Box>
             <TextField
+              required
               autoFocus
               onChange={(e) => setName(e.target.value)}
               placeholder="App name"
@@ -127,16 +130,15 @@ const Create: React.FC = () => {
               value={name}
             />
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                Type of application
-              </InputLabel>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={type}
-                label="Type of application"
+                label="Category"
                 onChange={(e) => setType(e.target.value as string)}
               >
+                {/* {(categories ??[])} */}
                 <MenuItem value={"Other"}>Other</MenuItem>
               </Select>
             </FormControl>
@@ -158,7 +160,14 @@ const Create: React.FC = () => {
             <Button
               variant="contained"
               disableElevation
-              disabled={!name || !description || !image || saving}
+              disabled={
+                !name ||
+                !description ||
+                !image ||
+                saving ||
+                /[^\w-]/.test(appId) ||
+                loading
+              }
               type="submit"
             >
               {saving ? <CircularProgress size={20} /> : "Create app"}

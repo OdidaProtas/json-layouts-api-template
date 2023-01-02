@@ -27,10 +27,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   await runMiddleware(req, res, cors);
-  const app = await prisma.app.findUnique({
+  const apps = await prisma.app.findMany({
     where: {
-      appId: req.query?.slug,
+      appId: String(req.query?.slug),
     },
   });
-  res.json(Boolean(app));
+  res.json(Boolean(apps.length));
 }

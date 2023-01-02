@@ -12,7 +12,7 @@ export default function useIsUniqueAppId(id) {
     setLoading(true);
     try {
       const res = await axios.get(`/api/a/unique/${id}`);
-      if (res.data) {
+      if (res.data === false || res.data) {
         setTaken(res.data);
         setLoading(false);
       }
@@ -22,7 +22,25 @@ export default function useIsUniqueAppId(id) {
   }
 
   React.useEffect(() => {
-    handleCheck();
+    if (id) {
+      if (tOut) {
+        if (tOut) clearTimeout(tOut);
+        setTout(null);
+      }
+      const timeOut = setTimeout(() => {
+        handleCheck();
+      }, 690);
+      setTout(timeOut);
+    } else {
+      if (tOut) {
+        if (tOut) clearTimeout(tOut);
+        setTout(null);
+      }
+    }
+    return () => {
+      if (tOut) clearTimeout(tOut);
+      setTout(null);
+    };
   }, [id]);
 
   return [taken, loading];
