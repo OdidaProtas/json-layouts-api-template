@@ -89,53 +89,54 @@ const App: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ flexGrow: 1 }}></Box>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, pt: 4 }}>
             <Avatar src={props?.image}>{title[0]}</Avatar>
             <h2>{title}</h2>
             <p>By {props?.author?.name || "Unknown author"}</p>
             <Stack
-              sx={{ bgcolor: "lightgray", borderRadius: "4px" }}
               spacing={3}
             >
               <Paper elevation={0} sx={{ p: 2 }}>
-                <Stack spacing={2}>
+                <Stack spacing={3}>
                   <Typography variant="h5">Channels</Typography>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Switch defaultChecked />}
-                      label="DREAMFEEL SPACES SuperApp"
+                      control={<Switch size="small" defaultChecked />}
+                      label="DREAMFEEL SPACES"
                     />
                     <FormControlLabel
-                      control={<Switch />}
+                      control={<Switch size="small" defaultChecked />}
                       label={`ID Subdomain (https://${
                         props?.appId ?? "unknown-app"
-                      }).dreamfeel.me`}
+                      }.dreamfeel.me`}
                     />
                     <FormControlLabel
                       disabled
-                      control={<Switch />}
+                      control={<Switch size="small" />}
                       label="Dreamfeel Marketplace for product resources"
                     />
                     <FormControlLabel
                       disabled
-                      control={<Switch />}
+                      control={<Switch size="small" />}
                       label="Custom domain"
                     />
                   </FormGroup>
                 </Stack>
               </Paper>
               <Paper elevation={0} sx={{ p: 2 }}>
-                <Stack spacing={2}>
+                <Stack spacing={3}>
                   <Typography variant="h5">
                     Title and meta description
                   </Typography>
                   <TextField
+                    size="small"
                     onChange={handleChange}
                     name="title"
                     value={state.title}
                     label="Title"
                   />
                   <TextField
+                    size="small"
                     onChange={handleChange}
                     name="meta"
                     value={state.meta}
@@ -152,15 +153,16 @@ const App: React.FC = () => {
                 </Stack>
               </Paper>
               <Paper elevation={0} sx={{ p: 2 }}>
-                <Stack spacing={2}>
+                <Stack spacing={3}>
                   <Typography variant="h5">App password</Typography>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Switch checked defaultChecked />}
+                      control={<Switch size="small" checked defaultChecked />}
                       label="Your app is password protected"
                     />
                   </FormGroup>
                   <TextField
+                    size="small"
                     placeholder="Choose a password"
                     value={state.password}
                     name="password"
@@ -168,6 +170,7 @@ const App: React.FC = () => {
                     label="Password"
                   />
                   <TextField
+                    size="small"
                     value={state.passwordProtectionMessage}
                     name="passwordProtectionMessage"
                     onChange={handleChange}
