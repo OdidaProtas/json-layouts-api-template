@@ -22,6 +22,8 @@ export default function useSubdomainApp() {
 
     const app = apps.find((app) => app.appId === subdomain);
 
+    console.log(subdomain, app)
+
     const loadingApps = usePagesStateValue("loaders.apps");
 
     const { updateApps, toggleAppsLoader } = useActions();
