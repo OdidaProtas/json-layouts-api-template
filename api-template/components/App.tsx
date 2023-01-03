@@ -54,8 +54,8 @@ const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
         </Box>
         {Boolean(app?.appId) && (
           <Box>
-            <a href={`https://${app?.appId}.dreamfeel.me`}>
-              <OpenInNew sx={{ fontSize: "10px" }} />
+            <a target="blank" href={`https://${app?.appId}.dreamfeel.me`}>
+              <OpenInNew sx={{ fontSize: "12px" }} />
             </a>
           </Box>
         )}

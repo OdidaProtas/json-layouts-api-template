@@ -17,16 +17,30 @@ import useApps from "../hooks/useApps";
 import { usePagesStateValue } from "../lib/builder";
 import { Typography } from "@mui/material";
 import { Add, AppRegistration, Explore } from "@mui/icons-material";
+import useSubdomainApp from "../hooks/useSubdomainApp";
+import renderApp from "../components/util/renderApp";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
   const apps = allApps?.filter((app) => app.published && Boolean(app.appId));
   const { data: session, status } = useSession();
   const loadingApps = usePagesStateValue("loaders.apps");
+
+  const userHasValidSession = Boolean(session);
+
+  const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp()
+
+  if (subdomain) {
+    if (loadingSubdomain)
+      return <AuthSpinner />;
+    if (subdomainApp)
+      return renderApp(subdomainApp)
+  }
+
   if (status === "loading" || loadingApps) {
     return <AuthSpinner />;
   }
-  const userHasValidSession = Boolean(session);
+
 
   return (
     <Layout>
