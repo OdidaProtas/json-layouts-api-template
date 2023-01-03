@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import Router from "next/router";
 import ImageField from "../components/ImageField";
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -116,7 +117,7 @@ const Create: React.FC = () => {
             </Box>
             <Box>
               <TextField
-                error={isUniqueAppId || /[^\w-]/.test(appId)}
+                error={isUniqueAppId || /[^\w-]/.test(appId) && appId?.length > 18}
                 autoFocus
                 fullWidth
                 onChange={(e) => setAppId(e.target.value)}
@@ -127,6 +128,21 @@ const Create: React.FC = () => {
                 required
               />
               {loading && <LinearProgress />}
+              {isUniqueAppId && (
+                <Alert severity="error" >
+                  App ID already taken. Please try again.
+                </Alert>
+              )}
+              {/[^\w-]/.test(appId) && (
+                <Alert severity="error" >
+                  App ID can only include alphanumeric characters and - character.
+                </Alert>
+              )}
+              {appId?.length > 15 && (
+                <Alert severity="error" >
+                  App ID can only be upto 15 characters in length.
+                </Alert>
+              )}
             </Box>
             <TextField
               required

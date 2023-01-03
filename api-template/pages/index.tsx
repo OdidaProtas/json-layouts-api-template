@@ -20,7 +20,7 @@ import { Add, AppRegistration, Explore } from "@mui/icons-material";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
-  const apps = allApps?.filter((app) => app.published);
+  const apps = allApps?.filter((app) => app.published && Boolean(app.appId));
   const { data: session, status } = useSession();
   const loadingApps = usePagesStateValue("loaders.apps");
   if (status === "loading" || loadingApps) {
@@ -36,7 +36,9 @@ const Apps: React.FC<any> = () => {
             <Box sx={{ flexGrow: 1 }}>
               <Box sx={{ my: 5 }}>
                 <Box sx={{ display: "flex" }}>
-                  <Box sx={{ flexGrow: 1 }}></Box>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Typography variant="h5">Mini Apps</Typography>
+                  </Box>
                   <Box>
                     {Boolean(apps?.length) && (
                       <Autocomplete
