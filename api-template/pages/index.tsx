@@ -18,7 +18,7 @@ import { usePagesStateValue } from "../lib/builder";
 import { Typography } from "@mui/material";
 import { Add, AppRegistration, Explore } from "@mui/icons-material";
 import useSubdomainApp from "../hooks/useSubdomainApp";
-import renderApp from "../components/util/renderApp";
+import useRenderApp from "../components/util/renderApp";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
@@ -28,19 +28,18 @@ const Apps: React.FC<any> = () => {
 
   const userHasValidSession = Boolean(session);
 
-  const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp()
+  const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp();
+
+  const renderApp = useRenderApp(subdomainApp);
 
   if (subdomain) {
-    if (loadingSubdomain)
-      return <AuthSpinner />;
-    if (subdomainApp)
-      return renderApp(subdomainApp)
+    if (loadingSubdomain) return <AuthSpinner />;
+    if (subdomainApp) return renderApp();
   }
 
   if (status === "loading" || loadingApps) {
     return <AuthSpinner />;
   }
-
 
   return (
     <Layout>
