@@ -200,7 +200,11 @@ export default function Dash({ children }) {
         <List>
           {["Plans", "Statuses"].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  if (index === 0) router.push("/admin/users");
+                }}
+              >
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>

@@ -13,24 +13,30 @@ import {
   Box,
 } from "@mui/material";
 import useProfiles from "../../hooks/useProfiles";
+import usePlans from "../../hooks/usePlans";
 
 export default function DashHome() {
-  const router = useRouter();
   const apps = useApps();
-  const categories = useCategories();
+  const plans = usePlans();
+  const router = useRouter();
   const profiles = useProfiles();
+  const categories = useCategories();
+
   const {
     apps: loadingApps,
     categories: loadingCategories,
     profiles: loadingProfiles,
+    plans: loadingPlans,
   } = usePagesStateValue("loaders", {
     apps: false,
     categories: false,
     profiles: false,
+    plans: false,
   });
   const numApps = apps?.length ?? 0;
   const numCategories = categories?.length ?? 0;
   const numProfiles = profiles?.length ?? 0;
+  const numPlans = plans?.length ?? 0;
 
   return (
     <Dash>
@@ -159,6 +165,61 @@ export default function DashHome() {
                     fullWidth
                     variant="outlined"
                     onClick={() => router.push("/admin/users")}
+                  >
+                    View
+                  </Button>
+                </Box>
+
+                <Box>
+                  <Button
+                    size="small"
+                    sx={{ textTransform: "none" }}
+                    fullWidth
+                    variant="outlined"
+                    disabled
+                  >
+                    Import
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    size="small"
+                    sx={{ textTransform: "none" }}
+                    fullWidth
+                    disabled
+                    variant="outlined"
+                  >
+                    Export
+                  </Button>
+                </Box>
+              </Stack>
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper sx={{ p: 3 }}>
+              <Typography>Plans</Typography>
+              <Typography variant="h3" sx={{ my: 3 }}>
+                {numPlans}
+              </Typography>
+              <Stack spacing={2} direction={"row"}>
+                <Box>
+                  <Button
+                    size="small"
+                    sx={{ textTransform: "none" }}
+                    fullWidth
+                    variant="outlined"
+                    onClick={() => router.push("/admin/plans/create")}
+                  >
+                    Add
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    size="small"
+                    sx={{ textTransform: "none" }}
+                    fullWidth
+                    variant="outlined"
+                    onClick={() => router.push("/admin/plans")}
                   >
                     View
                   </Button>

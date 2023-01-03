@@ -14,6 +14,7 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import useUpload from "../hooks/useUpload";
 import { useSession } from "next-auth/react";
@@ -51,7 +52,13 @@ const Create: React.FC = () => {
     const images = (uploads as unknown as any).reduce((p, c) => {
       return { ...p, [c.field]: c.url };
     }, {});
-    let currentState = { name, description, appCategoryId: type, email: session?.user?.email, appId };
+    let currentState = {
+      name,
+      description,
+      appCategoryId: type,
+      email: session?.user?.email,
+      appId,
+    };
 
     if (Boolean(images)) {
       currentState = { ...currentState, ...images };
@@ -110,14 +117,14 @@ const Create: React.FC = () => {
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
           <Stack spacing={4}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <h1>New App</h1>
-              <Box>
-                <Button>Go back</Button>
-              </Box>
+              <Typography variant="h4">New App</Typography>
+              <Box>{/* <Button>Go back</Button> */}</Box>
             </Box>
             <Box>
               <TextField
-                error={isUniqueAppId || /[^\w-]/.test(appId) && appId?.length > 18}
+                error={
+                  isUniqueAppId || (/[^\w-]/.test(appId) && appId?.length > 18)
+                }
                 autoFocus
                 fullWidth
                 onChange={(e) => setAppId(e.target.value)}
@@ -129,17 +136,18 @@ const Create: React.FC = () => {
               />
               {loading && <LinearProgress />}
               {isUniqueAppId && (
-                <Alert severity="error" >
+                <Alert severity="error">
                   App ID already taken. Please try again.
                 </Alert>
               )}
               {/[^\w-]/.test(appId) && (
-                <Alert severity="error" >
-                  App ID can only include alphanumeric characters and - character.
+                <Alert severity="error">
+                  App ID can only include alphanumeric characters and -
+                  character.
                 </Alert>
               )}
               {appId?.length > 15 && (
-                <Alert severity="error" >
+                <Alert severity="error">
                   App ID can only be upto 15 characters in length.
                 </Alert>
               )}

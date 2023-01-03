@@ -93,18 +93,18 @@ const App: React.FC = () => {
             <Avatar src={props?.image}>{title[0]}</Avatar>
             <h2>{title}</h2>
             <p>By {props?.author?.name || "Unknown author"}</p>
-            <Stack
-              spacing={3}
-            >
+            <Stack spacing={3}>
               <Paper elevation={0} sx={{ p: 2 }}>
                 <Stack spacing={3}>
                   <Typography variant="h5">Channels</Typography>
                   <FormGroup>
                     <FormControlLabel
+                      disabled
                       control={<Switch size="small" defaultChecked />}
                       label="DREAMFEEL SPACES"
                     />
                     <FormControlLabel
+                      disabled
                       control={<Switch size="small" defaultChecked />}
                       label={`ID Subdomain (https://${
                         props?.appId ?? "unknown-app"

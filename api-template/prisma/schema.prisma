@@ -98,6 +98,23 @@ model AppCategory {
   App         App[]
 }
 
+model PlanDetail {
+  id     String @id @default(cuid())
+  plan   Plan   @relation(fields: [planId], references: [id])
+  planId String
+}
+
+model Plan {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  image       String?
+  App         App[]
+  price       Int?
+  currency    String?
+  PlanDetail  PlanDetail[]
+}
+
 model App {
   id                        String          @id @default(cuid())
   title                     String?
@@ -118,6 +135,8 @@ model App {
   category                  AppCategory?    @relation(fields: [appCategoryId], references: [id])
   appCategoryId             String?
   appId                     String?
+  plan                      Plan?            @relation(fields: [planId], references: [id])
+  planId                    String?
 }
 
 model Account {
