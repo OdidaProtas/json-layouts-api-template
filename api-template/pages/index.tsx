@@ -30,7 +30,7 @@ const Apps: React.FC<any> = () => {
 
   const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp();
 
-  if (subdomain) {
+  if (subdomain && subdomain !== "www") {
     if (loadingSubdomain) return <AuthSpinner />;
     if (subdomainApp) return <RenderApp subdomainData={subdomainApp} />;
   }

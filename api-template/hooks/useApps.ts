@@ -30,7 +30,7 @@ export default function useApps() {
 
   React.useEffect(() => {
     updateAll();
-  }, [loadingApps]);
+  }, []);
 
   return apps;
 }
