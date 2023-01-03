@@ -46,8 +46,7 @@ export default function ImageField({
         };
         try {
           reader.readAsDataURL(value as any);
-        } catch (e) {
-        }
+        } catch (e) {}
       }
     }
     if (value?.length && multiple) {
@@ -58,8 +57,7 @@ export default function ImageField({
         };
         try {
           reader.readAsDataURL(val as any);
-        } catch (e) {
-        }
+        } catch (e) {}
       }
     }
   }, [value]);
@@ -86,20 +84,17 @@ export default function ImageField({
           </Box>
         )}
         {Boolean(images.length) && multiple && (
-         <Box sx={{ width: 650, mt: 3 }}>
-         <Carousel autoPlay>
-           {images.map((app, index) => {
-             return (
-               <div key={index}>
-                 <img
-                   style={{ borderRadius: "4px" }}
-                   src={app}
-                 />
-               </div>
-             );
-           })}
-         </Carousel>
-       </Box>
+          <Box onClick={(e) => e.stopPropagation()} sx={{ width: 650, mt: 3 }}>
+            <Carousel autoPlay>
+              {images.map((app, index) => {
+                return (
+                  <div key={index}>
+                    <img style={{ borderRadius: "4px" }} src={app} />
+                  </div>
+                );
+              })}
+            </Carousel>
+          </Box>
         )}
         <input {...getInputProps()} />
         <p>{isDragActive ? "Drop files here" : desc}</p>
