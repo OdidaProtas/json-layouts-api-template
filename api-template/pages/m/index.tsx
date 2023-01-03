@@ -44,10 +44,10 @@ const Index: React.FC = () => {
                 spacing={2}
                 container
               >
-                <Grid item xs={6}>
+                <Grid item xs={10} md={9} lg={8}>
                   <Grid container spacing={2}>
                     {apps.map((app) => (
-                      <Grid item lg={3} md={6} xs={12} key={app.id}>
+                      <Grid item lg={3} md={4} xs={6} key={app.id}>
                         <div className="post">
                           <App app={app} />
                         </div>
