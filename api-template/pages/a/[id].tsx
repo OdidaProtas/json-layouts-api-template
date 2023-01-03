@@ -21,13 +21,14 @@ import useApp from "../../hooks/useApp";
 import { usePagesStateValue } from "../../lib/builder";
 import useApps, { useAppActions } from "../../hooks/useApps";
 import { useAxios } from "../../hooks/useAxios";
+import { Preview } from "@mui/icons-material";
 
 const App: React.FC<AppProps> = () => {
   const { data: session, status } = useSession();
 
   const router = useRouter();
 
-  const app = useApp() 
+  const app = useApp();
   const apps = useApps();
   const props = app ?? {}; // to ref
 
@@ -96,7 +97,7 @@ const App: React.FC<AppProps> = () => {
       <div>
         <Container>
           <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", mt: 4 }}>
               <Box sx={{ flexGrow: 1 }}>
                 <Avatar src={props.image}>{title[0]}</Avatar>
                 <h2>{title}</h2>
@@ -109,6 +110,7 @@ const App: React.FC<AppProps> = () => {
               <Box>
                 <Button
                   variant="outlined"
+                  startIcon={<Preview />}
                   sx={{ textTransform: "none", mr: 2 }}
                   onClick={() => Router.push(`/preview/${props.id}`)}
                 >

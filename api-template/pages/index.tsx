@@ -102,7 +102,7 @@ const Apps: React.FC<any> = () => {
                 container
                 spacing={2}
               >
-                <Grid item xs={8}>
+                <Grid item xs={10} md={9} lg={8}>
                   <Grid container spacing={2}>
                     {apps.map((app) => (
                       <Grid key={app.id} item lg={2} md={3} xs={6}>

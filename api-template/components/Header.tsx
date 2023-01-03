@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Chip, Button, Typography, Box } from "@mui/material";
-import { Home, Login } from "@mui/icons-material";
+import { Home, Login, Store } from "@mui/icons-material";
 import AccountMenu from "./AccountMenu";
 
 const Header: React.FC = () => {
@@ -22,6 +22,15 @@ const Header: React.FC = () => {
       <Link href="/">
         <a className="bold" data-active={isActive("/")}>
           <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
+        </a>
+      </Link>
+      <Link href="/marketplace">
+        <a className="bold" data-active={isActive("/marketplace")}>
+          <Chip
+            sx={{ cursor: "pointer" }}
+            icon={<Store />}
+            label="Marketplace"
+          />
         </a>
       </Link>
       <style jsx>{`
@@ -61,7 +70,15 @@ const Header: React.FC = () => {
             <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
           </a>
         </Link>
-
+        <Link href="/marketplace">
+          <a className="bold" data-active={isActive("/marketplace")}>
+            <Chip
+              sx={{ cursor: "pointer" }}
+              icon={<Store />}
+              label="Marketplace"
+            />
+          </a>
+        </Link>
         <style jsx>{`
           .bold {
             font-weight: bold;
@@ -101,7 +118,11 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/about-us">
-          <Typography sx={{ mr: 2 }} >About us</Typography>
+          <Typography
+            sx={{ mr: 2, display: { xs: "none", md: "block", lg: "block" } }}
+          >
+            About us
+          </Typography>
         </Link>
         <Link href="/api/auth/signin">
           <Button
@@ -128,7 +149,7 @@ const Header: React.FC = () => {
 
           .right {
             margin-left: auto;
-            display:flex;
+            display: flex;
           }
 
           .right a {
@@ -150,6 +171,15 @@ const Header: React.FC = () => {
         <Link href="/">
           <a className="bold" data-active={isActive("/")}>
             <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
+          </a>
+        </Link>
+        <Link href="/marketplace">
+          <a className="bold" data-active={isActive("/marketplace")}>
+            <Chip
+              sx={{ cursor: "pointer" }}
+              icon={<Store />}
+              label="Marketplace"
+            />
           </a>
         </Link>
         <style jsx>{`
@@ -217,7 +247,13 @@ const Header: React.FC = () => {
   return (
     <nav>
       {left}
-      <Box sx={{ flexGrow: 1, textAlign: "center", display: { xs: "none", md: "block", lg: "block" } }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          textAlign: "center",
+          display: { xs: "none", md: "block", lg: "block" },
+        }}
+      >
         <Typography
           sx={{ cursor: "pointer" }}
           onClick={() => router.push("/")}

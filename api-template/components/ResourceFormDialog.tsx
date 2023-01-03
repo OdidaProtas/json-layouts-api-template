@@ -56,9 +56,10 @@ export default function ResourceFormDialog() {
         size="small"
         fullWidth
         variant="outlined"
+        sx={{ textTransform: "none" }}
         onClick={handleClickOpen}
       >
-        Add / Link resources
+        Create from resource
       </Button>
       <Dialog
         fullScreen

@@ -1,12 +1,10 @@
 import React from "react";
-import { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
-import App, { AppProps } from "../components/App";
+import App from "../components/App";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import prisma from "../lib/prisma";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import {
@@ -79,7 +77,13 @@ const Apps: React.FC = () => {
               </Box>
               <Box sx={{ my: 1 }}>
                 <Grid container spacing={4}>
-                  <Grid item xs={3}>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{
+                      display: { xs: "none", lg: "block" },
+                    }}
+                  >
                     <Paper
                       elevation={0}
                       sx={{ p: 2, height: 400, overflow: "auto" }}
@@ -100,7 +104,7 @@ const Apps: React.FC = () => {
                       </List>
                     </Paper>
                   </Grid>
-                  <Grid item xs>
+                  <Grid item xs={12} lg={9}>
                     <Paper elevation={0} sx={{ width: "100%" }}>
                       <Carousel
                         showIndicators={false}
@@ -125,7 +129,10 @@ const Apps: React.FC = () => {
                 </Grid>
               </Box>
               <Box sx={{ display: "flex", my: 12 }}>
-                <Typography sx={{ flexGrow: 1 }} variant="h5">
+                <Typography
+                  sx={{ flexGrow: 1, display: { xs: "none", lg: "block" } }}
+                  variant="h5"
+                >
                   All apps
                 </Typography>
                 <Box>
@@ -157,10 +164,10 @@ const Apps: React.FC = () => {
                 container
                 spacing={2}
               >
-                <Grid item xs={8}>
+                <Grid item xs={10} md={9} lg={8}>
                   <Grid container spacing={2}>
                     {apps.map((app) => (
-                      <Grid key={app.id} item lg={2} md={6} xs={12}>
+                      <Grid key={app.id} item lg={2} md={6} xs={6}>
                         <div className="post">
                           <App noStatus app={app} />
                         </div>
