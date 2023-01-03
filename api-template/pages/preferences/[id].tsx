@@ -108,7 +108,7 @@ const App: React.FC = () => {
                     <FormControlLabel
                       control={<Switch />}
                       label={`ID Subdomain (https://${
-                        props?.appId ?? "unknown app"
+                        props?.appId ?? "unknown-app"
                       }).dreamfeel.me`}
                     />
                     <FormControlLabel
