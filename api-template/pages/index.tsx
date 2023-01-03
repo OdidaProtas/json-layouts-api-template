@@ -20,6 +20,8 @@ import { Add, AppRegistration, Explore } from "@mui/icons-material";
 import useSubdomainApp from "../hooks/useSubdomainApp";
 import RenderApp from "../components/util/renderApp";
 
+import Head from "next/head"
+
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
   const apps = allApps?.filter((app) => app.published && Boolean(app.appId));
@@ -41,6 +43,9 @@ const Apps: React.FC<any> = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>SPACES - APPS</title>
+      </Head>
       <div className="page">
         <main>
           <Container sx={{ display: "flex" }}>
