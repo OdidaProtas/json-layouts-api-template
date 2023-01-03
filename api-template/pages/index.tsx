@@ -37,7 +37,7 @@ const Apps: React.FC<any> = () => {
               <Box sx={{ my: 5 }}>
                 <Box sx={{ display: "flex" }}>
                   <Box sx={{ flexGrow: 1, pl: { lg: 9 } }}>
-                    <Typography variant="h5">Mini Apps</Typography>
+                    <Typography variant="h5">Mini apps</Typography>
                   </Box>
                   <Box>
                     {Boolean(apps?.length) && (

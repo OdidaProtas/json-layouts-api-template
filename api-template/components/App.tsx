@@ -2,13 +2,10 @@ import React from "react";
 import Router from "next/router";
 import { useSession } from "next-auth/react";
 
-import Edit from "@mui/icons-material/Edit";
-import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
-import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
-import { Settings } from "@mui/icons-material";
+import { OpenInNew, Settings } from "@mui/icons-material";
 
 export type AppProps = {
   id: string;
@@ -28,6 +25,7 @@ export type AppProps = {
   draft: string;
   title: string;
   isNew: boolean;
+  appId: string
 };
 
 const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
@@ -39,19 +37,30 @@ const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
   const { data: session, status } = useSession();
   return (
     <div onClick={() => Router.push("/[id]", `/${app.id}`)}>
-      {!noStatus && (
-        <Chip
-          color={app.published ? "success" : "primary"}
-          size="small"
-          sx={{ mb: 1 }}
-          label={
-            app.published
-              ? `${app.isNew ? "Live (New)" : "Live"}`
-              : `${app.isNew ? "Draft (New)" : "Draft"}`
-          }
-        />
-      )}
+      <Box sx={{ display: "flex" }} >
+        <Box sx={{ flexGrow: 1 }} >
+          {!noStatus && (
+            <Chip
+              color={app.published ? "success" : "primary"}
+              size="small"
+              sx={{ mb: 1 }}
+              label={
+                app.published
+                  ? `${app.isNew ? "Live (New)" : "Live"}`
+                  : `${app.isNew ? "Draft (New)" : "Draft"}`
+              }
+            />
+          )}
+        </Box>
+        {Boolean(app?.appId) && (
+          <Box>
+            <a href={`https://${app?.appId}.dreamfeel.me`}>
+              <OpenInNew sx={{ fontSize: "10px" }} />
+            </a>
+          </Box>
+        )}
 
+      </Box>
       <img
         height={height ? height : "80"}
         width="100%"
