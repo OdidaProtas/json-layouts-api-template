@@ -86,6 +86,9 @@ const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
             </Button>
           )}
         </Box>
+        {Boolean(app?.appId) && (
+          <Typography variant="caption">@{app?.appId}</Typography>
+        )}
       </Box>
       <style jsx>{`
         div {
