@@ -99,6 +99,33 @@ const App: React.FC = () => {
             >
               <Paper elevation={0} sx={{ p: 2 }}>
                 <Stack spacing={2}>
+                  <Typography variant="h5">Channels</Typography>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Switch defaultChecked />}
+                      label="DREAMFEEL SPACES SuperApp"
+                    />
+                    <FormControlLabel
+                      control={<Switch />}
+                      label={`ID Subdomain (https://${
+                        props?.appId ?? "unknown app"
+                      }).dreamfeel.me`}
+                    />
+                    <FormControlLabel
+                      disabled
+                      control={<Switch />}
+                      label="Dreamfeel Marketplace for product resources"
+                    />
+                    <FormControlLabel
+                      disabled
+                      control={<Switch />}
+                      label="Custom domain"
+                    />
+                  </FormGroup>
+                </Stack>
+              </Paper>
+              <Paper elevation={0} sx={{ p: 2 }}>
+                <Stack spacing={2}>
                   <Typography variant="h5">
                     Title and meta description
                   </Typography>
