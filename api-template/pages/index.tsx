@@ -52,7 +52,7 @@ const Apps: React.FC<any> = () => {
             <Box sx={{ flexGrow: 1 }}>
               <Box sx={{ my: 5 }}>
                 <Box sx={{ display: "flex" }}>
-                  <Box sx={{ flexGrow: 1, pl: { lg: 9 } }}>
+                  <Box sx={{ flexGrow: 1, pl: { lg: 9 }, display: { xs: "none", md: "block", lg: "block" } }}>
                     <Typography variant="h5">Mini apps</Typography>
                   </Box>
                   <Box>
@@ -105,7 +105,7 @@ const Apps: React.FC<any> = () => {
                 <Grid item xs={8}>
                   <Grid container spacing={2}>
                     {apps.map((app) => (
-                      <Grid key={app.id} item lg={2} md={3} xs={4}>
+                      <Grid key={app.id} item lg={2} md={3} xs={6}>
                         <div className="post">
                           <App noStatus app={app} />
                         </div>

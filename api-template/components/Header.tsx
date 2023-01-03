@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { Chip, Button, Typography } from "@mui/material";
+import { Chip, Button, Typography, Box } from "@mui/material";
 import { Home, Login } from "@mui/icons-material";
 import AccountMenu from "./AccountMenu";
 
@@ -101,7 +101,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/about-us">
-          <Typography sx={{mr:2}} >About us</Typography>
+          <Typography sx={{ mr: 2 }} >About us</Typography>
         </Link>
         <Link href="/api/auth/signin">
           <Button
@@ -217,7 +217,7 @@ const Header: React.FC = () => {
   return (
     <nav>
       {left}
-      <div style={{ flexGrow: 1, textAlign: "center" }}>
+      <Box sx={{ flexGrow: 1, textAlign: "center", display: { xs: "none", md: "block", lg: "block" } }}>
         <Typography
           sx={{ cursor: "pointer" }}
           onClick={() => router.push("/")}
@@ -225,7 +225,7 @@ const Header: React.FC = () => {
         >
           DREAMFEEL SPACES
         </Typography>
-      </div>
+      </Box>
       {right}
       <style jsx>{`
         nav {
