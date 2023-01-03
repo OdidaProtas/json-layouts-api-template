@@ -25,7 +25,7 @@ export type AppProps = {
   draft: string;
   title: string;
   isNew: boolean;
-  appId: string
+  appId: string;
 };
 
 const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
@@ -37,8 +37,8 @@ const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
   const { data: session, status } = useSession();
   return (
     <div onClick={() => Router.push("/[id]", `/${app.id}`)}>
-      <Box sx={{ display: "flex" }} >
-        <Box sx={{ flexGrow: 1 }} >
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ flexGrow: 1 }}>
           {!noStatus && (
             <Chip
               color={app.published ? "success" : "primary"}
@@ -53,13 +53,12 @@ const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
           )}
         </Box>
         {Boolean(app?.appId) && (
-          <Box>
+          <Box onClick={(e) => e.stopPropagation()}>
             <a target="blank" href={`https://${app?.appId}.dreamfeel.me`}>
               <OpenInNew sx={{ fontSize: "12px" }} />
             </a>
           </Box>
         )}
-
       </Box>
       <img
         height={height ? height : "80"}

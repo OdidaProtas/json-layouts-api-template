@@ -29,9 +29,8 @@ export default function useApps() {
   const couldBeEmpty = !apps.length && !loadingApps;
 
   React.useEffect(() => {
-    if (!loadingApps)
-      updateAll();
-  }, []);
+    if (!loadingApps) updateAll();
+  }, [loadingApps]);
 
   return apps;
 }
