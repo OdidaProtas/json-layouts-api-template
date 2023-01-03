@@ -45,7 +45,8 @@ export default function useSubdomainApp() {
 
 
     React.useEffect(() => {
-        updateAll();
+        if (!loadingApps)
+            updateAll();
     }, []);
 
     return [subdomain, app, loadingApps];
