@@ -2,9 +2,7 @@ import { useRouter } from "next/router";
 import { usePagesStateValue } from "../lib/builder";
 import useApps from "./useApps";
 
-export default function useSubdomainApp() {
-  const apps = useApps() ?? [];
-
+export default function useSubdomainApp(apps = []) {
   const { asPath } = useRouter();
   const urldata =
     typeof window !== "undefined" && window.location.origin

@@ -28,7 +28,7 @@ const Apps: React.FC<any> = () => {
 
   const userHasValidSession = Boolean(session);
 
-  const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp();
+  const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp(allApps);
 
   console.log(subdomain, subdomainApp, loadingSubdomain);
 
