@@ -30,8 +30,6 @@ const Apps: React.FC<any> = () => {
 
   const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp(allApps);
 
-  console.log(subdomain, subdomainApp, loadingSubdomain);
-
   if (subdomain && subdomain !== "www") {
     if (loadingSubdomain) return <AuthSpinner />;
     if (subdomainApp) return <RenderApp subdomainData={subdomainApp} />;
