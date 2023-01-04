@@ -173,15 +173,17 @@ const Header: React.FC = () => {
             <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
           </a>
         </Link>
-        <Link target={"blank"} href={`https://marketplace.dreamfeel.me`}>
-          <a className="bold">
-            <Chip
-              sx={{ cursor: "pointer" }}
-              icon={<Store />}
-              label="Marketplace"
-            />
-          </a>
-        </Link>
+        <a
+          className="bold"
+          target={"blank"}
+          href={`https://marketplace.dreamfeel.me`}
+        >
+          <Chip
+            sx={{ cursor: "pointer" }}
+            icon={<Store />}
+            label="Marketplace"
+          />
+        </a>
         <style jsx>{`
           .bold {
             font-weight: bold;
