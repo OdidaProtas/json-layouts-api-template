@@ -33,7 +33,7 @@ const Index: React.FC = () => {
   return (
     <Layout>
       <div className="page">
-        <Container>
+        <Container sx={{ mb: 9 }}>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ flexGrow: 1 }}>
               <Typography sx={{ mt: 3 }} variant="h3">

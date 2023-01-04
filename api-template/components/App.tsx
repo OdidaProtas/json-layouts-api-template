@@ -37,7 +37,11 @@ const App: React.FC<any> = ({
   const authorName = app.author ? app.author.name : "Unknown author";
   const { data: session, status } = useSession();
   return (
-    <div onClick={() => Router.push("/[id]", `/${app.id}`)}>
+    <div
+      onClick={() => {
+        if (app.superapp) Router.push("/[id]", `/${app.id}`);
+      }}
+    >
       <Box sx={{ display: "flex" }}>
         <Box sx={{ flexGrow: 1 }}>
           {!noStatus && (

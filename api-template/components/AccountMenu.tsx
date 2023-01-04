@@ -46,7 +46,7 @@ export default function AccountMenu() {
           </Link>
         </Box>
         <Box sx={{ display: { xs: "none", md: "block", lg: "block" } }}>
-          <Link href="/docs">
+          <Link href="https://docs.dreamfeel.me">
             <Typography sx={{ minWidth: 100 }}>Documentation</Typography>
           </Link>
         </Box>
