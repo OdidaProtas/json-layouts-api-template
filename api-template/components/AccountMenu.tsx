@@ -40,6 +40,11 @@ export default function AccountMenu() {
             <Typography sx={{ minWidth: 100 }}>About us</Typography>
           </Link>
         </Box>
+        <Box sx={{ display: { xs: "none", md: "block", lg: "block" } }}>
+          <Link href="/templates">
+            <Typography sx={{ minWidth: 100 }}>Templates</Typography>
+          </Link>
+        </Box>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
