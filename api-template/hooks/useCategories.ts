@@ -26,11 +26,9 @@ export default function useCategories() {
     }
   }
 
-  const couldBeEmpty = !categories.length && !loadingCategories;
-
   React.useEffect(() => {
-    if (couldBeEmpty) updateAll();
-  }, [couldBeEmpty]);
+    if (loadingCategories) updateAll();
+  }, []);
 
   return categories;
 }

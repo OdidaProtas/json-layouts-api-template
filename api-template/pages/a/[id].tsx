@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { GetServerSideProps } from "next";
 import ReactMarkdown from "react-markdown";
 import Router, { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { AppProps } from "../../components/App";
 import { useSession } from "next-auth/react";
-import prisma from "../../lib/prisma";
 
 import {
   Avatar,
@@ -15,13 +13,28 @@ import {
   Container,
   Chip,
   CircularProgress,
+  Stack,
+  ThemeProvider,
+  Grid,
+  Alert,
+  AlertTitle,
+  Typography,
 } from "@mui/material";
 import { AuthSpinner } from "..";
 import useApp from "../../hooks/useApp";
 import { usePagesStateValue } from "../../lib/builder";
 import useApps, { useAppActions } from "../../hooks/useApps";
 import { useAxios } from "../../hooks/useAxios";
-import { Preview } from "@mui/icons-material";
+import {
+  AppSettingsAlt,
+  ArtTrack,
+  DomainVerification,
+  FolderSpecial,
+  Pages,
+  Preview as PreviewIcon,
+} from "@mui/icons-material";
+import defaultTheme from "../../lib/defaultheme";
+import Preview from "../../components/Preview";
 
 const App: React.FC<AppProps> = () => {
   const { data: session, status } = useSession();
@@ -95,83 +108,150 @@ const App: React.FC<AppProps> = () => {
   return (
     <Layout>
       <div>
-        <Container>
-          <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ display: "flex", mt: 4 }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Avatar src={props.image}>{title[0]}</Avatar>
-                <h2>{title}</h2>
-                <Chip
-                  avatar={<Avatar alt="Natacha" src={session.user.image} />}
-                  label={`By ${props?.author?.name || "Unknown author"}`}
-                  variant="outlined"
-                />
+        <Container sx={{ mb: 9 }}>
+          <Grid container sx={{ justifyContent: "center" }}>
+            <Grid item xs={12} md={11} lg={7}>
+              <Box sx={{ display: "flex", mt: 4 }}>
+                <Box sx={{ flexGrow: 1, display: "flex" }}>
+                  <Avatar src={props.image}>{title[0]}</Avatar>
+                  <Typography variant="h5" sx={{ ml: 2, mt: 1 }}>
+                    {title}
+                  </Typography>
+                  {/* <Chip
+                    avatar={<Avatar alt="Natacha" src={session.user.image} />}
+                    label={`Owner ${props?.author?.name || "Unknown author"}`}
+                    variant="outlined"
+                  /> */}
+                </Box>
+                <Box>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={<PreviewIcon />}
+                    sx={{ textTransform: "none", mr: 2, mt: 1 }}
+                    onClick={() => Router.push(`/preview/${props.id}`)}
+                  >
+                    Full preview
+                  </Button>
+                </Box>
               </Box>
-              <Box>
-                <Button
-                  variant="outlined"
-                  startIcon={<Preview />}
-                  sx={{ textTransform: "none", mr: 2 }}
-                  onClick={() => Router.push(`/preview/${props.id}`)}
+              <Stack sx={{ mt: 4 }} spacing={3}>
+                <Paper
+                  elevation={0}
+                  sx={{ maxHeight: "40vh", overflow: "hidden", my: 2 }}
                 >
-                  Preview
-                </Button>
-              </Box>
-            </Box>
+                  <ThemeProvider theme={defaultTheme}>
+                    <Preview />
+                  </ThemeProvider>
+                </Paper>
+                <Paper elevation={0} sx={{ p: 2 }}>
+                  <Typography variant="h3">Description</Typography>
+                  <ReactMarkdown>{props.description}</ReactMarkdown>
+                </Paper>
 
-            <Paper
-              elevation={0}
-              sx={{ maxHeight: "30vh", overflow: "hidden", my: 5 }}
-            >
-              {/* <ThemeProvider theme={defaultTheme}>
-                <Preview />
-              </ThemeProvider> */}
-            </Paper>
-            <Button
-              variant="outlined"
-              sx={{ textTransform: "none", mr: 2 }}
-              className="button"
-              onClick={() => Router.push(`/builder/${props.id}`)}
-            >
-              Customize
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{ textTransform: "none", mr: 2 }}
-              disabled={props.published || publishing}
-              className="button"
-              onClick={() => publishPost(props.id)}
-            >
-              {deleting ? <CircularProgress size={20} /> : "Publish app"}
-            </Button>
-            <>
-              <Button
-                variant="outlined"
-                sx={{ textTransform: "none", mr: 2 }}
-                className="button"
-                onClick={() => Router.push(`/preferences/${props.id}`)}
-              >
-                Preferences
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ textTransform: "none", mr: 2 }}
-                className="button"
-                onClick={() => Router.push(`/res/${props.id}`)}
-              >
-                Resources
-              </Button>
-              <Button
-                disabled={deleting}
-                variant="outlined"
-                color="error"
-                onClick={() => deletePost(props.id)}
-              >
-                {deleting ? <CircularProgress size={20} /> : "Delete"}
-              </Button>
-            </>
-            <ReactMarkdown>{props.description}</ReactMarkdown>
-          </Box>
+                <Paper elevation={0} sx={{ p: 2 }}>
+                  <Typography variant="h3">Templates</Typography>
+                  <Typography variant="body1" sx={{ my: 2 }}>
+                    DREAMFEEL SPACES beautiful, fully customizable templates
+                    gives you simple to complex starting points for your
+                    application. Browse a huge list of well crafted templates
+                    and customize to your feel
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    sx={{ textTransform: "none", mr: 2, my: 2 }}
+                    className="button"
+                    onClick={() => Router.push(`/templates`)}
+                    startIcon={<Pages />}
+                  >
+                    Choose a template
+                  </Button>
+                </Paper>
+
+                <Paper elevation={0} sx={{ p: 2 }}>
+                  <Typography variant="h3">Editor</Typography>
+                  <Typography variant="body1" sx={{ my: 2 }}>
+                    DREAMFEEL SPACES code editor lets you customize your
+                    application/template with finetune control of all components
+                    and interactions
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    sx={{ textTransform: "none", mr: 2, my: 2 }}
+                    className="button"
+                    onClick={() => Router.push(`/builder/${props.id}`)}
+                    startIcon={<ArtTrack />}
+                  >
+                    Customize Application
+                  </Button>
+                </Paper>
+                <Paper elevation={0} sx={{ p: 2 }}>
+                  <Typography variant="h3">Resources</Typography>
+                  <Typography variant="body1" sx={{ my: 2 }}>
+                    Upload media and create datatables to store data for your
+                    application and use seamlessly in your components.
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    startIcon={<FolderSpecial />}
+                    sx={{ textTransform: "none", mr: 2 }}
+                    className="button"
+                    onClick={() => Router.push(`/res/${props.id}`)}
+                  >
+                    Resources
+                  </Button>
+                </Paper>
+                <Paper elevation={0} sx={{ p: 2 }}>
+                  <Typography variant="h3">Preferences</Typography>
+                  <Typography variant="body1" sx={{ my: 2 }}>
+                    Update app preferences, logo, favicon and channels.
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    sx={{ textTransform: "none", mr: 2 }}
+                    className="button"
+                    startIcon={<AppSettingsAlt />}
+                    onClick={() => Router.push(`/preferences/${props.id}`)}
+                  >
+                    Settings
+                  </Button>
+                </Paper>
+
+                <Paper elevation={0} sx={{ p: 2 }}>
+                  <Typography variant="h3">Publish</Typography>
+                  <Typography variant="body1" sx={{ my: 2 }}>
+                    Make your app available on your channels
+                  </Typography>
+
+                  <Button
+                    fullWidth
+                    startIcon={<DomainVerification />}
+                    variant="outlined"
+                    sx={{ textTransform: "none", mr: 2 }}
+                    disabled={props.published || publishing}
+                    className="button"
+                    onClick={() => publishPost(props.id)}
+                  >
+                    {publishing ? (
+                      <CircularProgress size={20} />
+                    ) : (
+                      "Publish app"
+                    )}
+                  </Button>
+                </Paper>
+                <Button
+                  disabled={deleting}
+                  fullWidth
+                  variant="contained"
+                  disableElevation
+                  color="error"
+                  onClick={() => deletePost(props.id)}
+                >
+                  {deleting ? <CircularProgress size={20} /> : "Delete"}
+                </Button>
+              </Stack>
+            </Grid>
+          </Grid>
         </Container>
       </div>
       <style jsx>{`

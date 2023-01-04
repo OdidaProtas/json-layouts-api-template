@@ -6,9 +6,9 @@ import { useAxios } from "./useAxios";
 export default function useApp() {
   const apps = usePagesStateValue("apps") ?? [];
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const id = router.query.id
+  const id = router.query.id;
 
   const app = apps.find((app) => app.id === id);
 
@@ -33,9 +33,8 @@ export default function useApp() {
     }
   }
 
-
   React.useEffect(() => {
-    updateAll();
+    if (!loadingApps) updateAll();
   }, []);
 
   return app ?? {};

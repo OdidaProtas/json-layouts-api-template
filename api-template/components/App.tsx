@@ -61,7 +61,7 @@ const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
         )}
       </Box>
       <img
-        height={height ? height : "80"}
+        height={height ? height : "120"}
         width="100%"
         style={{ borderRadius: "50%" }}
         alt={app.name}

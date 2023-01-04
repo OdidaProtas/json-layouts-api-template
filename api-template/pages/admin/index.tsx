@@ -102,7 +102,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Categories</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {numCategories}
+                {loadingCategories ? <CircularProgress /> : numCategories}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>

@@ -55,8 +55,8 @@ export default function Preview({ fullScreen = false }) {
         sx={{
           bgcolor: "lightgray",
           mb: 4,
-          position: "fixed",
-          width: "55%",
+          position: "absolute",
+          width: "100%",
           zIndex: 100,
         }}
       >
@@ -70,9 +70,7 @@ export default function Preview({ fullScreen = false }) {
       </Toolbar>
       <Toolbar />
       <Toolbar />
-      <ErrorBoundary>
-        {renderPage(pageData)}
-      </ErrorBoundary>
+      <ErrorBoundary>{renderPage(pageData)}</ErrorBoundary>
     </Paper>
   );
 }

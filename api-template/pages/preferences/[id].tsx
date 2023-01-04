@@ -72,10 +72,9 @@ const App: React.FC = () => {
       e.preventDefault();
       setSaving(true);
       const uploads = await uploadImages(
-        [
-          { fileData: state.favicon, field: "favicon" },
-          { fileData: image, field: "image" },
-        ].filter((f) => Boolean(f.fileData) && typeof f.fileData !== "string")
+        [{ fileData: state.favicon, field: "favicon" }].filter((f) =>
+          Boolean(f.fileData)
+        )
       );
 
       const images = (uploads as unknown as any)
@@ -98,6 +97,7 @@ const App: React.FC = () => {
         setSaving(false);
       }
     } catch (e) {
+      setSaving(false);
       showToast("error", "An error occured");
     }
   };
@@ -133,9 +133,10 @@ const App: React.FC = () => {
                   <Box>
                     <TextField
                       error={
-                        isUniqueAppId ||
-                        /[^\w-]/.test(state?.appId) ||
-                        state?.appId?.length > 18
+                        (isUniqueAppId ||
+                          /[^\w-]/.test(state?.appId) ||
+                          state?.appId?.length > 18) &&
+                        state?.appId !== props?.appId
                       }
                       autoFocus
                       fullWidth
@@ -149,22 +150,24 @@ const App: React.FC = () => {
                       required
                     />
                     {loading && <LinearProgress />}
-                    {isUniqueAppId && (
+                    {isUniqueAppId && state?.appId !== props?.appId && (
                       <Alert severity="error">
                         App ID already taken. Please try again.
                       </Alert>
                     )}
-                    {/[^\w-]/.test(state?.appId) && (
-                      <Alert severity="error">
-                        App ID can only include alphanumeric characters and -
-                        character.
-                      </Alert>
-                    )}
-                    {state?.appId?.length > 15 && (
-                      <Alert severity="error">
-                        App ID can only be upto 15 characters in length.
-                      </Alert>
-                    )}
+                    {/[^\w-]/.test(state?.appId) &&
+                      state?.appId !== props?.appId && (
+                        <Alert severity="error">
+                          App ID can only include alphanumeric characters and -
+                          character.
+                        </Alert>
+                      )}
+                    {state?.appId?.length > 15 &&
+                      state?.appId !== props?.appId && (
+                        <Alert severity="error">
+                          App ID can only be upto 15 characters in length.
+                        </Alert>
+                      )}
                   </Box>
 
                   <TextField
@@ -218,13 +221,13 @@ const App: React.FC = () => {
                     rows={8}
                     value={state?.description}
                   />
-                  <Box>
+                  {/* <Box>
                     <ImageField
                       value={image}
                       handleChange={handleLogoChange}
                       desc="Drag and drop or pick an image for your app icon / favicon"
                     />
-                  </Box>
+                  </Box> */}
                 </Stack>
               </Paper>
               <Paper elevation={0} sx={{ p: 2 }}>
