@@ -78,9 +78,11 @@ const App: React.FC = () => {
         ].filter((f) => Boolean(f.fileData) && typeof f.fileData !== "string")
       );
 
-      const images = (uploads as unknown as any).reduce((p, c) => {
-        return { ...p, [c.field]: c.url };
-      }, {});
+      const images = (uploads as unknown as any)
+        .filter(Boolean)
+        .reduce((p, c) => {
+          return { ...p, [c.field]: c.url };
+        }, {});
       let currentState = { ...state };
 
       if (Boolean(images)) {

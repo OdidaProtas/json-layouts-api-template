@@ -18,7 +18,12 @@ export default function useUpload() {
               resolve(uploads);
             }
           })
-          .catch((err) => {});
+          .catch((err) => {
+            uploads.push(null);
+            if (uploads.length === files.length) {
+              resolve(uploads);
+            }
+          });
       });
     });
   }
