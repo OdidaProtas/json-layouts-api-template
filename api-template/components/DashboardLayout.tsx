@@ -198,11 +198,11 @@ export default function Dash({ children }) {
         </List>
         <Divider />
         <List>
-          {["Plans", "Statuses"].map((text, index) => (
+          {["Plans"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton
                 onClick={() => {
-                  if (index === 0) router.push("/admin/users");
+                  if (index === 0) router.push("/admin/plans");
                 }}
               >
                 <ListItemIcon>

@@ -26,11 +26,9 @@ export default function usePlans() {
     }
   }
 
-  const couldBeEmpty = !plans?.length && !loadingPlans;
-
   React.useEffect(() => {
-    if (couldBeEmpty) updateAll();
-  }, [couldBeEmpty]);
+    updateAll();
+  }, []);
 
   return plans;
 }

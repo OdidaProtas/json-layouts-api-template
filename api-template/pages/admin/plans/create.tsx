@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { useSession } from "next-auth/react";
 import useUpload from "../../../hooks/useUpload";
 import useApps, { useAppActions } from "../../../hooks/useCategories";
@@ -15,12 +9,17 @@ import { Router, useRouter } from "next/router";
 import Layout from "../../../components/Layout";
 import ImageField from "../../../components/ImageField";
 import { AuthSpinner } from "../..";
+import Dash from "../../../components/DashboardLayout";
 
 const Create: React.FC = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [type, setType] = useState("Other");
+  const [price, setPrice] = useState("");
+  const [currency, setCurrency] = useState("KES");
+
+  const [details, setDetails] = useState([]);
 
   const { data: session, status } = useSession();
 
@@ -43,13 +42,13 @@ const Create: React.FC = () => {
     const images = (uploads as unknown as any).reduce((p, c) => {
       return { ...p, [c.field]: c.url };
     }, {});
-    let currentState = { name, description, type, email: session?.user?.email };
+    let currentState = { name, description, currency, price };
 
     if (Boolean(images)) {
       currentState = { ...currentState, ...images };
     }
     try {
-      const res = await axios.post("/api/category", { ...currentState });
+      const res = await axios.post("/api/plan", { ...currentState });
       if (res.data) {
         setSaving(false);
         updateApps([
@@ -65,7 +64,7 @@ const Create: React.FC = () => {
           },
         ]);
         showToast("success", "App created successfully");
-        await Router.push(`/admin/categories/${res.data.id}`);
+        await Router.push(`/admin/plans`);
       }
     } catch (error) {
       showToast("error", "App creation failed");
@@ -91,7 +90,7 @@ const Create: React.FC = () => {
   }
 
   return (
-    <Layout>
+    <Dash>
       <Box sx={{ display: "flex", mb: 4 }}>
         <Box sx={{ flexGrow: 1 }}></Box>
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
@@ -104,6 +103,21 @@ const Create: React.FC = () => {
               placeholder="Category name"
               type="text"
               value={name}
+            />
+
+            <TextField
+              label="Price"
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="Price"
+              type="number"
+              value={price}
+            />
+            <TextField
+              label="Currency"
+              onChange={(e) => setCurrency(e.target.value)}
+              placeholder="Currency"
+              type="text"
+              value={currency}
             />
 
             <TextField
@@ -127,15 +141,16 @@ const Create: React.FC = () => {
               disableElevation
               disabled={!name || saving}
               type="submit"
+              sx={{ textTransform: "none" }}
             >
-              {saving ? <CircularProgress size={20} /> : "Create app"}
+              {saving ? <CircularProgress size={20} /> : "Create plan"}
             </Button>
             <Button
               disableElevation
               color="error"
               variant="outlined"
               className="back"
-              href="#"
+              sx={{ textTransform: "none" }}
               onClick={() => Router.push("/")}
             >
               or Cancel
@@ -172,7 +187,7 @@ const Create: React.FC = () => {
           margin-left: 1rem;
         }
       `}</style>
-    </Layout>
+    </Dash>
   );
 };
 

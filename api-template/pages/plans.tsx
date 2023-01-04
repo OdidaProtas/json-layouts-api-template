@@ -8,20 +8,22 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Layout from "../components/Layout";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
+import usePlans from "../hooks/usePlans";
+import ReactMarkdown from "react-markdown";
 
 const steps = [
   {
     label: "Pick a plan",
-    description: `Plan desc....`,
+    description: `Take your online prescence to the next step with a plan suitable for your online prescence`,
   },
   {
-    label: "Create an ad group",
+    label: "Add payment details",
     description:
       "An ad group contains one or more ads which target a shared set of keywords.",
   },
   {
-    label: "Create an ad",
+    label: "Checkout plan",
     description: `Try out different ad text to see what brings in the most customers,
               and learn how to enhance your ads using features like ad extensions.
               If you run into any problems with your ads, find out how to tell if
@@ -44,6 +46,8 @@ export default function VerticalLinearStepper() {
     setActiveStep(0);
   };
 
+  const plans = usePlans() ?? [];
+
   return (
     <Box>
       <Layout>
@@ -65,7 +69,37 @@ export default function VerticalLinearStepper() {
                     {step.label}
                   </StepLabel>
                   <StepContent>
-                    <Typography>{step.description}</Typography>
+                    <Typography sx={{ my: 3 }}>{step.description}</Typography>
+                    {index === 0 && (
+                      <Box>
+                        <Grid container>
+                          {plans.map((plan) => {
+                            return (
+                              <Grid key={plan.id} item xs>
+                                <Paper
+                                  elevation={0}
+                                  sx={{ p: 2, textAlign: "center", mb: 4 }}
+                                >
+                                  <Typography sx={{ my: 3 }} variant="h5">
+                                    {plan?.name}
+                                  </Typography>
+                                  <ReactMarkdown>
+                                    {plan?.description}
+                                  </ReactMarkdown>
+                                  <Button
+                                    disableElevation
+                                    fullWidth
+                                    variant="contained"
+                                  >
+                                    Pick plan
+                                  </Button>
+                                </Paper>
+                              </Grid>
+                            );
+                          })}
+                        </Grid>
+                      </Box>
+                    )}
                     <Box sx={{ mb: 2 }}>
                       <div>
                         <Button

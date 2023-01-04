@@ -20,6 +20,7 @@ import { Router, useRouter } from "next/router";
 import { AuthSpinner } from "../..";
 import Layout from "../../../components/Layout";
 import ImageField from "../../../components/ImageField";
+import Dash from "../../../components/DashboardLayout";
 
 const Create: React.FC = () => {
   const [name, setName] = useState("");
@@ -96,7 +97,7 @@ const Create: React.FC = () => {
   }
 
   return (
-    <Layout>
+    <Dash>
       <Box sx={{ display: "flex", mb: 4 }}>
         <Box sx={{ flexGrow: 1 }}></Box>
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
@@ -188,7 +189,7 @@ const Create: React.FC = () => {
           margin-left: 1rem;
         }
       `}</style>
-    </Layout>
+    </Dash>
   );
 };
 

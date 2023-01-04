@@ -29,7 +29,7 @@ export default function useApps() {
   const couldBeEmpty = !apps.length && !loadingApps;
 
   React.useEffect(() => {
-    updateAll();
+    if (!loadingApps) updateAll();
   }, []);
 
   return apps;

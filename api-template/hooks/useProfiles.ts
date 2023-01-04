@@ -27,7 +27,7 @@ export default function useProfiles() {
   }
 
   React.useEffect(() => {
-    updateAll();
+    if (!loadingProfiles) updateAll();
   }, []);
 
   return profiles;
