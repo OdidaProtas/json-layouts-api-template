@@ -53,7 +53,7 @@ export default function VerticalLinearStepper() {
           <Typography variant="h4" sx={{ my: 3 }}>
             Plans and billing information
           </Typography>
-          <Box sx={{ maxWidth: 400 }}>
+          <Box sx={{ maxWidth: 600 }}>
             <Stepper activeStep={activeStep} orientation="vertical">
               {steps.map((step, index) => (
                 <Step key={step.label}>
@@ -70,11 +70,14 @@ export default function VerticalLinearStepper() {
                     <Typography sx={{ my: 3 }}>{step.description}</Typography>
                     {index === 0 && (
                       <Box>
-                        <Grid container>
+                        <Grid container spacing={3}>
                           {plans.map((plan) => {
                             return (
-                              <Grid key={plan.id} item xs>
-                                <Paper elevation={0} sx={{ p: 2, mb: 4 }}>
+                              <Grid key={plan.id} item xs={12} lg={4} md={6}>
+                                <Paper
+                                  elevation={0}
+                                  sx={{ p: 2, mb: 4, minHeight: 144 }}
+                                >
                                   <Typography sx={{ my: 3 }} variant="h5">
                                     {plan?.name}
                                   </Typography>
@@ -105,7 +108,6 @@ export default function VerticalLinearStepper() {
                         <Button
                           variant="contained"
                           onClick={handleNext}
-                          disabled
                           sx={{ mt: 1, mr: 1 }}
                         >
                           {index === steps.length - 1 ? "Finish" : "Continue"}
