@@ -48,7 +48,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Apps</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {loadingApps ? numApps : <CircularProgress />}
+                {numApps}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>
@@ -102,7 +102,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Categories</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {loadingCategories ? numCategories : <CircularProgress />}
+                {numCategories}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>
@@ -156,7 +156,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Users</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {loadingProfiles ? numProfiles : <CircularProgress />}
+                {numProfiles}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>
@@ -200,7 +200,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Plans</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {loadingPlans ? numPlans : <CircularProgress />}
+                {numPlans}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>
