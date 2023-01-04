@@ -25,6 +25,7 @@ import useToast from "../hooks/useToast";
 import useIsUniqueAppId from "../hooks/useIsUniqueAppId";
 import useCategories from "../hooks/useCategories";
 import { usePagesStateValue } from "../lib/builder";
+import useIsWhiteListSubdomain from "../hooks/useWhiteListSubdomains";
 
 const Create: React.FC = () => {
   const [name, setName] = useState("");
@@ -97,6 +98,8 @@ const Create: React.FC = () => {
 
   const loadingCategories = usePagesStateValue("loaders.categories");
 
+  const isWhiteListSubdomain = useIsWhiteListSubdomain(appId);
+
   if (status === "loading") {
     return <AuthSpinner />;
   }
@@ -123,7 +126,10 @@ const Create: React.FC = () => {
             <Box>
               <TextField
                 error={
-                  isUniqueAppId || (/[^\w-]/.test(appId) || appId?.length > 18)
+                  isUniqueAppId ||
+                  /[^\w-]/.test(appId) ||
+                  appId?.length > 18 ||
+                  isWhiteListSubdomain
                 }
                 autoFocus
                 fullWidth
@@ -149,6 +155,12 @@ const Create: React.FC = () => {
               {appId?.length > 15 && (
                 <Alert severity="error">
                   App ID can only be upto 15 characters in length.
+                </Alert>
+              )}
+
+              {isWhiteListSubdomain && (
+                <Alert severity="error">
+                  ${appId} cannot be set as appID.
                 </Alert>
               )}
             </Box>

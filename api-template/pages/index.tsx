@@ -23,6 +23,7 @@ import RenderApp from "../components/util/renderApp";
 import Head from "next/head";
 import Marketplace from "./marketplace";
 import helloWorld from "../lib/defaultApp";
+import useIsWhiteListSubdomain from "../hooks/useWhiteListSubdomains";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
@@ -34,15 +35,13 @@ const Apps: React.FC<any> = () => {
 
   const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp(allApps);
 
-  if (subdomain && subdomain === "marketplace") {
+  const isWhiteListSubdomain = useIsWhiteListSubdomain(subdomain);
+
+  if (isWhiteListSubdomain && subdomain === "marketplace") {
     return <Marketplace />;
   }
 
-  if (
-    subdomain &&
-    subdomain !== "www" &&
-    subdomain !== "json-layouts-api-template"
-  ) {
+  if (isWhiteListSubdomain && subdomain === "demo") {
     if (loadingSubdomain) return <AuthSpinner />;
     if (subdomainApp)
       return <RenderApp subdomainData={subdomainApp ?? { ...helloWorld }} />;

@@ -26,7 +26,7 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
@@ -43,6 +43,11 @@ export default function AccountMenu() {
         <Box sx={{ display: { xs: "none", md: "block", lg: "block" } }}>
           <Link href="/templates">
             <Typography sx={{ minWidth: 100 }}>Templates</Typography>
+          </Link>
+        </Box>
+        <Box sx={{ display: { xs: "none", md: "block", lg: "block" } }}>
+          <Link href="/docs">
+            <Typography sx={{ minWidth: 100 }}>Documentation</Typography>
           </Link>
         </Box>
         <Tooltip title="Account settings">
