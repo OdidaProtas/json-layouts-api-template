@@ -38,7 +38,11 @@ const Apps: React.FC<any> = () => {
     return <Marketplace />;
   }
 
-  if (subdomain && subdomain !== "www") {
+  if (
+    subdomain &&
+    subdomain !== "www" &&
+    subdomain !== "json-layouts-api-template"
+  ) {
     if (loadingSubdomain) return <AuthSpinner />;
     if (subdomainApp)
       return <RenderApp subdomainData={subdomainApp ?? { ...helloWorld }} />;
