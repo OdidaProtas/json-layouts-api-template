@@ -166,7 +166,6 @@ const App: React.FC<AppProps> = () => {
                             <Switch
                               value={props.spaces}
                               size="small"
-                              defaultChecked={props?.spaces}
                             />
                           }
                           label="Spaces"
@@ -178,7 +177,6 @@ const App: React.FC<AppProps> = () => {
                             <Switch
                               value={props.subdomain}
                               size="small"
-                              defaultChecked={props?.subdomain}
                             />
                           }
                           label={
@@ -193,7 +191,6 @@ const App: React.FC<AppProps> = () => {
                             <Switch
                               value={props.marketplace}
                               size="small"
-                              defaultChecked={props?.marketplace}
                             />
                           }
                           label="Marketplace"
@@ -205,7 +202,6 @@ const App: React.FC<AppProps> = () => {
                             <Switch
                               value={props.customDomain}
                               size="small"
-                              defaultChecked={props?.customDomain}
                             />
                           }
                           label="Custom domain"
@@ -217,7 +213,7 @@ const App: React.FC<AppProps> = () => {
                     variant="outlined"
                     sx={{ textTransform: "none", mr: 2, my: 2 }}
                     className="button"
-                    onClick={() => Router.push(`/templates`)}
+                    onClick={() => Router.push(`/preferences/${props.id}`)}
                     startIcon={<Pages />}
                   >
                     Update Channels in preferences{" "}

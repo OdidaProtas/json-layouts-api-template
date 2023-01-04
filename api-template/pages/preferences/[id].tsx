@@ -252,7 +252,6 @@ const App: React.FC = () => {
                                 spaces: e.target.checked,
                               }))
                             }
-                            defaultChecked={state?.spaces}
                           />
                         }
                         label="Spaces"
@@ -269,7 +268,6 @@ const App: React.FC = () => {
                                 subdomain: e.target.checked,
                               }))
                             }
-                            defaultChecked={state?.subdomain}
                             size="small"
                           />
                         }
@@ -293,13 +291,11 @@ const App: React.FC = () => {
                           />
                         }
                         label="Marketplace"
-                        defaultChecked={state?.marketplace}
                       />
                     </Box>
                     <Box>
                       <FormControlLabel
                         disabled
-                        defaultChecked={state?.customDomain}
                         control={
                           <Switch
                             onChange={(e) =>
