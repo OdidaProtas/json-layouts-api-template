@@ -7,7 +7,6 @@ import { useAxios } from "./useAxios";
 export default function usePages() {
   const pages = usePagesStateValue("pages");
 
-
   const router = useRouter();
   const { id: appId } = router.query;
 
@@ -38,10 +37,8 @@ export default function usePages() {
     !loadingPages;
 
   React.useEffect(() => {
-    if (appId)
-      updateAll();
+    if (appId) updateAll();
   }, [appId]);
-
 
   return [...pages];
 }

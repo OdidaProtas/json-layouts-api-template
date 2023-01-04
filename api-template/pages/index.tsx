@@ -22,6 +22,7 @@ import RenderApp from "../components/util/renderApp";
 
 import Head from "next/head";
 import Marketplace from "./marketplace";
+import helloWorld from "../lib/defaultApp";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
@@ -39,7 +40,8 @@ const Apps: React.FC<any> = () => {
 
   if (subdomain && subdomain !== "www") {
     if (loadingSubdomain) return <AuthSpinner />;
-    if (subdomainApp) return <RenderApp subdomainData={subdomainApp ?? {}} />;
+    if (subdomainApp)
+      return <RenderApp subdomainData={subdomainApp ?? { ...helloWorld }} />;
   }
 
   if (status === "loading" || loadingApps) {
