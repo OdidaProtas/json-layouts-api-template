@@ -34,7 +34,7 @@ const Apps: React.FC<any> = () => {
   const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp(allApps);
 
   if (subdomain && subdomain === "marketplace") {
-    if (subdomainApp) return <Marketplace />;
+    return <Marketplace />;
   }
 
   if (subdomain && subdomain !== "www") {
