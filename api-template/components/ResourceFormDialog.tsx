@@ -48,7 +48,6 @@ export default function ResourceFormDialog() {
 
   const resourceGroups = useResourceGroups();
 
-  console.log(resourceGroups);
 
   return (
     <div>

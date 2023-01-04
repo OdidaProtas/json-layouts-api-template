@@ -19,6 +19,7 @@ import { AuthSpinner } from "../../..";
 import Layout from "../../../../components/Layout";
 import ImageField from "../../../../components/ImageField";
 import useTables from "../../../../hooks/useTables";
+import ResDash from "../../../../components/ResouceLayout";
 
 const Draft: React.FC = () => {
   const [name, setName] = useState("");
@@ -88,7 +89,7 @@ const Draft: React.FC = () => {
   }
 
   return (
-    <Layout>
+    <ResDash>
       <Box sx={{ display: "flex", mb: 4 }}>
         <Box sx={{ flexGrow: 1 }}></Box>
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
@@ -154,7 +155,7 @@ const Draft: React.FC = () => {
           margin-left: 1rem;
         }
       `}</style>
-    </Layout>
+    </ResDash>
   );
 };
 

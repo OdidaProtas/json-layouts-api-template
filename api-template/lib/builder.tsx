@@ -12,7 +12,6 @@ const initialState = {
   appId: null,
   apps: [],
   pageIndex: 0,
-  resourceGroups: [],
   navigation: {
     page: "/",
     child: "/",

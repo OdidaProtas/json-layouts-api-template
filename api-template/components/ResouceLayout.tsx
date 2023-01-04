@@ -214,12 +214,14 @@ export default function ResDash({ children, isDetail = false }) {
         <Divider />
         {isDetail && (
           <List>
-            {["Media"].map((text, index) => (
+            {["Media", "Collections"].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton
                   onClick={() => {
-                    if (index === 0) router.push("/admin/apps");
-                    else if (index === 1) router.push("/admin/categories");
+                    if (index === 0)
+                      router.push(`/res/group/${router.query.id}/media`);
+                    else if (index === 1)
+                      router.push(`/res/group/${router.query.id}/collections`);
                   }}
                 >
                   <ListItemIcon>

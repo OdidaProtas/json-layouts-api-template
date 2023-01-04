@@ -7,7 +7,7 @@ export default function useResourceGroup() {
   const router = useRouter();
   const queryId = router.query.id;
 
-  const resourceGroup = usePagesStateValue("resourceGroup") ?? [];
+  const resourceGroup = usePagesStateValue("resourceGroup") ?? undefined;
 
   const data = (resourceGroup ?? []).filter(({ id }) => id === queryId)[0];
 
@@ -32,11 +32,14 @@ export default function useResourceGroup() {
     }
   }
 
-  const couldBeEmpty = !resourceGroup && !loadingresourceGroup;
+  const couldBeEmpty =
+    resourceGroup === undefined &&
+    !loadingresourceGroup &&
+    Boolean(router.query.id);
 
-  // React.useEffect(() => {
-  //   if (!loadingresourceGroup) updateAll();
-  // }, []);
+  React.useEffect(() => {
+    if (couldBeEmpty) updateAll();
+  }, [couldBeEmpty]);
 
   return data;
 }
