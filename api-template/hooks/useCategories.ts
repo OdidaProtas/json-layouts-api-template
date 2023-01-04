@@ -27,7 +27,7 @@ export default function useCategories() {
   }
 
   React.useEffect(() => {
-    if (loadingCategories) updateAll();
+    if (!loadingCategories) updateAll();
   }, []);
 
   return categories;

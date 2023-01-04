@@ -30,6 +30,7 @@ import { usePagesStateValue } from "../../lib/builder";
 import useIsUniqueAppId from "../../hooks/useIsUniqueAppId";
 import useCategories from "../../hooks/useCategories";
 import useToast from "../../hooks/useToast";
+import axios from "axios";
 
 const App: React.FC = () => {
   const { data: session, status } = useSession();
@@ -61,48 +62,53 @@ const App: React.FC = () => {
   const { showToast } = useToast();
 
   async function updateApp(id: string, payload): Promise<any> {
-    return await fetch(`/api/app/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(payload),
-    });
+    return;
   }
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       setSaving(true);
-      const uploads = await uploadImages(
-        [{ fileData: state.favicon, field: "favicon" }].filter((f) =>
-          Boolean(f.fileData)
-        )
-      );
+      // const uploads = await uploadImages(
+      //   [{ fileData: state.favicon, field: "favicon" }].filter((f) =>
+      //     Boolean(f.fileData)
+      //   )
+      // );
 
-      const images = (uploads as unknown as any)
-        .filter(Boolean)
-        .reduce((p, c) => {
-          return { ...p, [c.field]: c.url };
-        }, {});
+      // const images = (uploads as unknown as any)
+      //   .filter(Boolean)
+      //   .reduce((p, c) => {
+      //     return { ...p, [c.field]: c.url };
+      //   }, {});
       let currentState = { ...state };
 
-      if (Boolean(images)) {
-        currentState = { ...currentState, ...images };
-      }
-      const res = await updateApp(props?.id, { ...currentState });
-      if (res) {
+      // if (Boolean(images)) {
+      //   currentState = { ...currentState, ...images };
+      // }
+      const res = await axios.put(`/api/app/${app?.id}`, currentState);
+      if (res.data) {
         setSaving(false);
         showToast("success", "Preferences updated");
         router.push(`/a/${props.id}`);
       } else {
+        console;
         showToast("error", "An error occured");
         setSaving(false);
       }
     } catch (e) {
       setSaving(false);
+      console.log(e);
       showToast("error", "An error occured");
     }
   };
 
   const [isUniqueAppId, loading] = useIsUniqueAppId(state?.appId);
+
+  React.useEffect(() => {
+    if (app) {
+      setState(() => app);
+    }
+  }, [app]);
 
   if (status === "loading" || loadingApp) {
     return <AuthSpinner />;
@@ -116,6 +122,8 @@ const App: React.FC = () => {
       </Layout>
     );
   }
+
+  console.log(state);
 
   return (
     <Layout>
@@ -238,10 +246,11 @@ const App: React.FC = () => {
                       <FormControlLabel
                         control={
                           <Switch
+                            value={state.spaces}
                             size="small"
                             onChange={(e) =>
                               setState((p) => ({
-                                ...e,
+                                ...p,
                                 spaces: e.target.checked,
                               }))
                             }
@@ -255,9 +264,10 @@ const App: React.FC = () => {
                       <FormControlLabel
                         control={
                           <Switch
+                            value={state.subdomain}
                             onChange={(e) =>
                               setState((p) => ({
-                                ...e,
+                                ...p,
                                 subdomain: e.target.checked,
                               }))
                             }
@@ -277,7 +287,7 @@ const App: React.FC = () => {
                             disabled
                             onChange={(e) =>
                               setState((p) => ({
-                                ...e,
+                                ...p,
                                 marketplace: e.target.checked,
                               }))
                             }
@@ -296,7 +306,7 @@ const App: React.FC = () => {
                           <Switch
                             onChange={(e) =>
                               setState((p) => ({
-                                ...e,
+                                ...p,
                                 customDomain: e.target.checked,
                               }))
                             }

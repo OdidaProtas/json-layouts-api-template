@@ -20,7 +20,11 @@ export default async function handle(req, res) {
       type,
       published,
       draft,
-    } = JSON.parse(req.body);
+      marketplace,
+      spaces,
+      subdomain,
+      customDomain,
+    } = req.body;
     const post = await prisma.app.update({
       where: { id: postId },
       data: {
@@ -35,6 +39,10 @@ export default async function handle(req, res) {
         type,
         published,
         draft,
+        marketplace,
+        spaces,
+        subdomain,
+        customDomain,
       },
     });
     res.json(post);
