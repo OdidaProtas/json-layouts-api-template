@@ -43,7 +43,7 @@ const Apps: React.FC<any> = () => {
 
   if (subdomain && !isWhiteListSubdomain) {
     if (loadingSubdomain) return <AuthSpinner />;
-    if (subdomainApp)
+    if (subdomainApp?.id)
       return <RenderApp subdomainData={subdomainApp ?? { ...helloWorld }} />;
   }
 
