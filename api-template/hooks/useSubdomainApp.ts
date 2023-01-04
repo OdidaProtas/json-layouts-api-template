@@ -12,7 +12,7 @@ export default function useSubdomainApp(apps = []) {
   const URL = `${urldata}${asPath}`;
   const subdomain = (URL?.split(".")[0] ?? "")?.split("//")[1];
 
-  const app = apps.find((app) => app.appId === subdomain);
+  const app = apps.find((app) => app.appId === subdomain) ?? { drafts: "[]" };
 
   const loadingApps = usePagesStateValue("loaders.apps");
 
