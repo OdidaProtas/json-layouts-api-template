@@ -24,11 +24,9 @@ import Head from "next/head";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
-  const apps = allApps?.filter((app) => app.published && Boolean(app.appId));
+  const apps = allApps?.filter((app) => app.published && Boolean(app.appId) && app.spaces);
   const { data: session, status } = useSession();
   const loadingApps = usePagesStateValue("loaders.apps");
-
-  const userHasValidSession = Boolean(session);
 
   const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp(allApps);
 
@@ -111,7 +109,7 @@ const Apps: React.FC<any> = () => {
                 <Grid item xs={10} md={9} lg={8}>
                   <Grid container spacing={2}>
                     {apps.map((app) => (
-                      <Grid key={app.id} item lg={2} md={3} xs={6}>
+                      <Grid key={app.id} item lg={3} md={3} xs={6}>
                         <div className="post">
                           <App noStatus app={app} />
                         </div>

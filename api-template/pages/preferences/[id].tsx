@@ -231,72 +231,81 @@ const App: React.FC = () => {
                 </Stack>
               </Paper>
               <Paper elevation={0} sx={{ p: 2 }}>
-                <Typography variant="h5">Channels</Typography>
                 <FormGroup>
                   <Stack spacing={3}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          size="small"
-                          onChange={(e) =>
-                            setState((p) => ({
-                              ...e,
-                              spaces: e.target.checked,
-                            }))
-                          }
-                          defaultChecked={state?.spaces}
-                        />
-                      }
-                      label="Spaces"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          onChange={(e) =>
-                            setState((p) => ({
-                              ...e,
-                              subdomain: e.target.checked,
-                            }))
-                          }
-                          defaultChecked={state?.subdomain}
-                          size="small"
-                        />
-                      }
-                      label={`Subdomain (https://${
-                        props?.appId ?? "unknown-app"
-                      }.dreamfeel.me`}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          onChange={(e) =>
-                            setState((p) => ({
-                              ...e,
-                              marketplace: e.target.checked,
-                            }))
-                          }
-                          size="small"
-                        />
-                      }
-                      label="Marketplace"
-                      defaultChecked={state?.marketplace}
-                    />
-                    <FormControlLabel
-                      disabled
-                      defaultChecked={state?.customDomain}
-                      control={
-                        <Switch
-                          onChange={(e) =>
-                            setState((p) => ({
-                              ...e,
-                              customDomain: e.target.checked,
-                            }))
-                          }
-                          size="small"
-                        />
-                      }
-                      label="Custom domain"
-                    />
+                    <Typography variant="h5">Channels</Typography>
+                    <Box>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            size="small"
+                            onChange={(e) =>
+                              setState((p) => ({
+                                ...e,
+                                spaces: e.target.checked,
+                              }))
+                            }
+                            defaultChecked={state?.spaces}
+                          />
+                        }
+                        label="Spaces"
+                      />
+                    </Box>
+                    <Box>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            onChange={(e) =>
+                              setState((p) => ({
+                                ...e,
+                                subdomain: e.target.checked,
+                              }))
+                            }
+                            defaultChecked={state?.subdomain}
+                            size="small"
+                          />
+                        }
+                        label={`Subdomain (https://${
+                          props?.appId ?? "unknown-app"
+                        }.dreamfeel.me)`}
+                      />
+                    </Box>
+                    <Box>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            disabled
+                            onChange={(e) =>
+                              setState((p) => ({
+                                ...e,
+                                marketplace: e.target.checked,
+                              }))
+                            }
+                            size="small"
+                          />
+                        }
+                        label="Marketplace"
+                        defaultChecked={state?.marketplace}
+                      />
+                    </Box>
+                    <Box>
+                      <FormControlLabel
+                        disabled
+                        defaultChecked={state?.customDomain}
+                        control={
+                          <Switch
+                            onChange={(e) =>
+                              setState((p) => ({
+                                ...e,
+                                customDomain: e.target.checked,
+                              }))
+                            }
+                            size="small"
+                          />
+                        }
+                        label="Custom domain"
+                      />
+                    </Box>
                   </Stack>
                 </FormGroup>
               </Paper>
@@ -363,6 +372,7 @@ const App: React.FC = () => {
                   disableElevation
                   fullWidth
                   variant="contained"
+                  sx={{ textTransform: "none" }}
                 >
                   {saving ? (
                     <CircularProgress size={20} />
@@ -374,9 +384,9 @@ const App: React.FC = () => {
               <Box>
                 <Button
                   onClick={Router.back}
-                  sx={{ mb: 6 }}
                   fullWidth
                   variant="outlined"
+                  sx={{ textTransform: "none", mb: 6 }}
                 >
                   Cancel
                 </Button>

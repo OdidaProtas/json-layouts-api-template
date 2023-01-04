@@ -28,11 +28,7 @@ export type AppProps = {
   appId: string;
 };
 
-const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
-  app,
-  noStatus = false,
-  height,
-}) => {
+const App: React.FC<any> = ({ app, noStatus = false, height }) => {
   const authorName = app.author ? app.author.name : "Unknown author";
   const { data: session, status } = useSession();
   return (
@@ -52,7 +48,7 @@ const App: React.FC<{ app: AppProps; noStatus?: boolean; height?: number }> = ({
             />
           )}
         </Box>
-        {Boolean(app?.appId) && (
+        {Boolean(app?.appId) && app?.subdomain && (
           <Box onClick={(e) => e.stopPropagation()}>
             <a target="blank" href={`https://${app?.appId}.dreamfeel.me`}>
               <OpenInNew sx={{ fontSize: "12px" }} />
