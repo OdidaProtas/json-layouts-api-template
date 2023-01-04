@@ -19,6 +19,9 @@ import {
   Alert,
   AlertTitle,
   Typography,
+  FormGroup,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { AuthSpinner } from "..";
 import useApp from "../../hooks/useApp";
@@ -30,6 +33,7 @@ import {
   ArtTrack,
   DomainVerification,
   FolderSpecial,
+  OpenInNew,
   Pages,
   Preview as PreviewIcon,
 } from "@mui/icons-material";
@@ -147,6 +151,78 @@ const App: React.FC<AppProps> = () => {
                 <Paper elevation={0} sx={{ p: 2 }}>
                   <Typography variant="h3">Description</Typography>
                   <ReactMarkdown>{props.description}</ReactMarkdown>
+                </Paper>
+                <Paper elevation={0} sx={{ p: 2 }}>
+                  <Typography variant="h3">Channels</Typography>
+                  <Typography variant="body1" sx={{ my: 2 }}>
+                    Your app will only be available via the channels you select.
+                    You can update channels in preferences.
+                  </Typography>
+                  <FormGroup>
+                    <Stack spacing={3}>
+                      <Box>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              value={props.spaces}
+                              size="small"
+                              defaultChecked={props?.spaces}
+                            />
+                          }
+                          label="Spaces"
+                        />
+                      </Box>
+                      <Box>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              value={props.subdomain}
+                              size="small"
+                              defaultChecked={props?.subdomain}
+                            />
+                          }
+                          label={
+                            "Subdomain " +
+                            `(https://${props?.appId}.dreamfeel.me)`
+                          }
+                        />
+                      </Box>
+                      <Box>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              value={props.marketplace}
+                              size="small"
+                              defaultChecked={props?.marketplace}
+                            />
+                          }
+                          label="Marketplace"
+                        />
+                      </Box>
+                      <Box>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              value={props.customDomain}
+                              size="small"
+                              defaultChecked={props?.customDomain}
+                            />
+                          }
+                          label="Custom domain"
+                        />
+                      </Box>
+                    </Stack>
+                  </FormGroup>
+                  <Button
+                    variant="outlined"
+                    sx={{ textTransform: "none", mr: 2, my: 2 }}
+                    className="button"
+                    onClick={() => Router.push(`/templates`)}
+                    startIcon={<Pages />}
+                  >
+                    Update Channels in preferences{" "}
+                    <OpenInNew sx={{ fontSize: 10 }} />
+                  </Button>
                 </Paper>
 
                 <Paper elevation={0} sx={{ p: 2 }}>
