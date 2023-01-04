@@ -29,6 +29,7 @@ import useApp from "../../hooks/useApp";
 import { usePagesStateValue } from "../../lib/builder";
 import useIsUniqueAppId from "../../hooks/useIsUniqueAppId";
 import useCategories from "../../hooks/useCategories";
+import useToast from "../../hooks/useToast";
 
 const App: React.FC = () => {
   const { data: session, status } = useSession();
@@ -57,6 +58,8 @@ const App: React.FC = () => {
 
   const uploadImages = useUpload();
 
+  const { showToast } = useToast();
+
   async function updateApp(id: string, payload): Promise<any> {
     return await fetch(`/api/app/${id}`, {
       method: "PUT",
@@ -65,26 +68,35 @@ const App: React.FC = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSaving(true);
-    const uploads = await uploadImages([
-      { fileData: state.favicon, field: "favicon" },
-      { fileData: image, field: "image" },
-    ]);
+    try {
+      e.preventDefault();
+      setSaving(true);
+      const uploads = await uploadImages(
+        [
+          { fileData: state.favicon, field: "favicon" },
+          { fileData: image, field: "image" },
+        ].filter((f) => Boolean(f.fileData) && typeof f.fileData !== "string")
+      );
 
-    const images = (uploads as unknown as any).reduce((p, c) => {
-      return { ...p, [c.field]: c.url };
-    }, {});
-    let currentState = { ...state };
+      const images = (uploads as unknown as any).reduce((p, c) => {
+        return { ...p, [c.field]: c.url };
+      }, {});
+      let currentState = { ...state };
 
-    if (Boolean(images)) {
-      currentState = { ...currentState, ...images };
-    }
-    const res = await updateApp(props?.id, { ...currentState });
-    if (res) {
-      setSaving(false);
-    } else {
-      setSaving(false);
+      if (Boolean(images)) {
+        currentState = { ...currentState, ...images };
+      }
+      const res = await updateApp(props?.id, { ...currentState });
+      if (res) {
+        setSaving(false);
+        showToast("success", "Preferences updated");
+        router.push(`/a/${props.id}`);
+      } else {
+        showToast("error", "An error occured");
+        setSaving(false);
+      }
+    } catch (e) {
+      showToast("error", "An error occured");
     }
   };
 
