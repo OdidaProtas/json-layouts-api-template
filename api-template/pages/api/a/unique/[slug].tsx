@@ -29,7 +29,7 @@ export default async function handler(
   await runMiddleware(req, res, cors);
   const apps = await prisma.app.findMany({
     where: {
-      appId: String(req.query?.slug),
+      appId: String((req.query?.slug as string)?.toLowerCase()),
     },
   });
   res.json(Boolean(apps.length));

@@ -20,7 +20,7 @@ import { Add, AppRegistration, Explore } from "@mui/icons-material";
 import useSubdomainApp from "../hooks/useSubdomainApp";
 import RenderApp from "../components/util/renderApp";
 
-import Head from "next/head"
+import Head from "next/head";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
@@ -34,7 +34,7 @@ const Apps: React.FC<any> = () => {
 
   if (subdomain && subdomain !== "www") {
     if (loadingSubdomain) return <AuthSpinner />;
-    if (subdomainApp) return <RenderApp subdomainData={subdomainApp} />;
+    if (subdomainApp) return <RenderApp subdomainData={subdomainApp ?? {}} />;
   }
 
   if (status === "loading" || loadingApps) {
@@ -52,7 +52,13 @@ const Apps: React.FC<any> = () => {
             <Box sx={{ flexGrow: 1 }}>
               <Box sx={{ my: 5 }}>
                 <Box sx={{ display: "flex" }}>
-                  <Box sx={{ flexGrow: 1, pl: { lg: 9 }, display: { xs: "none", md: "block", lg: "block" } }}>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      pl: { lg: 9 },
+                      display: { xs: "none", md: "block", lg: "block" },
+                    }}
+                  >
                     <Typography variant="h5">Mini apps</Typography>
                   </Box>
                   <Box>

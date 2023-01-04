@@ -173,8 +173,8 @@ const Header: React.FC = () => {
             <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
           </a>
         </Link>
-        <Link href="/marketplace">
-          <a className="bold" data-active={isActive("/marketplace")}>
+        <Link target={"blank"} href={`https://marketplace.dreamfeel.me`}>
+          <a className="bold">
             <Chip
               sx={{ cursor: "pointer" }}
               icon={<Store />}

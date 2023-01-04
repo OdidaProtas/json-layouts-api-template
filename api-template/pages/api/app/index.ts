@@ -4,6 +4,7 @@ import prisma from "../../../lib/prisma";
 export default async function handle(req, res) {
   const { name, description, type, image, email, appId } = req.body;
   const password = generatePassword();
+
   const result = await prisma.app.create({
     data: {
       name,
@@ -12,8 +13,7 @@ export default async function handle(req, res) {
       image,
       author: { connect: { email } },
       password,
-      appId,
-      // cate?
+      appId: appId.toLowerCase(),
     } as any,
   });
   res.json(result);
