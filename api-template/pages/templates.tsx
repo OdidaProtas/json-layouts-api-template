@@ -167,7 +167,7 @@ const Apps: React.FC = () => {
                 <Grid item xs={10} md={9} lg={8}>
                   <Grid container spacing={2}>
                     {apps.map((app) => (
-                      <Grid key={app.id} item lg={2} md={6} xs={6}>
+                      <Grid key={app.id} item lg={3} md={6} xs={6}>
                         <div className="post">
                           <App noStatus app={app} />
                         </div>

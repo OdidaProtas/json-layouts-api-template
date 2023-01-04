@@ -25,16 +25,12 @@ const Header: React.FC = () => {
         </a>
       </Link>
       <a
-          className="bold"
-          target={"blank"}
-          href={`https://marketplace.dreamfeel.me`}
-        >
-          <Chip
-            sx={{ cursor: "pointer" }}
-            icon={<Store />}
-            label="Marketplace"
-          />
-        </a>
+        className="bold"
+        target={"blank"}
+        href={`https://marketplace.dreamfeel.me`}
+      >
+        <Chip sx={{ cursor: "pointer" }} icon={<Store />} label="Marketplace" />
+      </a>
       <style jsx>{`
         .bold {
           font-weight: bold;
@@ -128,10 +124,20 @@ const Header: React.FC = () => {
             About us
           </Typography>
         </Link>
+        <Box sx={{ display: { xs: "none", md: "block", lg: "block" } }}>
+          <Link href="/templates">
+            <Typography sx={{ minWidth: 100 }}>Templates</Typography>
+          </Link>
+        </Box>
+        <Box sx={{ display: { xs: "none", md: "block", lg: "block", mr: 2 } }}>
+          <Link href="https://docs.dreamfeel.me">
+            <Typography sx={{ minWidth: 100 }}>Documentation</Typography>
+          </Link>
+        </Box>
         <Link href="/api/auth/signin">
           <Button
             size="small"
-            sx={{ textTransform: "none" }}
+            sx={{ textTransform: "none", ml: 2 }}
             disableElevation
             variant="outlined"
             startIcon={<Login />}
