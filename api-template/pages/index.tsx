@@ -37,11 +37,11 @@ const Apps: React.FC<any> = () => {
 
   const isWhiteListSubdomain = useIsWhiteListSubdomain(subdomain);
 
-  if (isWhiteListSubdomain && subdomain === "marketplace") {
+  if (subdomain && subdomain === "marketplace") {
     return <Marketplace />;
   }
 
-  if (isWhiteListSubdomain && subdomain !== "demo") {
+  if (subdomain && !isWhiteListSubdomain) {
     if (loadingSubdomain) return <AuthSpinner />;
     if (subdomainApp)
       return <RenderApp subdomainData={subdomainApp ?? { ...helloWorld }} />;
