@@ -6,6 +6,7 @@ import CreateResourceGroupDialog from "../../components/CreateResourceGroupDialo
 import useResourceGroups from "../../hooks/useResourceGroups";
 import { usePagesStateValue } from "../../lib/builder";
 import { AuthSpinner } from "..";
+import ResDash from "../../components/ResouceLayout";
 
 const App: React.FC<any> = () => {
   const groups = useResourceGroups();
@@ -13,7 +14,7 @@ const App: React.FC<any> = () => {
   const loading = usePagesStateValue("loaders.resourceGroups");
   if (loading) return <AuthSpinner />;
   return (
-    <Layout>
+    <ResDash>
       <Container className="page">
         <Box sx={{ display: "flex" }}>
           <h1 style={{ flexGrow: 1 }}>Resource Groups</h1>
@@ -74,7 +75,7 @@ const App: React.FC<any> = () => {
           margin-top: 2rem;
         }
       `}</style>
-    </Layout>
+    </ResDash>
   );
 };
 

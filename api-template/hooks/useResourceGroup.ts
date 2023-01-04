@@ -3,7 +3,7 @@ import React from "react";
 import { usePagesStateDisptch, usePagesStateValue } from "../lib/builder";
 import { useAxios } from "./useAxios";
 
-export default function useResourceGroups() {
+export default function useResourceGroup() {
   const router = useRouter();
   const queryId = router.query.id;
 
@@ -34,9 +34,9 @@ export default function useResourceGroups() {
 
   const couldBeEmpty = !resourceGroup && !loadingresourceGroup;
 
-  React.useEffect(() => {
-    if (queryId) updateAll();
-  }, [queryId]);
+  // React.useEffect(() => {
+  //   if (!loadingresourceGroup) updateAll();
+  // }, []);
 
   return data;
 }
@@ -112,7 +112,7 @@ function useActions() {
     updateApps: updateResourceGrps,
     toggleAppsLoader: toggleresourceGroupLoader,
     updateImages,
-    updateTables
+    updateTables,
   };
 }
 

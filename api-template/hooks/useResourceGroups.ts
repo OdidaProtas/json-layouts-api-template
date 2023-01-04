@@ -33,7 +33,7 @@ export default function useResourceGroups() {
   const couldBeEmpty = !resourceGroups && !loadingResourceGroups;
 
   React.useEffect(() => {
-    if (queryId) updateAll();
+    if (queryId && !loadingResourceGroups) updateAll();
   }, [queryId]);
 
   return resourceGroups;

@@ -5,18 +5,19 @@ import ResourceTabs from "../../../components/ResourceTabs";
 import useResourceGroup from "../../../hooks/useResourceGroup";
 import { usePagesStateValue } from "../../../lib/builder";
 import { AuthSpinner } from "../..";
+import ResDash from "../../../components/ResouceLayout";
 
 const App: React.FC = () => {
   const props = useResourceGroup();
   const loading = usePagesStateValue("loaders.resourceGroup");
   if (loading) return <AuthSpinner />;
   return (
-    <Layout>
+    <ResDash isDetail>
       <Container>
         <Typography variant="h4">Resources</Typography>
         <ResourceTabs resourceGroup={{ ...props }} />
       </Container>
-    </Layout>
+    </ResDash>
   );
 };
 
