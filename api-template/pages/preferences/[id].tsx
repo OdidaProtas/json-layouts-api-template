@@ -15,21 +15,37 @@ import {
   FormControlLabel,
   Switch,
   CircularProgress,
+  LinearProgress,
+  Alert,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import ImageField from "../../components/ImageField";
 import useUpload from "../../hooks/useUpload";
 import { AuthSpinner } from "..";
 import useApp from "../../hooks/useApp";
 import { usePagesStateValue } from "../../lib/builder";
+import useIsUniqueAppId from "../../hooks/useIsUniqueAppId";
+import useCategories from "../../hooks/useCategories";
 
 const App: React.FC = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const app = useApp();
+  const categories = useCategories() ?? [];
   const props = app ?? { name: "" }; // to ref
   const loadingApp = usePagesStateValue("loaders.apps");
+  const loadingCategories = usePagesStateValue("loaders.categories");
   const [state, setState] = React.useState(() => props);
   const [saving, setSaving] = React.useState(false);
+
+  const [image, setImage] = React.useState("");
+
+  const handleLogoChange = React.useCallback((data) => {
+    setImage(data[0]);
+  }, []);
 
   let title = props?.name;
   if (!props?.published) {
@@ -53,6 +69,7 @@ const App: React.FC = () => {
     setSaving(true);
     const uploads = await uploadImages([
       { fileData: state.favicon, field: "favicon" },
+      { fileData: image, field: "image" },
     ]);
 
     const images = (uploads as unknown as any).reduce((p, c) => {
@@ -70,6 +87,8 @@ const App: React.FC = () => {
       setSaving(false);
     }
   };
+
+  const [isUniqueAppId, loading] = useIsUniqueAppId(state?.appId);
 
   if (status === "loading" || loadingApp) {
     return <AuthSpinner />;
@@ -96,32 +115,173 @@ const App: React.FC = () => {
             <Stack spacing={3}>
               <Paper elevation={0} sx={{ p: 2 }}>
                 <Stack spacing={3}>
-                  <Typography variant="h5">Channels</Typography>
-                  <FormGroup>
+                  <Typography variant="h5">App info</Typography>
+                  <Box>
+                    <TextField
+                      error={
+                        isUniqueAppId ||
+                        /[^\w-]/.test(state?.appId) ||
+                        state?.appId?.length > 18
+                      }
+                      autoFocus
+                      fullWidth
+                      onChange={(e) =>
+                        setState((p) => ({ ...p, appId: e.target.value }))
+                      }
+                      placeholder="Choose an app id"
+                      type="text"
+                      helperText="App id must be unique, and can only contain - as special characters."
+                      value={state?.appId}
+                      required
+                    />
+                    {loading && <LinearProgress />}
+                    {isUniqueAppId && (
+                      <Alert severity="error">
+                        App ID already taken. Please try again.
+                      </Alert>
+                    )}
+                    {/[^\w-]/.test(state?.appId) && (
+                      <Alert severity="error">
+                        App ID can only include alphanumeric characters and -
+                        character.
+                      </Alert>
+                    )}
+                    {state?.appId?.length > 15 && (
+                      <Alert severity="error">
+                        App ID can only be upto 15 characters in length.
+                      </Alert>
+                    )}
+                  </Box>
+
+                  <TextField
+                    required
+                    autoFocus
+                    onChange={(e) =>
+                      setState((p) => ({ ...p, appId: e.target.value }))
+                    }
+                    placeholder="App name"
+                    type="text"
+                    value={state?.name}
+                  />
+                  <Box>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Category
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={state?.category}
+                        label="Category"
+                        onChange={(e) =>
+                          setState((s) => ({
+                            ...s,
+                            appCategoryId: e.target.value as string,
+                          }))
+                        }
+                      >
+                        {(categories ?? []).map((cat, ind) => {
+                          return (
+                            <MenuItem key={cat.id} value={cat.id}>
+                              {cat.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                    {loadingCategories && <LinearProgress />}
+                  </Box>
+
+                  <TextField
+                    multiline
+                    onChange={(e) =>
+                      setState((s) => ({
+                        ...s,
+                        description: e.target.value,
+                      }))
+                    }
+                    placeholder="A short description for your app. Markdown is supported"
+                    rows={8}
+                    value={state?.description}
+                  />
+                  <Box>
+                    <ImageField
+                      value={image}
+                      handleChange={handleLogoChange}
+                      desc="Drag and drop or pick an image for your app icon / favicon"
+                    />
+                  </Box>
+                </Stack>
+              </Paper>
+              <Paper elevation={0} sx={{ p: 2 }}>
+                <Typography variant="h5">Channels</Typography>
+                <FormGroup>
+                  <Stack spacing={3}>
                     <FormControlLabel
-                      disabled
-                      control={<Switch size="small" defaultChecked />}
-                      label="DREAMFEEL SPACES"
+                      control={
+                        <Switch
+                          size="small"
+                          onChange={(e) =>
+                            setState((p) => ({
+                              ...e,
+                              spaces: e.target.checked,
+                            }))
+                          }
+                          defaultChecked={state?.spaces}
+                        />
+                      }
+                      label="Spaces"
                     />
                     <FormControlLabel
-                      disabled
-                      control={<Switch size="small" defaultChecked />}
-                      label={`ID Subdomain (https://${
+                      control={
+                        <Switch
+                          onChange={(e) =>
+                            setState((p) => ({
+                              ...e,
+                              subdomain: e.target.checked,
+                            }))
+                          }
+                          defaultChecked={state?.subdomain}
+                          size="small"
+                        />
+                      }
+                      label={`Subdomain (https://${
                         props?.appId ?? "unknown-app"
                       }.dreamfeel.me`}
                     />
                     <FormControlLabel
-                      disabled
-                      control={<Switch size="small" />}
-                      label="Dreamfeel Marketplace for product resources"
+                      control={
+                        <Switch
+                          onChange={(e) =>
+                            setState((p) => ({
+                              ...e,
+                              marketplace: e.target.checked,
+                            }))
+                          }
+                          size="small"
+                        />
+                      }
+                      label="Marketplace"
+                      defaultChecked={state?.marketplace}
                     />
                     <FormControlLabel
                       disabled
-                      control={<Switch size="small" />}
+                      defaultChecked={state?.customDomain}
+                      control={
+                        <Switch
+                          onChange={(e) =>
+                            setState((p) => ({
+                              ...e,
+                              customDomain: e.target.checked,
+                            }))
+                          }
+                          size="small"
+                        />
+                      }
                       label="Custom domain"
                     />
-                  </FormGroup>
-                </Stack>
+                  </Stack>
+                </FormGroup>
               </Paper>
               <Paper elevation={0} sx={{ p: 2 }}>
                 <Stack spacing={3}>

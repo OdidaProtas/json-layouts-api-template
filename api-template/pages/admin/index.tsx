@@ -11,6 +11,7 @@ import {
   Button,
   Stack,
   Box,
+  CircularProgress,
 } from "@mui/material";
 import useProfiles from "../../hooks/useProfiles";
 import usePlans from "../../hooks/usePlans";
@@ -47,7 +48,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Apps</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {numApps}
+                {loadingApps ? numApps : <CircularProgress />}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>
@@ -101,7 +102,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Categories</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {numCategories}
+                {loadingCategories ? numCategories : <CircularProgress />}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>
@@ -155,7 +156,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Users</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {numProfiles}
+                {loadingProfiles ? numProfiles : <CircularProgress />}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>
@@ -199,7 +200,7 @@ export default function DashHome() {
             <Paper sx={{ p: 3 }}>
               <Typography>Plans</Typography>
               <Typography variant="h3" sx={{ my: 3 }}>
-                {numPlans}
+                {loadingPlans ? numPlans : <CircularProgress />}
               </Typography>
               <Stack spacing={2} direction={"row"}>
                 <Box>

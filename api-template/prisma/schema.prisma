@@ -135,8 +135,12 @@ model App {
   category                  AppCategory?    @relation(fields: [appCategoryId], references: [id])
   appCategoryId             String?
   appId                     String?
-  plan                      Plan?            @relation(fields: [planId], references: [id])
+  plan                      Plan?           @relation(fields: [planId], references: [id])
   planId                    String?
+  marketplace               Boolean         @default(false)
+  spaces                    Boolean         @default(true)
+  subdomain                 Boolean         @default(true)
+  customDomain              Boolean         @default(false)
 }
 
 model Account {

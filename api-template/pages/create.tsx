@@ -123,7 +123,7 @@ const Create: React.FC = () => {
             <Box>
               <TextField
                 error={
-                  isUniqueAppId || (/[^\w-]/.test(appId) && appId?.length > 18)
+                  isUniqueAppId || (/[^\w-]/.test(appId) || appId?.length > 18)
                 }
                 autoFocus
                 fullWidth
