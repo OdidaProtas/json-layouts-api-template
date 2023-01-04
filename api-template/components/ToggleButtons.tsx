@@ -12,6 +12,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import helloWorld from "../lib/defaultApp";
 import useToast from "../hooks/useToast";
+import { useAxios } from "../hooks/useAxios";
 
 export default function ToggleButtons({ app }) {
   const pages = usePagesStateValue("pages");
@@ -24,20 +25,18 @@ export default function ToggleButtons({ app }) {
 
   const { showToast } = useToast();
 
-  function updateApp(id: string, payload) {
-    fetch(`/api/app/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(payload),
-    })
-      .then(() => {
-        setSaving(false);
-        showToast("success", "App saved");
-        router.push(`/a/${id}`);
-      })
-      .catch((e) => {
-        showToast("error", "Save failed");
-        setSaving(false);
-      });
+  const axios = useAxios();
+
+  async function updateApp(id: string, payload) {
+    const res = await axios.put(`/api/app/${id}`, { ...payload });
+    if (res.data) {
+      setSaving(false);
+      showToast("success", "App saved");
+      router.push(`/a/${id}`);
+      return;
+    }
+    showToast("error", "Save failed");
+    setSaving(false);
   }
 
   const handleSave = (e) => {
