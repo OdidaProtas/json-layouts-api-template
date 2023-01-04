@@ -123,8 +123,6 @@ const App: React.FC = () => {
     );
   }
 
-  console.log(state);
-
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
