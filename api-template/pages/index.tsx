@@ -21,14 +21,21 @@ import useSubdomainApp from "../hooks/useSubdomainApp";
 import RenderApp from "../components/util/renderApp";
 
 import Head from "next/head";
+import Marketplace from "./marketplace";
 
 const Apps: React.FC<any> = () => {
   const allApps = useApps();
-  const apps = allApps?.filter((app) => app.published && Boolean(app.appId) && app.spaces);
+  const apps = allApps?.filter(
+    (app) => app.published && Boolean(app.appId) && app.spaces
+  );
   const { data: session, status } = useSession();
   const loadingApps = usePagesStateValue("loaders.apps");
 
   const [subdomain, subdomainApp, loadingSubdomain] = useSubdomainApp(allApps);
+
+  if (subdomain && subdomain !== "marketPlace") {
+    if (subdomainApp) return <Marketplace />;
+  }
 
   if (subdomain && subdomain !== "www") {
     if (loadingSubdomain) return <AuthSpinner />;

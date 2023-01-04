@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
-import { OpenInNew, Settings } from "@mui/icons-material";
+import { OpenInNew, Settings, ShoppingBag } from "@mui/icons-material";
 
 export type AppProps = {
   id: string;
@@ -28,7 +28,12 @@ export type AppProps = {
   appId: string;
 };
 
-const App: React.FC<any> = ({ app, noStatus = false, height }) => {
+const App: React.FC<any> = ({
+  app,
+  noStatus = false,
+  height,
+  product = false,
+}) => {
   const authorName = app.author ? app.author.name : "Unknown author";
   const { data: session, status } = useSession();
   return (
@@ -66,6 +71,20 @@ const App: React.FC<any> = ({ app, noStatus = false, height }) => {
       <Box sx={{ p: 1, textAlign: "center" }}>
         <Typography variant="caption">{app.name}</Typography>
       </Box>
+      {noStatus && product && (
+        <Button
+          size="small"
+          fullWidth
+          variant="outlined"
+          startIcon={<ShoppingBag />}
+          onClick={(e) => {
+            e.stopPropagation();
+            // Router.push("/a/[id]", `/a/${app.id}`);
+          }}
+        >
+          Buy
+        </Button>
+      )}
       <Box>
         <Box>
           {session?.user?.email === app?.author.email && !noStatus && (
