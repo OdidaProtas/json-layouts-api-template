@@ -7,8 +7,6 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import React, { useState } from "react";
 import { useRef } from "react";
 import { usePagesStateValue } from "../lib/builder";
-import { getStyleValue } from "@mui/system";
-import usePages from "../hooks/usePages";
 
 interface ICode {
   state?: any;

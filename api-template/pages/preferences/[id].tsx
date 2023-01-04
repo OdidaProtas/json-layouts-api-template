@@ -246,6 +246,7 @@ const App: React.FC = () => {
                           <Switch
                             value={state.spaces}
                             size="small"
+                            defaultChecked={state?.spaces}
                             onChange={(e) =>
                               setState((p) => ({
                                 ...p,
@@ -262,6 +263,7 @@ const App: React.FC = () => {
                         control={
                           <Switch
                             value={state.subdomain}
+                            defaultChecked={state?.subdomain}
                             onChange={(e) =>
                               setState((p) => ({
                                 ...p,
@@ -281,6 +283,7 @@ const App: React.FC = () => {
                         control={
                           <Switch
                             disabled
+                            defaultChecked={state?.marketplace}
                             onChange={(e) =>
                               setState((p) => ({
                                 ...p,
@@ -298,6 +301,7 @@ const App: React.FC = () => {
                         disabled
                         control={
                           <Switch
+                            defaultChecked={state?.customDomain}
                             onChange={(e) =>
                               setState((p) => ({
                                 ...p,

@@ -164,8 +164,10 @@ const App: React.FC<AppProps> = () => {
                         <FormControlLabel
                           control={
                             <Switch
-                              value={props.spaces}
+                              value={props?.spaces}
+                              disabled
                               size="small"
+                              defaultChecked={props.spaces}
                             />
                           }
                           label="Spaces"
@@ -175,7 +177,9 @@ const App: React.FC<AppProps> = () => {
                         <FormControlLabel
                           control={
                             <Switch
-                              value={props.subdomain}
+                              disabled
+                              defaultChecked={props.subdomain}
+                              value={props?.subdomain}
                               size="small"
                             />
                           }
@@ -189,6 +193,8 @@ const App: React.FC<AppProps> = () => {
                         <FormControlLabel
                           control={
                             <Switch
+                              disabled
+                              defaultChecked={props?.marketplace}
                               value={props.marketplace}
                               size="small"
                             />
@@ -200,6 +206,8 @@ const App: React.FC<AppProps> = () => {
                         <FormControlLabel
                           control={
                             <Switch
+                              disabled
+                              defaultChecked={props?.customDomain}
                               value={props.customDomain}
                               size="small"
                             />
