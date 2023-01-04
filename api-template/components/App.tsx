@@ -39,7 +39,7 @@ const App: React.FC<any> = ({
   return (
     <div
       onClick={() => {
-        if (app.superapp) Router.push("/[id]", `/${app.id}`);
+        if (app.spaces) Router.push("/[id]", `/${app.id}`);
       }}
     >
       <Box sx={{ display: "flex" }}>
