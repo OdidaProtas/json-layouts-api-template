@@ -24,15 +24,17 @@ const Header: React.FC = () => {
           <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
         </a>
       </Link>
-      <Link href="/marketplace">
-        <a className="bold" data-active={isActive("/marketplace")}>
+      <a
+          className="bold"
+          target={"blank"}
+          href={`https://marketplace.dreamfeel.me`}
+        >
           <Chip
             sx={{ cursor: "pointer" }}
             icon={<Store />}
             label="Marketplace"
           />
         </a>
-      </Link>
       <style jsx>{`
         .bold {
           font-weight: bold;
@@ -70,15 +72,17 @@ const Header: React.FC = () => {
             <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
           </a>
         </Link>
-        <Link href="/marketplace">
-          <a className="bold" data-active={isActive("/marketplace")}>
-            <Chip
-              sx={{ cursor: "pointer" }}
-              icon={<Store />}
-              label="Marketplace"
-            />
-          </a>
-        </Link>
+        <a
+          className="bold"
+          target={"blank"}
+          href={`https://marketplace.dreamfeel.me`}
+        >
+          <Chip
+            sx={{ cursor: "pointer" }}
+            icon={<Store />}
+            label="Marketplace"
+          />
+        </a>
         <style jsx>{`
           .bold {
             font-weight: bold;

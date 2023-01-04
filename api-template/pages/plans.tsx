@@ -84,6 +84,9 @@ export default function VerticalLinearStepper() {
                                   <ReactMarkdown>
                                     {plan?.description}
                                   </ReactMarkdown>
+                                  <Typography sx={{ my: 3 }} variant="h3">
+                                    {plan?.price} - {plan?.currency}
+                                  </Typography>
                                   <Button
                                     disableElevation
                                     fullWidth
@@ -113,7 +116,7 @@ export default function VerticalLinearStepper() {
                           {index === steps.length - 1 ? "Finish" : "Continue"}
                         </Button>
                         <Button
-                          disabled={index === 1}
+                          disabled={index === 0}
                           onClick={handleBack}
                           sx={{ mt: 1, mr: 1 }}
                         >
