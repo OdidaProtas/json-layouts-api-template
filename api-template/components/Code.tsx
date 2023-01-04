@@ -11,32 +11,31 @@ import { getStyleValue } from "@mui/system";
 import usePages from "../hooks/usePages";
 
 interface ICode {
-  state?: any
-  size?: string
-  setState?: any
+  state?: any;
+  size?: string;
+  setState?: any;
 }
 
 export default function Code({ state, size = "large", setState }: ICode) {
   const editor = useRef();
 
-  const pages = usePages();
+  const pages = usePagesStateValue("pages") ?? [];
   const pageIndex = usePagesStateValue("pageIndex") ?? 0;
 
   const page = pages[pageIndex];
-  const [code, setCode] = useState(() => state ? JSON.stringify(state, null, "\t") : JSON.stringify(page, null, "\t"));
+  const [code, setCode] = useState(() =>
+    state ? JSON.stringify(state, null, "\t") : JSON.stringify(page, null, "\t")
+  );
 
   const { handleChange: updatePage } = useActions();
   const handleChange = (value) => setCode(value);
 
   React.useEffect(() => {
-    if (!state)
-      updatePage(code);
+    if (!state) updatePage(code);
     if (state && setState) {
       try {
-        setState(JSON.parse(code))
-      } catch (e) {
-
-      }
+        setState(JSON.parse(code));
+      } catch (e) {}
     }
   }, [code, state]);
 
@@ -78,7 +77,7 @@ function useActions() {
       let allPages = [...pages];
       try {
         allPages[pageIndex] = JSON.parse(codeString);
-      } catch (e) { }
+      } catch (e) {}
       dispatch({
         type: type,
         payload: allPages,
