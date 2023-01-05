@@ -165,7 +165,6 @@ export default function CaategoryDialog({ appId }) {
                         label: category,
                         value: category,
                       }))}
-                      // onChange={console.log}
                       renderInput={(params) => (
                         <TextField {...params} placeholder="Search Category" />
                       )}

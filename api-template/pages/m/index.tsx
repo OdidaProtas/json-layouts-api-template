@@ -44,7 +44,7 @@ const Index: React.FC = () => {
                 spacing={2}
                 container
               >
-                <Grid item xs={10} md={9} lg={8}>
+                <Grid item xs={12} md={10} lg={8}>
                   <Grid container spacing={2}>
                     {apps.map((app) => (
                       <Grid item lg={3} md={4} xs={6} key={app.id}>

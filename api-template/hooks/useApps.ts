@@ -5,7 +5,7 @@ import { useAxios } from "./useAxios";
 export default function useApps() {
   const apps = usePagesStateValue("apps") ?? [];
 
-  const loadingApps = usePagesStateValue("loaders.apps");
+  const loadingApps = usePagesStateValue("loaders.apps", 0);
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -13,7 +13,7 @@ export default function useApps() {
   async function updateAll() {
     try {
       toggleAppsLoader(true);
-      const response = await axios.get("/api/a");
+    const response = await axios.get("/api/a");
       const data = response.data;
       if (data) {
         updateApps(data);
@@ -26,11 +26,11 @@ export default function useApps() {
     }
   }
 
-  const couldBeEmpty = !apps.length && !loadingApps;
+  const couldBeEmpty = loadingApps === 0;
 
   React.useEffect(() => {
-    if (!loadingApps) updateAll();
-  }, []);
+    if (couldBeEmpty) updateAll();
+  }, [couldBeEmpty]);
 
   return apps;
 }

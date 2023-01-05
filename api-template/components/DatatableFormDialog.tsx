@@ -106,7 +106,7 @@ export default function DatatableFormDialog({ resourceGroup }) {
         sx={{ textTransform: "none" }}
         onClick={handleClickOpen}
       >
-        Create a new collection
+        Add
       </Button>
       <Dialog
         fullScreen

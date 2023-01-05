@@ -5,7 +5,7 @@ import { useAxios } from "./useAxios";
 export default function useProfiles() {
   const profiles = usePagesStateValue("profiles") ?? [];
 
-  const loadingProfiles = usePagesStateValue("loaders.;profiles");
+  const loadingProfiles = usePagesStateValue("loaders.profiles", 0);
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -27,8 +27,8 @@ export default function useProfiles() {
   }
 
   React.useEffect(() => {
-    if (!loadingProfiles) updateAll();
-  }, []);
+    if (loadingProfiles === 0) updateAll();
+  }, [loadingProfiles]);
 
   return profiles;
 }

@@ -27,7 +27,7 @@ const App: React.FC = () => {
     <ResDash isDetail>
       <Container sx={{ mb: 9 }}>
         <Grid container>
-          <Grid item xs={8}>
+          <Grid item md={11} xs={12} lg={8}>
             <Stack spacing={3}>
               <Typography variant="h4">Resources</Typography>
               <Paper sx={{ p: 2 }}>

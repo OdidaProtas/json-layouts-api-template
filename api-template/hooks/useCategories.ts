@@ -5,7 +5,7 @@ import { useAxios } from "./useAxios";
 export default function useCategories() {
   const categories = usePagesStateValue("categories") ?? [];
 
-  const loadingCategories = usePagesStateValue("loaders.categories");
+  const loadingCategories = usePagesStateValue("loaders.categories", 0);
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -26,9 +26,11 @@ export default function useCategories() {
     }
   }
 
+  const unloaded = loadingCategories === 0
+
   React.useEffect(() => {
-    if (!loadingCategories) updateAll();
-  }, []);
+    if (unloaded) updateAll();
+  }, [unloaded]);
 
   return categories;
 }

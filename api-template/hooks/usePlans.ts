@@ -5,7 +5,7 @@ import { useAxios } from "./useAxios";
 export default function usePlans() {
   const plans = usePagesStateValue("plans") ?? [];
 
-  const loadingPlans = usePagesStateValue("loaders.plans");
+  const loadingPlans = usePagesStateValue("loaders.plans", 0);
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -27,8 +27,8 @@ export default function usePlans() {
   }
 
   React.useEffect(() => {
-    updateAll();
-  }, []);
+    if (loadingPlans === 0) updateAll();
+  }, [loadingPlans]);
 
   return plans;
 }

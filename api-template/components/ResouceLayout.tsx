@@ -84,7 +84,6 @@ export default function ResDash({ children, isDetail = false }) {
 
   useResourceGroups();
 
-  console.log("kjhvg");
 
   const resourceGroups = usePagesStateValue("resourceGroups") ?? [];
 

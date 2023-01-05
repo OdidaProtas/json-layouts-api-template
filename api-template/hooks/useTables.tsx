@@ -11,7 +11,7 @@ export default function useTables() {
 
   const data = (tables ?? []).filter(({ id }) => id === queryId)[0];
 
-  const loadingtables = usePagesStateValue("loaders.tables");
+  const loadingtables = usePagesStateValue("loaders.tables", 0);
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -32,11 +32,11 @@ export default function useTables() {
     }
   }
 
-  const couldBeEmpty = tables === undefined && !loadingtables;
+  const couldBeEmpty = loadingtables === 0 && queryId;
 
   React.useEffect(() => {
-    if (queryId) updateAll();
-  }, [queryId]);
+    if (couldBeEmpty) updateAll();
+  }, [couldBeEmpty]);
 
   return data;
 }

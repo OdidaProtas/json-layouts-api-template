@@ -79,7 +79,7 @@ export default function UploadImageDialog({ resourceGroup }) {
         variant="outlined"
         onClick={handleClickOpen}
       >
-        Upload Images / Media
+        Add
       </Button>
       <Dialog
         fullScreen

@@ -10,7 +10,6 @@ const initialState = {
   loaders: {},
   theme: null,
   appId: null,
-  apps: [],
   pageIndex: 0,
   navigation: {
     page: "/",

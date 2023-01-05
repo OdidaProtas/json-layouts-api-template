@@ -7,11 +7,11 @@ export default function useResourceGroup() {
   const router = useRouter();
   const queryId = router.query.id;
 
-  const resourceGroup = usePagesStateValue("resourceGroups") ?? undefined;
+  const resourceGroup = usePagesStateValue("resourceGroup") ?? undefined;
 
   const data = (resourceGroup ?? []).find(({ id }) => id === queryId);
 
-  const loadingresourceGroup = usePagesStateValue("loaders.resourceGroup");
+  const loadingresourceGroup = usePagesStateValue("loaders.resourceGroup", 0);
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -32,11 +32,11 @@ export default function useResourceGroup() {
     }
   }
 
-  const couldBeEmpty = !loadingresourceGroup;
+  const couldBeEmpty = loadingresourceGroup === 0 && Boolean(queryId);
 
 
   React.useEffect(() => {
-    // if (couldBeEmpty) updateAll();
+    if (couldBeEmpty) updateAll();
   }, [couldBeEmpty]);
 
   return data;

@@ -84,7 +84,7 @@ export default function CreateResourceGroupDialog({ resourceGroups = [] }) {
         variant="outlined"
         onClick={handleClickOpen}
       >
-        Add resources
+        Add
       </Button>
       <Dialog
         fullScreen

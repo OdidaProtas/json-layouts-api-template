@@ -11,7 +11,6 @@ export default function useResourceGroups() {
 
   const loadingResourceGroups = usePagesStateValue("loaders.resourceGroups", 0);
 
-  console.log(loadingResourceGroups);
 
   const { updateApps, toggleAppsLoader } = useActions();
   const axios = useAxios();
@@ -35,7 +34,6 @@ export default function useResourceGroups() {
   const couldBeEmpty = loadingResourceGroups === 0 && Boolean(queryId);
 
   React.useEffect(() => {
-    if (couldBeEmpty) console.log(couldBeEmpty);
     if (couldBeEmpty) updateAll();
   }, [couldBeEmpty]);
 

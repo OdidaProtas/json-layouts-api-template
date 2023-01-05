@@ -97,7 +97,6 @@ const App: React.FC = () => {
       }
     } catch (e) {
       setSaving(false);
-      console.log(e);
       showToast("error", "An error occured");
     }
   };

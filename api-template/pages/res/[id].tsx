@@ -21,9 +21,16 @@ const App: React.FC<any> = () => {
             Resource Groups
           </Typography>
           {Boolean(groups?.length) && (
-            <div>
-              <CreateResourceGroupDialog resourceGroups={groups} />
-            </div>
+            <Box sx={{ display: "flex" }} >
+              <Box>
+                <CreateResourceGroupDialog resourceGroups={groups} />
+              </Box>
+              <Box>
+                <Button onClick={router.back} sx={{ ml: 2 }} size="small" fullWidth variant="outlined">
+                  Go back
+                </Button>
+              </Box>
+            </Box>
           )}
         </Box>
 
@@ -51,10 +58,10 @@ const App: React.FC<any> = () => {
                       </Typography>
                       <Typography variant="h3">
                         {" "}
-                        {app.tables?.length} Collections
+                        {app.tables?.length ?? 0} Collections
                       </Typography>
-                      <Button fullWidth variant="outlined">
-                        View Records
+                      <Button sx={{ textTransform: "none" }} size="small" fullWidth variant="outlined">
+                        View
                       </Button>
                     </div>
                   </Grid>
