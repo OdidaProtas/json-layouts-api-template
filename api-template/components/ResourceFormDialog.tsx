@@ -8,24 +8,19 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Paper,
-  Stack,
-} from "@mui/material";
-import useResourceGroups from "../hooks/useResourceGroups";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import { Box, Container, Grid, Stack, TextField } from "@mui/material";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import UploadImageDialog from "./UploadImageDialog";
 import { usePagesStateValue } from "../lib/builder";
+import useApi from "../hooks/useApi";
+import { components } from "./ComponentForm";
+import renderComponents from "./util/renderComponents";
+import dynamic from "next/dynamic";
+
+const Code = dynamic(import("./Code"), {
+  ssr: false,
+});
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -36,7 +31,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ResourceFormDialog() {
+export default function ResourceFormDialog({ type = "box" }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -49,6 +44,17 @@ export default function ResourceFormDialog() {
 
   const resourceGroups = usePagesStateValue("resourceGroups");
 
+  const [{ images, tables } = { images: [], tables: [] }] = useApi();
+  const loadingApi = usePagesStateValue("loaders.api");
+
+  const blackList = ["box", "container"];
+
+  if (blackList.includes(type)) return null;
+
+  const component = components["type"];
+
+  const keys = Object.keys(component ?? {});
+
   return (
     <div>
       <Button
@@ -58,7 +64,7 @@ export default function ResourceFormDialog() {
         sx={{ textTransform: "none" }}
         onClick={handleClickOpen}
       >
-        Create from resource
+        Link api
       </Button>
       <Dialog
         fullScreen
@@ -84,24 +90,84 @@ export default function ResourceFormDialog() {
         <div>
           <Toolbar />
           <Container>
-            <Stack spacing={3}>
-              <Toolbar />
-              {resourceGroups?.map((res) => {
-                return (
-                  <Accordion key={res.id}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMore />}
-                      aria-controls="panel3a-content"
-                      id="panel3a-header"
-                    >
-                      <Typography>{res.name}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <BasicTabs res={res} />
-                    </AccordionDetails>
-                  </Accordion>
-                );
-              })}
+            <Stack spacing={6}>
+              {type === "image" && (
+                <Stack spacing={3}>
+                  <Typography variant="h4">Select image</Typography>
+                  {!Boolean(images?.length) && (
+                    <Typography>
+                      No media have been added to this app
+                    </Typography>
+                  )}
+                  {Boolean(images?.length) && (
+                    <Box>
+                      <Grid container spacing={2}>
+                        {images.map((image) => {
+                          return (
+                            <Grid item xs={3} key={image.id}>
+                              <Stack spacing={1}>
+                                <img
+                                  height={"200"}
+                                  width={"100%"}
+                                  src={image.url}
+                                  alt=""
+                                />
+                                <TextField size="small" label="Alt text" />
+                                <Box>
+                                  <Grid container spacing={2}>
+                                    <Grid item xs>
+                                      <TextField size="small" label="Height" />
+                                    </Grid>
+                                    <Grid item xs>
+                                      <TextField size="small" label="Width" />
+                                    </Grid>
+                                  </Grid>
+                                </Box>
+                                <Button
+                                  size="small"
+                                  variant="outlined"
+                                  fullWidth
+                                >
+                                  Use image
+                                </Button>
+                              </Stack>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
+                    </Box>
+                  )}
+                </Stack>
+              )}
+              {type !== "image" && (
+                <>
+                  <Box>
+                    <Grid container spacing={2}>
+                      {tables?.map((table) => {
+                        return (
+                          <Grid item xs={4} key={table.id}>
+                            <Stack spacing={1}>
+                              <Typography variant="h4">
+                                {table.name} Collection
+                              </Typography>
+                              <BasicTabs collection={table} type={type} />
+                              {type === "form" && (
+                                <Button
+                                  size="small"
+                                  variant="outlined"
+                                  fullWidth
+                                >
+                                  Create form
+                                </Button>
+                              )}
+                            </Stack>
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
+                  </Box>
+                </>
+              )}
             </Stack>
           </Container>
         </div>
@@ -143,15 +209,28 @@ function a11yProps(index: number) {
   };
 }
 
-function BasicTabs({ res }) {
+function BasicTabs({ type, collection }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const images = res.images ?? [];
-  const tables = res.tables ?? [];
+  let json;
+
+  const columns = collection?.columns;
+
+  function componenttransform() {
+    if (type === "form") {
+      return columns.map((col) => ({
+        ...components["textfield"],
+        data: { label: col.key },
+      }));
+    }
+    return {};
+  }
+
+  const componentsJson = componenttransform();
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -161,58 +240,15 @@ function BasicTabs({ res }) {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Images" {...a11yProps(0)} />
-          <Tab label="Tables" {...a11yProps(1)} />
+          <Tab label="Components" {...a11yProps(0)} />
+          <Tab label="JSON" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Grid container>
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ flexGrow: 1 }}></Box>
-            <Box>
-              <UploadImageDialog resourceGroup={res} />
-            </Box>
-          </Box>
-          {images.map((image) => {
-            return (
-              <Grid key={image.id} item xs>
-                <Paper sx={{ p: 2 }}>
-                  <img src={image.url} alt="Image" />
-                </Paper>
-              </Grid>
-            );
-          })}
-          {!Boolean(images.length) && (
-            <Grid item xs={12}>
-              No images have been added
-            </Grid>
-          )}
-        </Grid>
+        <Stack spacing={2}>{renderComponents(componentsJson ?? [])}</Stack>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Grid container>
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ flexGrow: 1 }}></Box>
-            <Box>
-              <UploadImageDialog resourceGroup={res} />
-            </Box>
-          </Box>
-          {tables.map((table) => {
-            return (
-              <Grid key={table.id} item xs>
-                <Paper sx={{ p: 2 }}>
-                  <Typography>{table.name}</Typography>
-                  {/* <img src={image.url} alt="Image" /> */}
-                </Paper>
-              </Grid>
-            );
-          })}
-          {!Boolean(tables.length) && (
-            <Grid item xs={12}>
-              No tables have been added
-            </Grid>
-          )}
-        </Grid>
+        <Code state={componentsJson ?? {}} />
       </TabPanel>
     </Box>
   );

@@ -169,15 +169,16 @@ export default function ComponentFormTabs({ data, index: cIndex }: ICFTabs) {
             label="Preview"
             {...a11yProps(2)}
           />
-          <Tab
+          {/* <Tab
             sx={{ textTransform: "none" }}
             label="Resources"
             {...a11yProps(3)}
-          />
+          /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <ComponentSelect onChange={handleTypeChange} value={state.type} />
+        <ResourceFormDialog type={state.type} />
         <ComponentForm
           handleTypeChange={handleTypeChange}
           data={{ ...state }}
@@ -196,13 +197,15 @@ export default function ComponentFormTabs({ data, index: cIndex }: ICFTabs) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <ComponentSelect onChange={handleTypeChange} value={state.type} />
+        <ResourceFormDialog type={state.type}/>
         <Code size="small" state={{ ...state }} />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <ComponentSelect onChange={handleTypeChange} value={state.type} />
+        <ResourceFormDialog type={state.type} />
         {renderComponents([{ ...state }])}
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      {/* <TabPanel value={value} index={3}>
         <div style={{ justifyItems: "space-evenly" }}>
           <ResourceFormDialog />
           <ComponentSelect onChange={handleTypeChange} value={state.type} />
@@ -212,7 +215,7 @@ export default function ComponentFormTabs({ data, index: cIndex }: ICFTabs) {
             external datasources that the component relies on.
           </p>
         </div>
-      </TabPanel>
+      </TabPanel> */}
       <Button
         fullWidth
         sx={{ mt: 3 }}

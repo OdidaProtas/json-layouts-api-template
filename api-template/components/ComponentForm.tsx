@@ -191,12 +191,12 @@ export default function ComponentForm({
                                                         label={"Label"}
                                                         name="label"
                                                         value={option.label}
-                                                      // onChange={(e) =>
-                                                      //   handleChangeOption(
-                                                      //     e,
-                                                      //     optImdex
-                                                      //   )
-                                                      // }
+                                                        // onChange={(e) =>
+                                                        //   handleChangeOption(
+                                                        //     e,
+                                                        //     optImdex
+                                                        //   )
+                                                        // }
                                                       />
                                                     </Grid>
                                                     <Grid item xs={6}>
@@ -206,12 +206,12 @@ export default function ComponentForm({
                                                         name="value"
                                                         label={"Value"}
                                                         value={option.value}
-                                                      // onChange={(e) =>
-                                                      //   handleChangeOption(
-                                                      //     e,
-                                                      //     optImdex
-                                                      //   )
-                                                      // }
+                                                        // onChange={(e) =>
+                                                        //   handleChangeOption(
+                                                        //     e,
+                                                        //     optImdex
+                                                        //   )
+                                                        // }
                                                       />
                                                     </Grid>
                                                   </Grid>
@@ -453,18 +453,13 @@ export function useActions() {
   };
 }
 
-
-var sx = {
-
-}
-
+var sx = {};
 
 export var components = {
   image: {
     type: "image",
     data: {
-      imageUrl:
-        "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+      imageUrl: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
     },
   },
   button: {
@@ -479,13 +474,7 @@ export var components = {
   form: {
     type: "form",
     data: {
-      components: [
-        { type: "textfield", data: { label: "TextField" } },
-        {
-          type: "button",
-          data: { text: "submit", disabled: false, type: "submit" },
-        },
-      ],
+      components: [],
     },
   },
   text: {
@@ -682,7 +671,7 @@ export var components = {
       actionText: "UNDO",
       autoHideDuration: 6000,
       message: "Note Archived",
-      buttonText: "Open Snackbar"
+      buttonText: "Open Snackbar",
     },
   },
   accordion: {
@@ -774,52 +763,61 @@ export var components = {
     data: {
       items: [
         {
-          label: "Select master blaster campaign settings", components: [{
-            type: "text",
-            data: {
-              text: "Containet",
-              variant: "h1",
+          label: "Select master blaster campaign settings",
+          components: [
+            {
+              type: "text",
+              data: {
+                text: "Containet",
+                variant: "h1",
+              },
             },
-          },
-          {
-            type: "text",
-            data: {
-              text: "Grid 2",
-              variant: "h1",
+            {
+              type: "text",
+              data: {
+                text: "Grid 2",
+                variant: "h1",
+              },
             },
-          },]
+          ],
         },
         {
-          label: "Create an ad group", components: [{
-            type: "text",
-            data: {
-              text: "Containet",
-              variant: "h1",
+          label: "Create an ad group",
+          components: [
+            {
+              type: "text",
+              data: {
+                text: "Containet",
+                variant: "h1",
+              },
             },
-          },
-          {
-            type: "text",
-            data: {
-              text: "Grid 2",
-              variant: "h1",
+            {
+              type: "text",
+              data: {
+                text: "Grid 2",
+                variant: "h1",
+              },
             },
-          },]
+          ],
         },
         {
-          label: "Create an ad", components: [{
-            type: "text",
-            data: {
-              text: "Containet",
-              variant: "h1",
+          label: "Create an ad",
+          components: [
+            {
+              type: "text",
+              data: {
+                text: "Containet",
+                variant: "h1",
+              },
             },
-          },
-          {
-            type: "text",
-            data: {
-              text: "Grid 2",
-              variant: "h1",
+            {
+              type: "text",
+              data: {
+                text: "Grid 2",
+                variant: "h1",
+              },
             },
-          },]
+          ],
         },
       ],
     },
@@ -829,52 +827,61 @@ export var components = {
     data: {
       items: [
         {
-          label: "Tab 1", components: [{
-            type: "text",
-            data: {
-              text: "Containet",
-              variant: "h1",
+          label: "Tab 1",
+          components: [
+            {
+              type: "text",
+              data: {
+                text: "Containet",
+                variant: "h1",
+              },
             },
-          },
-          {
-            type: "text",
-            data: {
-              text: "Grid 2",
-              variant: "h1",
+            {
+              type: "text",
+              data: {
+                text: "Grid 2",
+                variant: "h1",
+              },
             },
-          },]
+          ],
         },
         {
-          label: "Tab 2", components: [{
-            type: "text",
-            data: {
-              text: "Containet",
-              variant: "h1",
+          label: "Tab 2",
+          components: [
+            {
+              type: "text",
+              data: {
+                text: "Containet",
+                variant: "h1",
+              },
             },
-          },
-          {
-            type: "text",
-            data: {
-              text: "Grid 2",
-              variant: "h1",
+            {
+              type: "text",
+              data: {
+                text: "Grid 2",
+                variant: "h1",
+              },
             },
-          },]
+          ],
         },
         {
-          label: "Tab 3", components: [{
-            type: "text",
-            data: {
-              text: "Containet",
-              variant: "h1",
+          label: "Tab 3",
+          components: [
+            {
+              type: "text",
+              data: {
+                text: "Containet",
+                variant: "h1",
+              },
             },
-          },
-          {
-            type: "text",
-            data: {
-              text: "Grid 2",
-              variant: "h1",
+            {
+              type: "text",
+              data: {
+                text: "Grid 2",
+                variant: "h1",
+              },
             },
-          },]
+          ],
         },
       ],
     },
