@@ -43,5 +43,7 @@ export default async function handler(
     rows: ((a?.rows as any) ?? [])?.map((r) => JSON.parse(r.rowDraft ?? "")),
   }));
 
+  console.log(parsedRows)
+
   res.json(parsedRows);
 }
