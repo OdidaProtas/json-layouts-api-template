@@ -15,6 +15,8 @@ import { AuthSpinner } from "../../../../marketplace";
 import ResDash from "../../../../../components/ResouceLayout";
 import { useRouter } from "next/router";
 import DatatableFormDialog from "../../../../../components/DatatableFormDialog";
+import ExportDialog from "../../../../../components/Export";
+import ImportDialog from "../../../../../components/Import";
 
 const App: React.FC = () => {
   const resourceGroup = useResourceGroup();
@@ -28,8 +30,21 @@ const App: React.FC = () => {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h4">Collections</Typography>
           </Box>
-          <Box>
-            <DatatableFormDialog resourceGroup={{ ...resourceGroup }} />
+          <Box sx={{ display: "flex" }}>
+            <Box>
+              <DatatableFormDialog resourceGroup={{ ...resourceGroup }} />
+            </Box>
+            <Box>
+              <Button
+                onClick={router.back}
+                fullWidth
+                size="small"
+                sx={{ textTransform: "none", ml: 3 }}
+                variant="outlined"
+              >
+                Go back
+              </Button>
+            </Box>
           </Box>
         </Box>
         {!Boolean(resourceGroup?.tables?.length) && (
@@ -74,14 +89,10 @@ const App: React.FC = () => {
                         </Button>
                       </Box>
                       <Box>
-                        <Button
-                          size="small"
-                          sx={{ textTransform: "none" }}
-                          disabled
-                          variant="outlined"
-                        >
-                          Create form
-                        </Button>
+                        <ExportDialog resourceGroup={{}} />
+                      </Box>
+                      <Box>
+                        <ImportDialog resourceGroup={{}} />
                       </Box>
                     </Stack>
                   </Stack>

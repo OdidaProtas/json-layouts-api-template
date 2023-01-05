@@ -29,7 +29,22 @@ const App: React.FC = () => {
         <Grid container>
           <Grid item md={11} xs={12} lg={8}>
             <Stack spacing={3}>
-              <Typography variant="h4">Resources</Typography>
+              <Box sx={{ display: "flex" }}>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Typography variant="h4">Resources</Typography>
+                </Box>
+                <Box>
+                  <Button
+                    onClick={router.back}
+                    fullWidth
+                    size="small"
+                    sx={{ textTransform: "none" }}
+                    variant="outlined"
+                  >
+                    Go back
+                  </Button>
+                </Box>
+              </Box>
               <Paper sx={{ p: 2 }}>
                 <Stack spacing={2}>
                   <Box sx={{ display: "flex" }}>

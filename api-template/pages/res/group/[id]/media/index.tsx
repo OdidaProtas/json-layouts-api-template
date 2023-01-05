@@ -30,8 +30,21 @@ const App: React.FC = () => {
                 {resourceGroup?.images?.length ?? 0} Media
               </Typography>
             </Box>
-            <Box>
-              <UploadImageDialog resourceGroup={{ ...resourceGroup }} />
+            <Box sx={{ display: "flex" }}>
+              <Box>
+                <UploadImageDialog resourceGroup={{ ...resourceGroup }} />
+              </Box>
+              <Box>
+                <Button
+                  onClick={router.back}
+                  fullWidth
+                  size="small"
+                  sx={{ textTransform: "none", ml: 3 }}
+                  variant="outlined"
+                >
+                  Go back
+                </Button>
+              </Box>
             </Box>
           </Box>
           {!Boolean(resourceGroup?.images?.length) && (
