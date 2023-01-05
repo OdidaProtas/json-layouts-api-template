@@ -17,7 +17,11 @@ export default function useTables() {
   const axios = useAxios();
 
   async function addRow(data) {
-    let allTables = [...tables, data];
+    let allTables = [...tables];
+    let item = allTables.find((t) => t.id === queryId);
+    const index = allTables.indexOf(item);
+    item.rows = [...item.rows, data];
+    allTables[index] = item;
     updateApps(allTables);
   }
 

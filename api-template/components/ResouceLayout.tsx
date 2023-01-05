@@ -84,7 +84,6 @@ export default function ResDash({ children, isDetail = false }) {
 
   useResourceGroups();
 
-
   const resourceGroups = usePagesStateValue("resourceGroups") ?? [];
 
   const resourceGroup = useResourceGroup() ?? { tables: [] };
@@ -226,7 +225,7 @@ export default function ResDash({ children, isDetail = false }) {
               <ListItem key={table.id} disablePadding>
                 <ListItemButton
                   onClick={() => {
-                    // router.push("/admin/apps");
+                    router.push(`/res/table/${table?.id}`);
                   }}
                 >
                   <ListItemIcon>
