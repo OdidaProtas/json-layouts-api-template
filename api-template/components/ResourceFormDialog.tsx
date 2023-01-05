@@ -216,16 +216,26 @@ function BasicTabs({ type, collection }) {
     setValue(newValue);
   };
 
-  let json;
-
   const columns = collection?.columns;
 
   function componenttransform() {
     if (type === "form") {
-      return columns.map((col) => ({
-        ...components["textfield"],
-        data: { label: col.key },
-      }));
+      return {
+        ...components["form"],
+        data: {
+          ...components["form"].data,
+          components: [
+            ...columns.map((col) => ({
+              ...components["textfield"],
+              data: { label: col.key },
+            })),
+            {
+              ...components["button"],
+              data: { text: "Save", disabled: false },
+            },
+          ],
+        },
+      };
     }
     return {};
   }
@@ -245,7 +255,7 @@ function BasicTabs({ type, collection }) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Stack spacing={2}>{renderComponents(componentsJson ?? [])}</Stack>
+        <Stack spacing={2}>{renderComponents([componentsJson ?? []])}</Stack>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Code state={componentsJson ?? {}} />
