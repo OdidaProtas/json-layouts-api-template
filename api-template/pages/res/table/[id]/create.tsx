@@ -6,7 +6,7 @@ import router from "next/router";
 import useUpload from "../../../../hooks/useUpload";
 import { AuthSpinner } from "../../..";
 import Layout from "../../../../components/Layout";
-import useTables from "../../../../hooks/useTables";
+import useTables, { useTableActions } from "../../../../hooks/useTables";
 import ResDash from "../../../../components/ResouceLayout";
 import { useAxios } from "../../../../hooks/useAxios";
 import useToast from "../../../../hooks/useToast";
@@ -32,6 +32,8 @@ const CreateRecord: React.FC = () => {
 
   const axios = useAxios();
 
+  const { updateApps: updateTables } = useTableActions();
+
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -41,6 +43,10 @@ const CreateRecord: React.FC = () => {
     };
     const res = await axios.post(`/api/resource/data/row`, { ...payload });
     if (res.data) {
+      let tabl = {
+        ...table,
+        rows: [...(table.rows ?? []), JSON.parse(res.data.rowDraft ?? "")],
+      };
       showToast("success", "Record saved");
       setSaving(false);
       return;

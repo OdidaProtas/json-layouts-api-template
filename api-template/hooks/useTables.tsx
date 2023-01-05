@@ -13,7 +13,7 @@ export default function useTables() {
 
   const loadingtables = usePagesStateValue("loaders.tables", 0);
 
-  const { updateApps, toggleAppsLoader } = useActions();
+  const { updateApps, toggleAppsLoader } = useTableActions();
   const axios = useAxios();
 
   async function updateAll() {
@@ -41,7 +41,7 @@ export default function useTables() {
   return data;
 }
 
-function useActions() {
+export function useTableActions() {
   const dispatchToPages = usePagesStateDisptch();
   const tables = usePagesStateValue("tables");
   const loaders = usePagesStateValue("loaders");
