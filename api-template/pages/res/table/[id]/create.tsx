@@ -47,6 +47,7 @@ const CreateRecord: React.FC = () => {
         ...table,
         rows: [...(table.rows ?? []), JSON.parse(res.data.rowDraft ?? "")],
       };
+      updateTables([...tabl]);
       showToast("success", "Record saved");
       setSaving(false);
       return;
