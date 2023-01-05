@@ -54,39 +54,35 @@ const App: React.FC = () => {
                       <Box>
                         <Button
                           size="small"
+                          onClick={() =>
+                            router.push(`/res/table/${table.id}/create`)
+                          }
+                          sx={{ textTransform: "none" }}
+                          variant="outlined"
+                        >
+                          Add record
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button
+                          size="small"
+                          onClick={() => router.push(`/res/table/${table.id}`)}
+                          sx={{ textTransform: "none" }}
+                          variant="outlined"
+                        >
+                          View records
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button
+                          size="small"
                           sx={{ textTransform: "none" }}
                           disabled
                           variant="outlined"
                         >
-                          Copy link
+                          Create form
                         </Button>
                       </Box>
-                      <Button
-                        size="small"
-                        onClick={() =>
-                          router.push(`/res/table/${table.id}/create`)
-                        }
-                        sx={{ textTransform: "none" }}
-                        variant="outlined"
-                      >
-                        Add record
-                      </Button>
-                      <Button
-                        size="small"
-                        onClick={() => router.push(`/res/table/${table.id}`)}
-                        sx={{ textTransform: "none" }}
-                        variant="outlined"
-                      >
-                        View records
-                      </Button>
-                      <Button
-                        size="small"
-                        sx={{ textTransform: "none" }}
-                        disabled
-                        variant="outlined"
-                      >
-                        Create form
-                      </Button>
                     </Stack>
                   </Stack>
                 </Paper>

@@ -1,32 +1,17 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 
 import useUpload from "../../../../hooks/useUpload";
 import { AuthSpinner } from "../../..";
 import Layout from "../../../../components/Layout";
-import ImageField from "../../../../components/ImageField";
 import useTables from "../../../../hooks/useTables";
 import ResDash from "../../../../components/ResouceLayout";
+import { useAxios } from "../../../../hooks/useAxios";
+import useToast from "../../../../hooks/useToast";
 
-const Draft: React.FC = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [type, setType] = useState("Other");
-
+const CreateRecord: React.FC = () => {
   const { data: session, status } = useSession();
 
   const table = useTables() ?? { name: "Unknown table", columns: [] };
@@ -43,36 +28,29 @@ const Draft: React.FC = () => {
   const [saving, setSaving] = useState(false);
 
   const uploadFiles = useUpload();
+  const { showToast } = useToast();
+
+  const axios = useAxios();
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setSaving(true);
-    const uploads = await uploadFiles([{ fileData: image, field: "image" }]);
-
-    const images = (uploads as unknown as any).reduce((p, c) => {
-      return { ...p, [c.field]: c.url };
-    }, {});
-    let currentState = { name, description, type, email: session?.user?.email };
-
-    if (Boolean(images)) {
-      currentState = { ...currentState, ...images };
-    }
-    try {
-      const body = { ...currentState };
-      const res = await fetch("/api/app", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (res) setSaving(false);
-      await router.push("/m");
-    } catch (error) {
+    const payload = {
+      tableId: table?.id,
+      rowDraft: JSON.stringify(state ?? {}),
+    };
+    const res = await axios.post(`/api/resource/data/row`, { ...payload });
+    if (res.data) {
+      showToast("success", "Record saved");
       setSaving(false);
+      return;
     }
+    setSaving(false);
+    showToast("error", "An error occured, Record not saved");
   };
 
   const handleLogoChange = React.useCallback((data) => {
-    setImage(data[0]);
+    // setImage(data[0]);
   }, []);
 
   if (status === "loading") {
@@ -94,7 +72,22 @@ const Draft: React.FC = () => {
         <Box sx={{ flexGrow: 1 }}></Box>
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
           <Stack spacing={2}>
-            <h1>New Record</h1>
+            <Box sx={{ display: "flex", mb: 4 }}>
+              <Box sx={{ flexGrow: 1 }}>
+                <h1>New Record</h1>
+              </Box>
+              <Box>
+                <Button
+                  disableElevation
+                  color="error"
+                  variant="outlined"
+                  className="back"
+                  onClick={() => router.back()}
+                >
+                  Cancel
+                </Button>
+              </Box>
+            </Box>
             <h1>Table: {table?.name}</h1>
             {table.columns.map((column) => {
               return (
@@ -112,16 +105,6 @@ const Draft: React.FC = () => {
 
             <Button variant="contained" disableElevation type="submit">
               {saving ? <CircularProgress size={20} /> : "Save"}
-            </Button>
-            <Button
-              disableElevation
-              color="error"
-              variant="outlined"
-              className="back"
-              href="#"
-              onClick={() => router.back()}
-            >
-              or Cancel
             </Button>
           </Stack>
         </form>
@@ -159,4 +142,4 @@ const Draft: React.FC = () => {
   );
 };
 
-export default Draft;
+export default CreateRecord;

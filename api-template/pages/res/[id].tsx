@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import { Container, Grid, Box, Typography, Chip } from "@mui/material";
+import { Container, Grid, Box, Typography, Chip, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import CreateResourceGroupDialog from "../../components/CreateResourceGroupDialog";
 import useResourceGroups from "../../hooks/useResourceGroups";
@@ -9,7 +9,7 @@ import { AuthSpinner } from "..";
 import ResDash from "../../components/ResouceLayout";
 
 const App: React.FC<any> = () => {
-  const groups = useResourceGroups();
+  const groups = usePagesStateValue("resourceGroups");
   const router = useRouter();
   const loading = usePagesStateValue("loaders.resourceGroups");
   if (loading) return <AuthSpinner />;
@@ -17,7 +17,9 @@ const App: React.FC<any> = () => {
     <ResDash>
       <Container className="page">
         <Box sx={{ display: "flex" }}>
-          <h1 style={{ flexGrow: 1 }}>Resource Groups</h1>
+          <Typography variant="h3" style={{ flexGrow: 1 }}>
+            Resource Groups
+          </Typography>
           {Boolean(groups?.length) && (
             <div>
               <CreateResourceGroupDialog resourceGroups={groups} />
@@ -26,7 +28,7 @@ const App: React.FC<any> = () => {
         </Box>
 
         <Container>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", mt: 4 }}>
             <Box sx={{ flexGrow: 1 }}>
               <Grid spacing={2} container>
                 {groups?.map((app) => (
@@ -43,6 +45,17 @@ const App: React.FC<any> = () => {
                       {app.isNew && <Chip color="primary" label="New" />}
                       <Typography variant="h5">{app.name}</Typography>
                       <Typography variant="caption"> {app.tag}</Typography>
+                      <Typography variant="h3">
+                        {" "}
+                        {app.images?.length ?? 0} Media
+                      </Typography>
+                      <Typography variant="h3">
+                        {" "}
+                        {app.tables?.length} Collections
+                      </Typography>
+                      <Button fullWidth variant="outlined">
+                        View Records
+                      </Button>
                     </div>
                   </Grid>
                 ))}

@@ -69,9 +69,7 @@ export const usePagesStateValue = (label = "", defaultState = undefined) => {
     () => keys.reduce(nestedObjectReducer, interest),
     [interest, label]
   );
-  if (data) return data;
-  if (defaultState) return defaultState;
-  return null;
+  return data ?? defaultState ?? null;
 };
 
 export const usePagesStateDisptch = () => usePagesStateValue("dispatch");
