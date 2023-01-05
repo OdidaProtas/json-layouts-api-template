@@ -32,11 +32,16 @@ export default async function handler(
       columns: {
         select: { key: true, id: true },
       },
-    //   rows: {
-    //     // select: { name: true },
-    //   },
+      rows: {
+        select: { id: true, rowDraft: true },
+      },
     } as any,
   });
 
-  res.json(app);
+  const parsedRows = app.map((a) => ({
+    ...a,
+    rows: ((a?.rows as any) ?? [])?.map((r) => JSON.parse(r.rowDraft ?? "")),
+  }));
+
+  res.json(parsedRows);
 }

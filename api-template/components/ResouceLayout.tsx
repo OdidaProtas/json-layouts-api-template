@@ -82,6 +82,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function ResDash({ children, isDetail = false }) {
   const { status, data: session } = useSession();
 
+  useResourceGroups();
+
+  console.log("kjhvg");
+
   const resourceGroups = usePagesStateValue("resourceGroups") ?? [];
 
   const resourceGroup = useResourceGroup() ?? { tables: [] };
@@ -193,24 +197,7 @@ export default function ResDash({ children, isDetail = false }) {
             ))}
           </List>
         )}
-        {isDetail && (
-          <List>
-            {[...resourceGroup.tables].map((table, index) => (
-              <ListItem key={table.id} disablePadding>
-                <ListItemButton
-                  onClick={() => {
-                    // router.push("/admin/apps");
-                  }}
-                >
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={table.name} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        )}
+
         <Divider />
         {isDetail && (
           <List>
@@ -228,6 +215,25 @@ export default function ResDash({ children, isDetail = false }) {
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        )}
+        <Divider />
+        {isDetail && (
+          <List>
+            {[...resourceGroup.tables].map((table, index) => (
+              <ListItem key={table.id} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    // router.push("/admin/apps");
+                  }}
+                >
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={table.name} />
                 </ListItemButton>
               </ListItem>
             ))}

@@ -25,6 +25,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import UploadImageDialog from "./UploadImageDialog";
+import { usePagesStateValue } from "../lib/builder";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -46,8 +47,7 @@ export default function ResourceFormDialog() {
     setOpen(false);
   };
 
-  const resourceGroups = useResourceGroups();
-
+  const resourceGroups = usePagesStateValue("resourceGroups");
 
   return (
     <div>

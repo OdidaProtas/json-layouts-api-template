@@ -15,11 +15,13 @@ function createData(name: string, calories: number, fat: number) {
   return { name, calories, fat };
 }
 
-const rows = [];
-
 export default function DenseTable() {
   const table = useTables() ?? { name: "Unknown table", columns: [] };
   const router = useRouter();
+  const rows =
+    table?.rows?.map((row) => {
+      return table?.columns.map((col) => row[col.key]);
+    }) ?? [];
   return (
     <ResDash>
       <Container>
@@ -35,9 +37,9 @@ export default function DenseTable() {
         </Box>
 
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <Table sx={{ minWidth: 259 }} size="small" aria-label="a dense table">
             <TableHead>
-              <TableRow>
+              <TableRow sx={{ bgcolor: "lightgray" }}>
                 {table.columns.map((col, index) => {
                   return (
                     <TableCell
@@ -52,16 +54,23 @@ export default function DenseTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((rowItems, index) => (
                 <TableRow
-                  key={row.name}
+                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
+                  {rowItems.map((item, ind) => {
+                    return (
+                      <TableCell
+                        align={ind === 0 ? "left" : "right"}
+                        key={ind}
+                        component="th"
+                        scope="row"
+                      >
+                        {item}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))}
               {!Boolean(rows.length) && (

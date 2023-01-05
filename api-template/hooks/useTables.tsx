@@ -32,7 +32,7 @@ export default function useTables() {
     }
   }
 
-  const couldBeEmpty = !tables && !loadingtables;
+  const couldBeEmpty = tables === undefined && !loadingtables;
 
   React.useEffect(() => {
     if (queryId) updateAll();
