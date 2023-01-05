@@ -10,6 +10,7 @@ import useTables, { useTableActions } from "../../../../hooks/useTables";
 import ResDash from "../../../../components/ResouceLayout";
 import { useAxios } from "../../../../hooks/useAxios";
 import useToast from "../../../../hooks/useToast";
+import { usePagesStateValue } from "../../../../lib/builder";
 
 const CreateRecord: React.FC = () => {
   const { data: session, status } = useSession();
@@ -17,7 +18,7 @@ const CreateRecord: React.FC = () => {
   const table = useTables() ?? { name: "Unknown table", columns: [] };
 
   const [state, setState] = useState(() => {
-    return table.columns.reduce((p, c) => {
+    return table?.columns?.reduce((p, c) => {
       return { ...p, [c.key]: "" };
     }, {});
   });
@@ -43,11 +44,8 @@ const CreateRecord: React.FC = () => {
     };
     const res = await axios.post(`/api/resource/data/row`, { ...payload });
     if (res.data) {
-      let tabl = {
-        ...table,
-        rows: [...(table.rows ?? []), JSON.parse(res.data.rowDraft ?? "")],
-      };
-      updateTables([...tabl]);
+      let row = JSON.parse(res.data.rowDraft ?? "");
+      table.addRow(row);
       showToast("success", "Record saved");
       setSaving(false);
       return;
@@ -60,7 +58,17 @@ const CreateRecord: React.FC = () => {
     // setImage(data[0]);
   }, []);
 
-  if (status === "loading") {
+  React.useEffect(() => {
+    setState(() =>
+      table?.columns?.reduce((p, c) => {
+        return { ...p, [c.key]: "" };
+      }, {})
+    );
+  }, [table?.id]);
+
+  const loadingTable = usePagesStateValue("loaders.tables");
+
+  if (status === "loading" || loadingTable) {
     return <AuthSpinner />;
   }
 
@@ -96,7 +104,7 @@ const CreateRecord: React.FC = () => {
               </Box>
             </Box>
             <h1>Table: {table?.name}</h1>
-            {table.columns.map((column) => {
+            {table?.columns?.map((column) => {
               return (
                 <TextField
                   key={column.key}
@@ -110,7 +118,12 @@ const CreateRecord: React.FC = () => {
               );
             })}
 
-            <Button variant="contained" disableElevation type="submit">
+            <Button
+              disabled={saving}
+              variant="contained"
+              disableElevation
+              type="submit"
+            >
               {saving ? <CircularProgress size={20} /> : "Save"}
             </Button>
           </Stack>

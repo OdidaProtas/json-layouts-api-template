@@ -7,7 +7,7 @@ export default function useTables() {
   const router = useRouter();
   const queryId = router.query.id;
 
-  const tables = usePagesStateValue("tables") ?? [];
+  const tables = usePagesStateValue("tables", []);
 
   const data = (tables ?? []).filter(({ id }) => id === queryId)[0];
 
@@ -15,6 +15,11 @@ export default function useTables() {
 
   const { updateApps, toggleAppsLoader } = useTableActions();
   const axios = useAxios();
+
+  async function addRow(data) {
+    let allTables = [...tables, data];
+    updateApps(allTables);
+  }
 
   async function updateAll() {
     try {
@@ -38,7 +43,7 @@ export default function useTables() {
     if (couldBeEmpty) updateAll();
   }, [couldBeEmpty]);
 
-  return data;
+  return { ...data, addRow };
 }
 
 export function useTableActions() {
