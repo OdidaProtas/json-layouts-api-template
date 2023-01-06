@@ -5,6 +5,8 @@ import renderComponents from "../renderComponents";
 import renderStack from "../renderStack";
 
 export default function Form({ components = [], api = {} }: any) {
+  const [saving, setSaving] = React.useState(false);
+
   const [apiComponents, loadingApiComponents, error] =
     useTransformComponents(api);
 
@@ -20,7 +22,10 @@ export default function Form({ components = [], api = {} }: any) {
     setState((p: any) => ({ ...p, [name]: value }));
   }, []);
 
-  const handleSubmit = React.useCallback(() => {}, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSaving(true)
+  };
 
   const componentData = React.useMemo(
     () =>

@@ -979,10 +979,6 @@ export var components = {
       height: 600,
       width: 600,
       options: [],
-      api: {
-        type: "images",
-        procedure: "imagelist",
-      },
     },
   },
 };

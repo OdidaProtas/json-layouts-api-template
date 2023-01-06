@@ -3,13 +3,13 @@ import React from "react";
 import { usePagesStateDisptch, usePagesStateValue } from "../lib/builder";
 import { useAxios } from "./useAxios";
 
-export default function useTables(id = undefined) {
+export default function useTables() {
   const router = useRouter();
   const queryId = router.query.id;
 
   const tables = usePagesStateValue("tables", []);
 
-  const data = (tables ?? []).filter(({ id: tId }) => tId === id ?? queryId)[0];
+  const data = (tables ?? []).filter(({ id }) => id === queryId)[0];
 
   const loadingtables = usePagesStateValue("loaders.tables", 0);
 
@@ -18,7 +18,7 @@ export default function useTables(id = undefined) {
 
   async function addRow(data) {
     let allTables = [...tables];
-    let item = allTables.find((t) => t.id === id ?? queryId);
+    let item = allTables.find((t) => t.id === queryId);
     const index = allTables.indexOf(item);
     item.rows = [...item.rows, data];
     allTables[index] = item;
@@ -41,7 +41,7 @@ export default function useTables(id = undefined) {
     }
   }
 
-  const couldBeEmpty = loadingtables === 0 && (queryId || id);
+  const couldBeEmpty = loadingtables === 0 && queryId;
 
   React.useEffect(() => {
     if (couldBeEmpty) updateAll();
