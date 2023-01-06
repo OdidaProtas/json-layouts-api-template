@@ -65,6 +65,7 @@ export default async function handler(
           data: {
             label: req.key,
             type: "text",
+            name: req.key,
           },
         };
       });
@@ -74,6 +75,7 @@ export default async function handler(
         data: {
           ...components["button"].data,
           text: buttonText,
+          type: "submit",
         },
       };
       res.json([..._components, submitButton]);

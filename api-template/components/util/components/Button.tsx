@@ -3,14 +3,32 @@ import MuiButton from "@mui/material/Button";
 export default function Button({
   color = "primary",
   text = "",
-  clickAction,
   fullWidth,
   sx = {},
   variant = "contained",
   disabled = false,
   href,
   target,
+  type,
+  loading = false,
+  handleSubmit,
 }: any) {
+  if (type === "submit") {
+    return (
+      <MuiButton
+        onClick={handleSubmit}
+        sx={sx}
+        disabled={loading}
+        fullWidth={fullWidth}
+        variant={variant}
+        color={color}
+        disableElevation
+        type="button"
+      >
+        {loading ? "Submitting..." : text}
+      </MuiButton>
+    );
+  }
   if (href && target) {
     return (
       <MuiButton

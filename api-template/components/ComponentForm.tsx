@@ -469,6 +469,7 @@ export var components = {
       href: "href",
       target: "blank",
       sx: "mt:4",
+      type: "button",
     },
   },
   form: {
@@ -602,6 +603,7 @@ export var components = {
     data: {
       label: "Textfield",
       type: "text",
+      name: "",
     },
   },
   transferlist: {

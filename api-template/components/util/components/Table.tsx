@@ -17,20 +17,33 @@ import {
 import ResDash from "../../../components/ResouceLayout";
 import { useRouter } from "next/router";
 import useTransformComponents from "../../../hooks/useTransformComponents";
+import { useSocketEvent } from "../../../lib/socket";
 
 function createData(name: string, calories: number, fat: number) {
   return { name, calories, fat };
 }
 
 export default function DenseTable({ api }) {
-  const [table = { columns: [], rows: [] }, loadingTables, error] =
+  const [table = { columns: [], rows: [], id: "" }, loadingTables, error] =
     useTransformComponents(api);
+
+  const [socketData, setSockeData] = React.useState([]);
 
   const router = useRouter();
   const rows =
-    table?.rows?.map((row) => {
+    [...socketData, ...(table?.rows ?? [])].map((row) => {
       return table?.columns.map((col) => row[col.key]);
     }) ?? [];
+
+  useSocketEvent("add_to_collection", (data) => {
+    if (data?.id === api?.id) {
+      setSockeData((p) => {
+        let prev = [...p];
+        prev.unshift({ ...data.row, isNew: true });
+        return prev;
+      });
+    }
+  });
 
   return (
     <Container>
@@ -49,7 +62,7 @@ export default function DenseTable({ api }) {
           >
             Add
           </Button>
-          <Button   size="small" onClick={router.back} variant="outlined">
+          <Button size="small" onClick={router.back} variant="outlined">
             Go Back
           </Button>
         </Box>

@@ -111,6 +111,9 @@ export default function renderComponents(components: any[] = []) {
           disabled,
           href,
           target,
+          type,
+          submitting,
+          handleSubmit
         } = data;
         return renderButton({
           color,
@@ -122,6 +125,9 @@ export default function renderComponents(components: any[] = []) {
           disabled,
           href,
           target,
+          loading: submitting,
+          type,
+          handleSubmit
         });
       }
       case "card": {
@@ -163,8 +169,8 @@ export default function renderComponents(components: any[] = []) {
         return <Checkbox defaultChecked={defaultChecked} key={index} />;
       }
       case "textfield": {
-        const { label, type } = data;
-        return renderTextField({ label, type });
+        const { label, type, handleChange, value, name } = data;
+        return renderTextField({ label, type, handleChange, value, name });
       }
       case "tabs": {
         const { items = [] } = data;

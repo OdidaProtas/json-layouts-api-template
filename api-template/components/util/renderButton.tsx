@@ -10,6 +10,9 @@ export interface IButton {
   disabled: boolean;
   target: string;
   href: string;
+  type: string;
+  loading: boolean;
+  handleSubmit: any;
 }
 
 export default function renderButton({
@@ -22,6 +25,9 @@ export default function renderButton({
   disabled = true,
   target,
   href,
+  type,
+  loading,
+  handleSubmit,
 }: IButton) {
   return (
     <Button
@@ -33,6 +39,9 @@ export default function renderButton({
       variant={variant}
       color={color}
       href={href}
+      type={type}
+      loading={loading}
+      handleSubmit={handleSubmit}
       target={target}
     />
   );

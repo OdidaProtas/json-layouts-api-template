@@ -1,6 +1,9 @@
 import { Alert, LinearProgress } from "@mui/material";
 import React from "react";
+import { useAxios } from "../../../hooks/useAxios";
+import useToast from "../../../hooks/useToast";
 import useTransformComponents from "../../../hooks/useTransformComponents";
+import { useSocket } from "../../../lib/socket";
 import renderComponents from "../renderComponents";
 import renderStack from "../renderStack";
 
@@ -10,39 +13,82 @@ export default function Form({ components = [], api = {} }: any) {
   const [apiComponents, loadingApiComponents, error] =
     useTransformComponents(api);
 
+  const recordId = api?.id;
+
   components = [...components, ...(apiComponents ?? [])];
 
-  const [state, setState] = React.useState(() =>
-    components.reduce((p: any, c: any) => ({ ...p, [c.name]: "" }), {})
-  );
-  const [loading, setLoading] = React.useState({});
+  const keys = components.map((c) => c.data.name).filter(Boolean);
 
-  const handleChange = React.useCallback((e: any) => {
+  const keysObj = keys.reduce((prev, curr) => {
+    return {
+      ...prev,
+      [curr]: "",
+    };
+  }, {});
+
+  const [state, setState] = React.useState(() => keysObj);
+
+  const [loading, setLoading] = React.useState(false);
+
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setState((p: any) => ({ ...p, [name]: value }));
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSaving(true)
   };
 
-  const componentData = React.useMemo(
-    () =>
-      components.map((component: any) => ({
-        ...component,
+  const { showToast } = useToast();
+
+  const axios = useAxios();
+
+  const socket = useSocket();
+
+  const handleSubmit = async () => {
+    setSaving(true);
+    const payload = {
+      tableId: recordId,
+      rowDraft: JSON.stringify(state ?? {}),
+    };
+    const res = await axios.post(`/api/resource/data/row`, { ...payload });
+    if (res.data) {
+      let row = JSON.parse(res.data.rowDraft ?? "");
+      // table.addRow(row);
+      showToast("success", "Record saved");
+      setSaving(false);
+      socket.emit("add_to_collection", {
+        id: recordId,
+        row:row
+      });
+      return;
+    }
+    setSaving(false);
+    showToast("error", "An error occured, Record not saved");
+  };
+
+  const componentData = () =>
+    (components ?? [])?.map((component: any) => ({
+      ...component,
+      data: {
+        ...component.data,
         handleChange,
         value: state[component.name],
-        submitting: loading,
-      })),
-    [components, handleChange, state, loading]
-  );
+        submitting: saving,
+        handleSubmit,
+      },
+    }));
 
-  const fields = renderComponents(componentData);
+  const fields = renderComponents(componentData());
   const fieldStack = renderStack(fields);
 
+  React.useEffect(() => {
+    // setState(() => keysObj);
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
       {error && (
         <>
           <Alert severity="error">An error occured</Alert>
