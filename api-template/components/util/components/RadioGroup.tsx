@@ -4,8 +4,16 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import useTransformComponents from "../../../hooks/useTransformComponents";
+import { LinearProgress } from "@mui/material";
 
-export default function RadioButtonsGroup({ options = [], label="Radio button group" }) {
+export default function RadioButtonsGroup({
+  options = [],
+  label = "Radio button group",
+  api = {},
+}) {
+  const [apiComponents = [], loading, error] = useTransformComponents(api);
+  options = [...options, ...(apiComponents??[])];
   return (
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">{label}</FormLabel>
@@ -25,6 +33,11 @@ export default function RadioButtonsGroup({ options = [], label="Radio button gr
           );
         })}
       </RadioGroup>
+      {loading && (
+        <>
+          <LinearProgress />
+        </>
+      )}
     </FormControl>
   );
 }

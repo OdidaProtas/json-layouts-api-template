@@ -465,7 +465,7 @@ export var components = {
   button: {
     type: "button",
     data: {
-      text: "Add pages to this app",
+      text: "Submit",
       href: "href",
       target: "blank",
       sx: "mt:4",
@@ -475,6 +475,13 @@ export var components = {
     type: "form",
     data: {
       components: [],
+      api: {
+        type: "form",
+        id: "",
+        fields: [],
+        procedure: "form",
+        buttonText: "Submit",
+      },
     },
   },
   text: {
@@ -507,21 +514,29 @@ export var components = {
     type: "autocomplete",
     data: {
       label: "Choose OS",
-      options: [
-        { label: "IOS", value: "ios" },
-        { label: "Android", value: "android" },
-        { label: "Web", value: "web" },
-      ],
+      options: [],
+      api: {
+        type: "collection",
+        id: "",
+        procedure: "options",
+        label: "Submit",
+        labelKey: "",
+        valueKey: "",
+      },
     },
   },
   buttongroup: {
     type: "buttongroup",
     data: {
-      options: [
-        { label: "IOS", value: "ios" },
-        { label: "Android", value: "android" },
-        { label: "Web", value: "web" },
-      ],
+      options: [],
+      api: {
+        type: "collection",
+        id: "",
+        procedure: "options",
+        label: "Submit",
+        labelKey: "",
+        valueKey: "",
+      },
     },
   },
   checkbox: {
@@ -539,11 +554,15 @@ export var components = {
     type: "radiogroup",
     label: "Radio group",
     data: {
-      options: [
-        { label: "IOS", value: "ios" },
-        { label: "Android", value: "android" },
-        { label: "Web", value: "web" },
-      ],
+      options: [],
+      api: {
+        type: "collection",
+        id: "",
+        procedure: "options",
+        label: "Submit",
+        labelKey: "",
+        valueKey: "",
+      },
     },
   },
   rating: {
@@ -555,11 +574,16 @@ export var components = {
   select: {
     type: "select",
     data: {
-      options: [
-        { label: "IOS", value: "ios" },
-        { label: "Android", value: "android" },
-        { label: "Web", value: "web" },
-      ],
+      label: "Select",
+      options: [],
+      api: {
+        type: "collection",
+        id: "",
+        procedure: "options",
+        label: "Submit",
+        labelKey: "",
+        valueKey: "",
+      },
     },
   },
   slider: {
@@ -587,11 +611,15 @@ export var components = {
   togglebutton: {
     type: "togglebutton",
     data: {
-      options: [
-        { label: "IOS", value: "ios" },
-        { label: "Android", value: "android" },
-        { label: "Web", value: "web" },
-      ],
+      options: [],
+      api: {
+        type: "collection",
+        id: "",
+        procedure: "options",
+        label: "Submit",
+        labelKey: "",
+        valueKey: "",
+      },
     },
   },
   avatar: {
@@ -615,21 +643,27 @@ export var components = {
   list: {
     type: "list",
     data: {
-      options: [
-        {
-          value: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
-          label: "Bed",
-        },
-        {
-          value: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
-          label: "Coffee",
-        },
-      ],
+      options: [],
+      api: {
+        type: "collection",
+        id: "",
+        procedure: "options",
+        label: "Submit",
+        labelKey: "",
+        valueKey: "",
+      },
     },
   },
   table: {
     type: "table",
-    data: {},
+    data: {
+      api: {
+        type: "collection",
+        id: "",
+        procedure: "table",
+        columns: ["Name", "Age"],
+      },
+    },
   },
   tooltip: {
     type: "tooltip",

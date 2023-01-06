@@ -5,19 +5,21 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
+import useTransformComponents from "../../hooks/useTransformComponents";
+import { LinearProgress } from "@mui/material";
 
-export default function renderList({ options }) {
-  return <BasicList options={options} />;
+export default function renderList({ options, api = {} }) {
+  return <BasicList options={options} api={api} />;
 }
 
-function BasicList({ options = [] }) {
+function BasicList({ options = [], api }) {
+  const [apiComponents = [], loading, error] = useTransformComponents(api);
+  options = [...options, ...(apiComponents ?? [])];
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <nav aria-label="main mailbox folders">
-        <List  >
+        <List>
           {options.map((option, index) => {
             return (
               <ListItem key={index} disablePadding>
@@ -31,6 +33,7 @@ function BasicList({ options = [] }) {
             );
           })}
         </List>
+        {loading && <LinearProgress />}
       </nav>
     </Box>
   );

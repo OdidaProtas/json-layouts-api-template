@@ -31,8 +31,8 @@ export default function ToggleButtons({ app }) {
     const res = await axios.put(`/api/app/${id}`, { ...payload });
     if (res.data) {
       setSaving(false);
-      showToast("success", "App saved");
-      router.push(`/a/${id}`);
+      showToast("success", "Changes saved");
+      // router.push(`/a/${id}`);
       return;
     }
     showToast("error", "Save failed");
@@ -48,7 +48,7 @@ export default function ToggleButtons({ app }) {
   };
 
   return (
-    <Box sx={{ mb: 3, display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <Box sx={{ width: 180, mr: 2 }}>
         <FormControl size="small" fullWidth>
           <InputLabel id="demo-simple-select-label">Select page</InputLabel>
@@ -86,19 +86,6 @@ export default function ToggleButtons({ app }) {
             {saving ? <CircularProgress size={20} /> : "Save Changes"}
           </Button>
         </Box>
-      </Box>
-      <Box sx={{ width: 80, ml: 2 }}>
-        <Button
-          fullWidth
-          sx={{ textTransform: "none" }}
-          size="small"
-          disabled={saving}
-          onClick={() => router.push("/")}
-          disableElevation
-          variant="outlined"
-        >
-          Cancel
-        </Button>
       </Box>
     </Box>
   );

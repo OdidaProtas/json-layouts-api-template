@@ -14,6 +14,7 @@ import { AuthSpinner } from "..";
 import useApp from "../../hooks/useApp";
 import { usePagesStateValue } from "../../lib/builder";
 import Layout from "../../components/Layout";
+import BuilderLayout from "../../components/BuilderLayout";
 
 const App: React.FC = () => {
   const { data: session, status } = useSession();
@@ -42,37 +43,29 @@ const App: React.FC = () => {
   }
 
   return (
-    <Grid container>
-      <Grid item xs={8}>
-        <Paper
-          sx={{
-            bgcolor: "lightgray",
-            minHeight: "85vh",
-            p: 3,
-            overflow: "auto",
-          }}
-        >
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ mb: 2, flexGrow: 1, display: "flex" }}>
-              <Avatar sx={{ mr: 1 }} src={props?.image}>
-                {title[0]}
-              </Avatar>
-              <Box>
-                <Typography variant="h6">{title}</Typography>
-              </Box>
-            </Box>
-            <ToggleButtons app={props} />
-          </Box>
+    <BuilderLayout>
+      <Grid container>
+        <Grid item xs={8}>
+          <Paper
+            sx={{
+              bgcolor: "lightgray",
+              minHeight: "85vh",
+              p: 3,
+              overflow: "auto",
+            }}
+          >
+            
 
-          <ThemeProvider theme={defaultTheme}>
-            <Preview />
-          </ThemeProvider>
-        </Paper>
+            <ThemeProvider theme={defaultTheme}>
+              <Preview />
+            </ThemeProvider>
+          </Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <BuilderTabs />
+        </Grid>
       </Grid>
-      <Grid item xs={4}>
-        <BuilderTabs />
-      </Grid>
-    </Grid>
+    </BuilderLayout>
   );
 };
 

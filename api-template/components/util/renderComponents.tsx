@@ -57,6 +57,7 @@ import BottomNav from "./components/BottomNav";
 import Paypal from "./components/Paypal";
 import ButtonGroup from "./components/ButtonGroup";
 import RenderTabs from "./renderTabs";
+import EnhancedTable from "./components/Table";
 
 export default function renderComponents(components: any[] = []) {
   return components.map((component, index) => {
@@ -80,12 +81,14 @@ export default function renderComponents(components: any[] = []) {
         return renderGrid({ components, spacing });
       }
       case "autocomplete": {
-        const { options = [], label = "Select" } = data;
-        return <Autocomplete label={label} options={options} key={index} />;
+        const { options = [], label = "Select", api = {} } = data;
+        return (
+          <Autocomplete api={api} label={label} options={options} key={index} />
+        );
       }
       case "buttongroup": {
-        const { options = [] } = data;
-        return <ButtonGroup options={options} key={index} />;
+        const { options = [], api = {} } = data;
+        return <ButtonGroup api={api} options={options} key={index} />;
       }
       case "dialog": {
         const { buttonText, components = [] } = data;
@@ -148,12 +151,12 @@ export default function renderComponents(components: any[] = []) {
         );
       }
       case "table": {
-        const { rows = [], headers = [] }: any = data;
-        return renderTable(headers, rows);
+        const { api = {} }: any = data;
+        return <EnhancedTable api={api} />;
       }
       case "form": {
-        const { components = [], label }: any = data;
-        return renderForm({ components, label });
+        const { components = [], api = {} }: any = data;
+        return renderForm({ components, api });
       }
       case "checkbox": {
         const { defaultChecked = false } = data;
@@ -232,11 +235,11 @@ export default function renderComponents(components: any[] = []) {
         return <Skeleton />;
       }
       case "bottom_navigation": {
-        const { items = [] } = data
+        const { items = [] } = data;
         return <BottomNav />;
       }
       case "snackbar": {
-        const { actionText, autoHideDuration, message, buttonText } = data
+        const { actionText, autoHideDuration, message, buttonText } = data;
         return <SimpleSnackbar />;
       }
       case "progress": {
@@ -249,11 +252,9 @@ export default function renderComponents(components: any[] = []) {
       case "appbar": {
         return renderAppbar();
       }
-      case "radio_group": {
-      }
       case "select": {
-        const { options = [], label } = data;
-        return renderSelect({ options, label });
+        const { options = [], label, api = {} } = data;
+        return renderSelect({ options, label, api });
       }
       case "slider": {
         return <Slider />;
@@ -262,8 +263,8 @@ export default function renderComponents(components: any[] = []) {
         return <Fab />;
       }
       case "radiogroup": {
-        const { options = [] } = data;
-        return <RadioButtonsGroup key={index} options={options} />;
+        const { options = [], api = {} } = data;
+        return <RadioButtonsGroup api={api} key={index} options={options} />;
       }
       case "rating": {
         const { initialValue = 3 } = data;
@@ -311,8 +312,8 @@ export default function renderComponents(components: any[] = []) {
       // case "icons": {
       // }
       case "list": {
-        const { options = 0 } = data;
-        return renderList({ options });
+        const { options = 0, api = {} } = data;
+        return renderList({ options, api });
       }
       case "tooltip": {
         return renderTooltip();

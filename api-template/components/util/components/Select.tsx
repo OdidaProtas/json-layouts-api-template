@@ -4,17 +4,22 @@ import MuiSelect from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import renderMenuItem from "../renderMenuItem";
+import useTransformComponents from "../../../hooks/useTransformComponents";
+import { CircularProgress, LinearProgress } from "@mui/material";
 
 export default function Select({
   options = [],
-  loadingOptions = false,
   label,
   handleChange,
+  api,
 }: any) {
+  const [apiComponents, loading, error] = useTransformComponents(api);
   const items = React.useMemo(
     () =>
-      options.map((option: any) => renderMenuItem(option.label, option.value)),
-    [...options]
+      [...options, ...(apiComponents ?? [])].map((option: any) =>
+        renderMenuItem(option.label, option.value)
+      ),
+    [...options, apiComponents]
   );
   return (
     <FormControl fullWidth>
@@ -27,6 +32,11 @@ export default function Select({
       >
         {items}
       </MuiSelect>
+      {loading && (
+        <>
+          <LinearProgress />
+        </>
+      )}
     </FormControl>
   );
 }

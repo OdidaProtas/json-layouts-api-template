@@ -8,7 +8,18 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { Box, Container, Grid, Stack, TextField } from "@mui/material";
+import {
+  Box,
+  Container,
+  FormControl,
+  FormGroup,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+} from "@mui/material";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -17,6 +28,14 @@ import useApi from "../hooks/useApi";
 import { components } from "./ComponentForm";
 import renderComponents from "./util/renderComponents";
 import dynamic from "next/dynamic";
+
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Checkbox from "@mui/material/Checkbox";
+import Avatar from "@mui/material/Avatar";
 
 const Code = dynamic(import("./Code"), {
   ssr: false,
@@ -61,10 +80,10 @@ export default function ResourceFormDialog({ type = "box" }) {
         size="small"
         fullWidth
         variant="outlined"
-        sx={{ textTransform: "none" }}
+        sx={{ textTransform: "none", mb: 2 }}
         onClick={handleClickOpen}
       >
-        Link api
+        Configure API
       </Button>
       <Dialog
         fullScreen
@@ -151,15 +170,6 @@ export default function ResourceFormDialog({ type = "box" }) {
                                 {table.name} Collection
                               </Typography>
                               <BasicTabs collection={table} type={type} />
-                              {type === "form" && (
-                                <Button
-                                  size="small"
-                                  variant="outlined"
-                                  fullWidth
-                                >
-                                  Create form
-                                </Button>
-                              )}
                             </Stack>
                           </Grid>
                         );
@@ -209,38 +219,154 @@ function a11yProps(index: number) {
   };
 }
 
-function BasicTabs({ type, collection }) {
+function BasicTabs({ type, collection, procedure = "" }) {
+  const [checked, setChecked] = React.useState([]);
+
+  const handleToggle = (value: string) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const columns = collection?.columns;
+  const columns = collection?.columns ?? [];
+  const rows = collection?.rows ?? [];
 
-  function componenttransform() {
+  const filteredColumns = columns.filter((col) => checked.includes(col.id));
+
+  const [labelKey, setLabelKey] = React.useState("");
+  const [valueKey, setValueKey] = React.useState("");
+  const isOptions = components[type]?.data?.api?.procedure === "options";
+  const isTable = components[type]?.data?.api?.procedure === "table";
+
+  function componentsApiTransform() {
+    if (type === "form") {
+      return {
+        ...components["form"],
+        data: {
+          ...components["form"].data,
+          components: [],
+          api: {
+            id: collection.id,
+            type: "collection",
+            procedure: "form",
+            buttonText: "Save",
+            fields: checked.map((c) => {
+              const column = columns.find((col) => col.id === c);
+              return column?.key;
+            }),
+          },
+        },
+      };
+    }
+    if (isOptions)
+      return {
+        ...components[type],
+        data: {
+          ...components[type].data,
+          components: [],
+          options: [],
+          api: {
+            id: collection.id,
+            type: "collection",
+            procedure: "options",
+            labelKey,
+            valueKey,
+          },
+        },
+      };
+    if (isTable)
+      return {
+        ...components["table"],
+        data: {
+          ...components[type].data,
+          components: [],
+          options: [],
+          api: {
+            id: collection.id,
+            type: "collection",
+            procedure: "table",
+            labelKey,
+            valueKey,
+          },
+        },
+      };
+  }
+
+  const submitButton = {
+    ...components["button"],
+    data: {
+      ...components["button"].data,
+      text: "Save",
+    },
+  };
+
+  function componentsTransform() {
     if (type === "form") {
       return {
         ...components["form"],
         data: {
           ...components["form"].data,
           components: [
-            ...columns.map((col) => ({
-              ...components["textfield"],
-              data: { label: col.key },
-            })),
-            {
-              ...components["button"],
-              data: { text: "Save", disabled: false },
-            },
+            ...filteredColumns.map((col) => {
+              return {
+                ...components["textfield"],
+                data: {
+                  ...components["textfield"].data,
+                  label: col.key,
+                },
+              };
+            }),
+            submitButton,
           ],
         },
+      };
+    }
+    if (isOptions) {
+      return {
+        ...components[type],
+        data: {
+          ...components[type].data,
+          options: [
+            ...rows.map((row) => {
+              const data = JSON.parse(row.rowDraft ?? "{}");
+              return {
+                label: data[labelKey],
+                value: data[valueKey],
+              };
+            }),
+          ],
+        },
+      };
+    }
+    if (isTable) {
+      return {
+        error: "This component required the api",
       };
     }
     return {};
   }
 
-  const componentsJson = componenttransform();
+  const componentsJ = componentsTransform();
+  const componentsJson = componentsApiTransform();
+
+  function handleOptionChange(value, which) {
+    if (which === "label") {
+      setLabelKey(value);
+    } else setValueKey(value);
+  }
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -250,16 +376,122 @@ function BasicTabs({ type, collection }) {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Components" {...a11yProps(0)} />
-          <Tab label="JSON" {...a11yProps(1)} />
+          <Tab label="Configure" {...a11yProps(0)} />
+          <Tab label="Preview" {...a11yProps(1)} />
+          <Tab label="API" {...a11yProps(2)} />
+          <Tab label="JSON" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Stack spacing={2}>{renderComponents([componentsJson ?? []])}</Stack>
+        {type === "form" && (
+          <CheckboxListSecondary
+            handleToggle={handleToggle}
+            checked={checked}
+            columns={columns}
+          />
+        )}
+        {isOptions && (
+          <OptionValue
+            handleChange={handleOptionChange}
+            valueKey={valueKey}
+            labelKey={labelKey}
+            columns={columns}
+          />
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <Stack spacing={2}>{renderComponents([componentsJson ?? []])}</Stack>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
         <Code state={componentsJson ?? {}} />
       </TabPanel>
+      <TabPanel value={value} index={3}>
+        <Code state={componentsJ ?? {}} />
+      </TabPanel>
+    </Box>
+  );
+}
+
+function CheckboxListSecondary({ columns = [], handleToggle, checked }) {
+  return (
+    <>
+      <Typography variant="h6">Select fields</Typography>
+      <List
+        dense
+        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+      >
+        {[...columns].map((column) => {
+          const labelId = `checkbox-list-secondary-label-${column.id}`;
+          return (
+            <ListItem
+              key={column.id}
+              secondaryAction={
+                <Checkbox
+                  edge="end"
+                  onChange={handleToggle(column.id)}
+                  checked={checked.includes(column.id)}
+                  inputProps={{ "aria-labelledby": labelId }}
+                />
+              }
+              disablePadding
+            >
+              <ListItemButton>
+                <ListItemText id={labelId} primary={column.key} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
+    </>
+  );
+}
+
+function OptionValue({ valueKey, labelKey, handleChange, columns = [] }) {
+  const keys = columns.map((col) => col.key);
+  return (
+    <Box>
+      <Grid>
+        <Grid>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Label key</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={labelKey}
+              label="Label"
+              onChange={(e) => handleChange(e.target.value, "label")}
+            >
+              {keys.map((key) => {
+                return (
+                  <MenuItem key={key} value={key}>
+                    {key}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid>
+          <FormControl sx={{ mt: 4 }} fullWidth>
+            <InputLabel id="demo-simple-select-label">Value key</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={valueKey}
+              label="Value"
+              onChange={(e) => handleChange(e.target.value, "value")}
+            >
+              {keys.map((key) => {
+                return (
+                  <MenuItem key={key} value={key}>
+                    {key}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

@@ -68,7 +68,7 @@ export default function BuilderTabs() {
         >
           <Tab
             sx={{ textTransform: "none" }}
-            label="Add Component"
+            label="Components"
             {...a11yProps(0)}
           />
           <Tab sx={{ textTransform: "none" }} label="JSON" {...a11yProps(1)} />

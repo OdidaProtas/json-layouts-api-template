@@ -34,7 +34,7 @@ export default function useApp() {
   }
 
   React.useEffect(() => {
-    if (!loadingApps) updateAll();
+    // if (!loadingApps) updateAll();
   }, []);
 
   return app ?? {};
