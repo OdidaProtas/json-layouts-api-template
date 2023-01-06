@@ -970,24 +970,7 @@ export var components = {
     data: {
       spacing: 2,
       direction: "column",
-      components: [
-        {
-          type: "text",
-          data: {
-            xs: true,
-            text: "Grid 1",
-            variant: "h1",
-          },
-        },
-        {
-          type: "text",
-          data: {
-            xs: true,
-            text: "Grid 2",
-            variant: "h1",
-          },
-        },
-      ],
+      components: [],
     },
   },
   imagelist: {
@@ -995,28 +978,11 @@ export var components = {
     data: {
       height: 600,
       width: 600,
-      options: [
-        {
-          value: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
-          label: "Bed",
-        },
-        {
-          value: "https://images.unsplash.com/photo-1563298723-dcfebaa392e3",
-          label: "Kitchen",
-        },
-        {
-          value: "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6",
-          label: "Sink",
-        },
-        {
-          value: "https://images.unsplash.com/photo-1525097487452-6278ff080c31",
-          label: "Books",
-        },
-        {
-          value: "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
-          label: "Chairs",
-        },
-      ],
+      options: [],
+      api: {
+        type: "images",
+        procedure: "imagelist",
+      },
     },
   },
 };

@@ -8,13 +8,7 @@ export default function renderTable(headers: any[] = [], objs: any = []) {
   //   const head = renderTableHead(headers);
   //   const rowdata = createTableData(headers, objs);
   //   const rows = renderTableRows(rowdata);
-  return (
-    <EnhancedTable />
-    // <table>
-    //   {/* <thead>{head}</thead> */}
-    //   {/* <tbody>{rows}</tbody> */}
-    // </table>
-  );
+  return null;
 }
 
 function createTableData(headers: any[] = [], rows: any[] = []) {
