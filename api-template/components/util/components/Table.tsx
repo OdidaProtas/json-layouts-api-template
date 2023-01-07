@@ -47,27 +47,6 @@ export default function DenseTable({ api }) {
 
   return (
     <Container>
-      <Box sx={{ display: "flex", my: 6 }}>
-        <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h4">Table: {table?.name}</Typography>
-        </Box>
-        {loadingTables && <LinearProgress />}
-        <Box>
-          <Button
-            sx={{ mr: 2 }}
-            size="small"
-            onClick={() => router.push(`/res/table/${router.query.id}/create`)}
-            variant="outlined"
-            disabled
-          >
-            Add
-          </Button>
-          <Button size="small" onClick={router.back} variant="outlined">
-            Go Back
-          </Button>
-        </Box>
-      </Box>
-
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 259 }} size="small" aria-label="a dense table">
           <TableHead>

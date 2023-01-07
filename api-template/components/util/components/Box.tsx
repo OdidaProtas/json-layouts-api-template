@@ -23,7 +23,7 @@ export default function Box({
   if (centerHorizontal) sx.justifyContent = "center";
   if (centerVertical) sx.alignItems = "center";
   if (minHeight) sx.minHeight = minHeight;
-  if (textAlign) sx.textAlign = "center";
+  // if (textAlign) sx.textAlign = "center";
   if (centerHorizontal) sx.justifyConytent = "space-between";
 
   return <MuiBox sx={{ ...sx }}>{children}</MuiBox>;

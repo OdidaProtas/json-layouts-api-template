@@ -800,22 +800,7 @@ export var components = {
       items: [
         {
           label: "Select master blaster campaign settings",
-          components: [
-            {
-              type: "text",
-              data: {
-                text: "Containet",
-                variant: "h1",
-              },
-            },
-            {
-              type: "text",
-              data: {
-                text: "Grid 2",
-                variant: "h1",
-              },
-            },
-          ],
+          components: [],
         },
         {
           label: "Create an ad group",
@@ -947,24 +932,7 @@ export var components = {
     type: "grid",
     data: {
       spacing: 2,
-      components: [
-        {
-          type: "text",
-          data: {
-            xs: true,
-            text: "Grid 1",
-            variant: "h1",
-          },
-        },
-        {
-          type: "text",
-          data: {
-            xs: true,
-            text: "Grid 2",
-            variant: "h1",
-          },
-        },
-      ],
+      components: [],
     },
   },
   stack: {

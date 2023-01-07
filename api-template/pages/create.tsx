@@ -165,7 +165,6 @@ const Create: React.FC = () => {
               )}
             </Box>
             <TextField
-              autoFocus
               onChange={(e) => setName(e.target.value)}
               placeholder="App name"
               type="text"

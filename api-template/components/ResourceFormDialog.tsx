@@ -390,6 +390,13 @@ function BasicTabs({ type, collection, procedure = "" }) {
             columns={columns}
           />
         )}
+        {type === "table" && (
+          <CheckboxListSecondary
+            handleToggle={handleToggle}
+            checked={checked}
+            columns={columns}
+          />
+        )}
         {isOptions && (
           <OptionValue
             handleChange={handleOptionChange}
