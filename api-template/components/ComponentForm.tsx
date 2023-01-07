@@ -31,7 +31,7 @@ interface IC {
   handleDeleteOption: any;
 }
 
-export const ComponentSelect = ({ value, onChange }) => {
+export const ComponentSelect = ({ value, onChange, toggleBrowse }) => {
   const componentData = Object.keys(components ?? {}).map((key) => ({
     label: key,
     value: key,
@@ -39,7 +39,7 @@ export const ComponentSelect = ({ value, onChange }) => {
 
   return (
     <>
-      <BrowseComponents select={onChange} />
+      <BrowseComponents toggleBrowse={toggleBrowse} select={onChange} />
       <Autocomplete
         sx={{ mb: 3 }}
         size="small"
@@ -495,20 +495,11 @@ export var components = {
   box: {
     type: "box",
     data: {
-      textAlign: "center",
-      flex: true,
-      centerHorizontal: true,
-      centerVertical: true,
-      minHeight: "100vh",
-      components: [
-        {
-          type: "text",
-          data: {
-            text: "Hello World",
-            variant: "h1",
-          },
-        },
-      ],
+      flex: false,
+      centerHorizontal: false,
+      centerVertical: false,
+      minHeight: "100%",
+      components: [],
     },
   },
   autocomplete: {
@@ -683,13 +674,7 @@ export var components = {
     type: "dialog",
     data: {
       buttonText: "Open Dialog",
-      components: [
-        { type: "textfield", data: { label: "TextField" } },
-        {
-          type: "button",
-          data: { text: "submit", disabled: false, type: "submit" },
-        },
-      ],
+      components: [],
       actions: [],
     },
   },
@@ -804,41 +789,11 @@ export var components = {
         },
         {
           label: "Create an ad group",
-          components: [
-            {
-              type: "text",
-              data: {
-                text: "Containet",
-                variant: "h1",
-              },
-            },
-            {
-              type: "text",
-              data: {
-                text: "Grid 2",
-                variant: "h1",
-              },
-            },
-          ],
+          components: [],
         },
         {
           label: "Create an ad",
-          components: [
-            {
-              type: "text",
-              data: {
-                text: "Containet",
-                variant: "h1",
-              },
-            },
-            {
-              type: "text",
-              data: {
-                text: "Grid 2",
-                variant: "h1",
-              },
-            },
-          ],
+          components: [],
         },
       ],
     },
@@ -849,60 +804,15 @@ export var components = {
       items: [
         {
           label: "Tab 1",
-          components: [
-            {
-              type: "text",
-              data: {
-                text: "Containet",
-                variant: "h1",
-              },
-            },
-            {
-              type: "text",
-              data: {
-                text: "Grid 2",
-                variant: "h1",
-              },
-            },
-          ],
+          components: [],
         },
         {
           label: "Tab 2",
-          components: [
-            {
-              type: "text",
-              data: {
-                text: "Containet",
-                variant: "h1",
-              },
-            },
-            {
-              type: "text",
-              data: {
-                text: "Grid 2",
-                variant: "h1",
-              },
-            },
-          ],
+          components: [],
         },
         {
           label: "Tab 3",
-          components: [
-            {
-              type: "text",
-              data: {
-                text: "Containet",
-                variant: "h1",
-              },
-            },
-            {
-              type: "text",
-              data: {
-                text: "Grid 2",
-                variant: "h1",
-              },
-            },
-          ],
+          components: [],
         },
       ],
     },
@@ -910,22 +820,7 @@ export var components = {
   container: {
     type: "container",
     data: {
-      components: [
-        {
-          type: "text",
-          data: {
-            text: "Containet",
-            variant: "h1",
-          },
-        },
-        {
-          type: "text",
-          data: {
-            text: "Grid 2",
-            variant: "h1",
-          },
-        },
-      ],
+      components: [],
     },
   },
   grid: {

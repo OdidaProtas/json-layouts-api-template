@@ -300,6 +300,10 @@ function BasicTabs({ type, collection, procedure = "" }) {
             procedure: "table",
             labelKey,
             valueKey,
+            fields: checked.map((c) => {
+              const column = columns.find((col) => col.id === c);
+              return column?.key;
+            }),
           },
         },
       };

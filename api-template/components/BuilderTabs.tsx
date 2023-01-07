@@ -58,7 +58,7 @@ export default function BuilderTabs() {
   };
 
   return (
-    <Box sx={{ width: "90%", overflow: "auto" }}>
+    <Box sx={{ width: "100%", overflow: "auto" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           scrollButtons
@@ -66,36 +66,36 @@ export default function BuilderTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab
+          {/* <Tab
             sx={{ textTransform: "none" }}
             label="Components"
             {...a11yProps(0)}
-          />
-          <Tab sx={{ textTransform: "none" }} label="JSON" {...a11yProps(1)} />
+          /> */}
+          <Tab sx={{ textTransform: "none" }} label="JSON" {...a11yProps(0)} />
           <Tab
             sx={{ textTransform: "none" }}
             label="Components"
-            {...a11yProps(2)}
+            {...a11yProps(1)}
           />
-          <Tab sx={{ textTransform: "none" }} label="Theme" {...a11yProps(3)} />
-          <Tab sx={{ textTransform: "none" }} label="Pages" {...a11yProps(4)} />
+          <Tab sx={{ textTransform: "none" }} label="Theme" {...a11yProps(2)} />
+          {/* <Tab sx={{ textTransform: "none" }} label="Pages" {...a11yProps(3)} /> */}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      {/* <TabPanel value={value} index={0}>
         <ComponentFormTabs />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
+      </TabPanel> */}
+      <TabPanel value={value} index={0}>
         <Code />
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={1}>
         <ComponentsTab />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
         <Code state={{ ...defaultTheme }} />
       </TabPanel>
-      <TabPanel value={value} index={4}>
+      {/* <TabPanel value={value} index={3}>
         <AddPage />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 }

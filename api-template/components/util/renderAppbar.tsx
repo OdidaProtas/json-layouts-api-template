@@ -1,5 +1,5 @@
-import { AppBar } from "@mui/material";
+import MuiAppbar from "@mui/material/AppBar";
 
 export default function renderAppbar() {
-  return <AppBar />;
+  return <MuiAppbar />;
 }

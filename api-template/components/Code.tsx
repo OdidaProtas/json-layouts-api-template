@@ -55,7 +55,7 @@ export default function Code({ state, size = "large", setState }: ICode) {
           showGutter: false,
         }}
         value={code}
-        height={size === "small" ? "35vh" : "80vh"}
+        height={size === "small" ? "35vh" : "70vh"}
         width={"100%"}
         showGutter
         fontSize={11}

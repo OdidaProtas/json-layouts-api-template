@@ -19,13 +19,10 @@ import renderSelect from "./renderSelect";
 import renderList from "./renderList";
 import renderAlert from "./renderAlert";
 import renderTooltip from "./renderTooltip";
-import renderRating from "./renderRating";
 import renderImageField from "./renderImageField";
 import renderBox from "./renderBox";
 import renderImage from "./renderImage";
-import renderTable from "./renderTable";
 import renderForm from "./renderForm";
-import renderTabs from "./renderTabs";
 import { IBox } from "./components/Box";
 import DefaultComponent from "./components/DefaultComponent";
 import Autocomplete from "./components/AutoComplete";
@@ -113,7 +110,7 @@ export default function renderComponents(components: any[] = []) {
           target,
           type,
           submitting,
-          handleSubmit
+          handleSubmit,
         } = data;
         return renderButton({
           color,
@@ -127,7 +124,7 @@ export default function renderComponents(components: any[] = []) {
           target,
           loading: submitting,
           type,
-          handleSubmit
+          handleSubmit,
         });
       }
       case "card": {

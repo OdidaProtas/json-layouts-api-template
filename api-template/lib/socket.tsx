@@ -13,24 +13,24 @@ export function SocketProvider({ children }) {
   const isMounted = useRef(false);
   useEffect(() => {
     fetch("/api/socketio").finally(() => {
-      const socket = io();
+      const sock = io();
 
-      setSocket(socket);
+      setSocket(sock);
 
-      socket.on("connect", () => {
+      sock.on("connect", () => {
         console.log("connect");
-        socket.emit("hello");
+        sock.emit("hello");
       });
 
-      socket.on("hello", (data) => {
+      sock.on("hello", (data) => {
         console.log("hello", data);
       });
 
-      socket.on("a user connected", () => {
+      sock.on("a user connected", () => {
         console.log("a user connected");
       });
 
-      socket.on("disconnect", () => {
+      sock.on("disconnect", () => {
         console.log("disconnect");
       });
     });
@@ -55,7 +55,7 @@ export function useSocketEvent(event, callback) {
       socket.on(event, (data) => callback(data));
     }
     return () => {
-      socket.off(event, (data) => callback(data));
+      if (socket) socket.off(event, (data) => callback(data));
     };
   }, [socket, event]);
 }

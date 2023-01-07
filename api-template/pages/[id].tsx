@@ -1,62 +1,36 @@
 import React from "react";
-// import { GetServerSideProps } from "next";
 
-import Box from "@mui/material/Box";
-
-// import prisma from "../lib/prisma";
+import defaultTheme from "../lib/defaultheme";
 import { AppProps } from "../components/App";
 import renderPage from "../components/util/renderPage";
 import { usePagesStateValue } from "../lib/builder";
 import helloWorld from "../lib/defaultApp";
 import { useRouter } from "next/router";
-import useApp from "../hooks/useApp";
+import usePages from "../hooks/usePages";
 import { AuthSpinner } from ".";
 import { useSession } from "next-auth/react";
-
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-//   const app = await prisma.app.findUnique({
-//     where: {
-//       id: String(params?.id),
-//     },
-//     include: {
-//       author: {
-//         select: { name: true, email: true },
-//       },
-//     },
-//   });
-//   return {
-//     props: app,
-//   };
-// };
+import { ThemeProvider } from "@mui/material";
+import useApps from "../hooks/useApps";
+import Preview from "../components/Preview";
 
 const App: React.FC<AppProps> = () => {
   const router = useRouter();
-  const app = useApp() ?? { draft: undefined };
-  const loading = usePagesStateValue("loaders.apps");
-  const pages = JSON.parse(app.draft ?? "[]");
+  const pages = usePages();
+  const loading = usePagesStateValue("loaders.pahes");
   const { status: authStatus } = useSession();
 
-  const currentPath = usePagesStateValue("path") ?? "/";
-
-  let title = app.name;
-
-  if (!app.published) {
-    title = `${title} (Draft)`;
-  }
-
-  const findPage = () => {
-    const currentPage = pages.find((page) => page.path === currentPath);
-    if (currentPage) {
-      return currentPage;
-    }
-    return pages[0];
-  };
+  const pageIndex = usePagesStateValue("pageIndex", 0);
+  const pageData = pages[pageIndex];
 
   if (loading || authStatus === "loading") {
     return <AuthSpinner />;
   }
 
-  return <Box>{renderPage(findPage() ?? { ...helloWorld })}</Box>;
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      {renderPage(pageData ?? { ...helloWorld })}
+    </ThemeProvider>
+  );
 };
 
 export default App;

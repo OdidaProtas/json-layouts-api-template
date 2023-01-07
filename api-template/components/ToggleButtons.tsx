@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import helloWorld from "../lib/defaultApp";
 import useToast from "../hooks/useToast";
 import { useAxios } from "../hooks/useAxios";
+import AddPage from "./AddPageDialog";
 
 export default function ToggleButtons({ app }) {
   const pages = usePagesStateValue("pages");
@@ -50,7 +51,7 @@ export default function ToggleButtons({ app }) {
   return (
     <Box sx={{ display: "flex" }}>
       <Box sx={{ width: 180, mr: 2 }}>
-        <FormControl size="small" fullWidth>
+        {/* <FormControl size="small" fullWidth>
           <InputLabel id="demo-simple-select-label">Select page</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -67,13 +68,13 @@ export default function ToggleButtons({ app }) {
               );
             })}
           </Select>
-        </FormControl>
+        </FormControl> */}
       </Box>
-      {/* <Box sx={{ width: 200 }}>
-        <AddPageDialog />
-      </Box> */}
+      <Box sx={{ width: 100, pt: 2 }}>
+        <AddPage />
+      </Box>
       <Box>
-        <Box sx={{ width: 140, ml: 2 }}>
+        <Box sx={{ width: 140, ml: 2, pt: 2 }}>
           <Button
             size="small"
             fullWidth

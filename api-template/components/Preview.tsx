@@ -45,31 +45,12 @@ export default function Preview({ fullScreen = false }) {
       elevation={0}
       sx={{
         p: fullScreen ? 0 : 2,
-        maxHeight: `${fullScreen ? "100%" : "76vh"}`,
-        minHeight: `${fullScreen ? "100%" : "60vh"}`,
+        maxHeight: `${fullScreen ? "100%" : "55vh"}`,
+        minHeight: `${fullScreen ? "100%" : "50vh"}`,
         overflow: "auto",
         position: "relative",
       }}
     >
-      <Toolbar
-        sx={{
-          bgcolor: "lightgray",
-          mb: 4,
-          position: "absolute",
-          width: "100%",
-          zIndex: 100,
-        }}
-      >
-        <Typography sx={{ flexGrow: 1 }} variant="h5">
-          {" "}
-          {pageData.name} preview
-        </Typography>
-        <Box>
-          <AddPage />
-        </Box>
-      </Toolbar>
-      <Toolbar />
-      <Toolbar />
       <ErrorBoundary>{renderPage(pageData)}</ErrorBoundary>
     </Paper>
   );

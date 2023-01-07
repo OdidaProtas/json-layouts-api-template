@@ -1,6 +1,7 @@
 const helloWorld = {
   layout: "page",
   name: "Hello World",
+  path: "/",
   components: [
     {
       type: "box",
@@ -24,7 +25,20 @@ const helloWorld = {
       },
     },
   ],
-  opts: {},
+  opts: {
+    appbar: {
+      logo: {
+        type: "text",
+        content: "Spaces",
+      },
+      navItems: [
+        {
+          text: "Home",
+          page: "/",
+        },
+      ],
+    },
+  },
 };
 
 export default helloWorld;

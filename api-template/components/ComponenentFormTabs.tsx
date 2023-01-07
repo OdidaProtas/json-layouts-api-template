@@ -53,9 +53,14 @@ function a11yProps(index: number) {
 interface ICFTabs {
   data?: any;
   index?: number;
+  toggleBrowse?: Function;
 }
 
-export default function ComponentFormTabs({ data, index: cIndex }: ICFTabs) {
+export default function ComponentFormTabs({
+  data,
+  index: cIndex,
+  toggleBrowse = ()=>{},
+}: ICFTabs ) {
   const [value, setValue] = React.useState(0);
 
   const _handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -177,7 +182,7 @@ export default function ComponentFormTabs({ data, index: cIndex }: ICFTabs) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <ComponentSelect onChange={handleTypeChange} value={state.type} />
+        <ComponentSelect toggleBrowse={toggleBrowse}  onChange={handleTypeChange} value={state.type} />
         <ResourceFormDialog type={state.type} />
         <ComponentForm
           handleTypeChange={handleTypeChange}
@@ -196,13 +201,13 @@ export default function ComponentFormTabs({ data, index: cIndex }: ICFTabs) {
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ComponentSelect onChange={handleTypeChange} value={state.type} />
-        <ResourceFormDialog type={state.type}/>
+        {/* <ComponentSelect toggleBrowse={toggleBrowse}  onChange={handleTypeChange} value={state.type} /> */}
+        {/* <ResourceFormDialog type={state.type} /> */}
         <Code size="small" state={{ ...state }} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ComponentSelect onChange={handleTypeChange} value={state.type} />
-        <ResourceFormDialog type={state.type} />
+        {/* <ComponentSelect toggleBrowse={toggleBrowse}  onChange={handleTypeChange} value={state.type} /> */}
+        {/* <ResourceFormDialog type={state.type} /> */}
         {renderComponents([{ ...state }])}
       </TabPanel>
       {/* <TabPanel value={value} index={3}>

@@ -49,8 +49,8 @@ const App: React.FC = () => {
           <Paper
             sx={{
               bgcolor: "lightgray",
-              minHeight: "85vh",
-              p: 3,
+              minHeight: "60vh",
+              p: 1,
               overflow: "auto",
             }}
           >

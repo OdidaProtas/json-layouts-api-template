@@ -27,8 +27,10 @@ import Link from "next/link";
 import useApp from "../hooks/useApp";
 import ToggleButtons from "./ToggleButtons";
 import useApps from "../hooks/useApps";
+import ComponentFormTabs from "./ComponenentFormTabs";
+import BrowseComponents from "./BrowseComponents.Dialog";
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -82,10 +84,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function BuilderLayout({ children }) {
   const { status, data: session } = useSession();
 
+  const [browse, setBrowse] = React.useState(false);
+
+  const toggleBrowse = () => setBrowse((o) => !o);
+
   const router = useRouter();
 
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -171,36 +177,8 @@ export default function BuilderLayout({ children }) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        {/* <List>
-          {["Overview"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => router.push("/admin")}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider /> */}
-
-        {/* <List>
-          {["Plans"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  if (index === 0) router.push("/admin/plans");
-                }}
-              >
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
+        { <ComponentFormTabs toggleBrowse={toggleBrowse} />}
+        {/* {browse && <BrowseComponents toggleBrowse={toggleBrowse} />} */}
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

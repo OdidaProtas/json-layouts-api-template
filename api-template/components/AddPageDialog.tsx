@@ -83,7 +83,7 @@ export default function AddPage() {
         variant="outlined"
         onClick={handleClickOpen}
       >
-        Manage pages
+        Pages
       </Button>
       <Dialog
         fullScreen
