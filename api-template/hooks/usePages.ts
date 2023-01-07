@@ -2,7 +2,10 @@ import { useRouter } from "next/router";
 import React from "react";
 import { usePagesStateValue } from "../lib/builder";
 import helloWorld from "../lib/defaultApp";
+import useApps from "./useApps";
 import { useAxios } from "./useAxios";
+import useSubdomainApp from "./useSubdomainApp";
+import useIsWhiteListSubdomain from "./useWhiteListSubdomains";
 
 export default function usePages() {
   const pages = usePagesStateValue("pages");
@@ -12,8 +15,10 @@ export default function usePages() {
 
   const loadingPages = usePagesStateValue("loaders.pages");
 
-  const { updatePages, togglePagesLoader } = useActions();
+  const { updatePages, togglePagesLoader } = usePagesActions();
   const axios = useAxios();
+
+  const apps = useApps();
 
   async function updateAll() {
     togglePagesLoader(true);
@@ -31,19 +36,22 @@ export default function usePages() {
     }
   }
 
+  const [subdomain] = useSubdomainApp(apps);
+  const isWhiteListSubdomain = useIsWhiteListSubdomain(subdomain);
+
   const couldBeEmpty =
     !pages.length &&
     (loadingPages === null || loadingPages === undefined) &&
     !loadingPages;
 
   React.useEffect(() => {
-    if (appId) updateAll();
-  }, [appId]);
+    if (appId && (!subdomain || isWhiteListSubdomain)) updateAll();
+  }, [appId, subdomain]);
 
   return [...pages];
 }
 
-function useActions() {
+export function usePagesActions() {
   const dispatchToPages = usePagesStateValue("dispatch");
   const pages = usePagesStateValue("pages");
   const loaders = usePagesStateValue("loaders");

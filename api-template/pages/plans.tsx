@@ -53,7 +53,7 @@ export default function VerticalLinearStepper() {
           <Typography variant="h4" sx={{ my: 3 }}>
             Plans and billing information
           </Typography>
-          <Box sx={{ maxWidth: 600 }}>
+          <Box >
             <Stepper activeStep={activeStep} orientation="vertical">
               {steps.map((step, index) => (
                 <Step key={step.label}>
