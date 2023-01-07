@@ -48,6 +48,7 @@ export default function DenseTable({ api }) {
   return (
     <Container>
       <TableContainer component={Paper}>
+        {loadingTables && <LinearProgress />}
         <Table sx={{ minWidth: 259 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow sx={{ bgcolor: "lightgray" }}>
