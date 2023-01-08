@@ -66,7 +66,7 @@ export default function renderComponents(components: any[] = []) {
     } = component;
     switch (type) {
       case "stack": {
-        const { direction, components = [], spacing } = data;
+        const { direction, components = [], spacing, } = data;
         return (
           <Stack key={index} spacing={spacing} direction={direction}>
             {renderComponents([...components])}
@@ -74,8 +74,8 @@ export default function renderComponents(components: any[] = []) {
         );
       }
       case "grid": {
-        const { components = [], spacing = 2 }: any = data;
-        return renderGrid({ components, spacing });
+        const { components = [], spacing = 2, api = {} }: any = data;
+        return renderGrid({ components, spacing, api });
       }
       case "autocomplete": {
         const { options = [], label = "Select", api = {} } = data;

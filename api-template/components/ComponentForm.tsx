@@ -31,7 +31,11 @@ interface IC {
   handleDeleteOption: any;
 }
 
-export const ComponentSelect = ({ value, onChange, toggleBrowse }) => {
+export const ComponentSelect = ({
+  value,
+  onChange,
+  toggleBrowse = () => {},
+}: any) => {
   const componentData = Object.keys(components ?? {}).map((key) => ({
     label: key,
     value: key,
@@ -500,6 +504,14 @@ export var components = {
       centerVertical: false,
       minHeight: "100%",
       components: [],
+      api: {
+        type: "grid",
+        id: "",
+        procedure: "map",
+        buttonText: "Submit",
+        mapType: "",
+        mapState: {},
+      },
     },
   },
   autocomplete: {
@@ -821,6 +833,14 @@ export var components = {
     type: "container",
     data: {
       components: [],
+      api: {
+        type: "grid",
+        id: "",
+        procedure: "map",
+        buttonText: "Submit",
+        mapType: "",
+        mapState: {},
+      },
     },
   },
   grid: {
@@ -828,6 +848,14 @@ export var components = {
     data: {
       spacing: 2,
       components: [],
+      api: {
+        type: "grid",
+        id: "",
+        procedure: "map",
+        buttonText: "Submit",
+        mapType: "",
+        mapState: {},
+      },
     },
   },
   stack: {
@@ -836,6 +864,14 @@ export var components = {
       spacing: 2,
       direction: "column",
       components: [],
+      api: {
+        type: "grid",
+        id: "",
+        procedure: "map",
+        buttonText: "Submit",
+        mapType: "",
+        mapState: {},
+      },
     },
   },
   imagelist: {

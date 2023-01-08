@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import renderComponents from "../renderComponents";
+import useTransformComponents from "../../../hooks/useTransformComponents";
+import { LinearProgress } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -13,9 +15,16 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function BasicGrid({ components, spacing }) {
+export default function BasicGrid({ components, spacing, api = {} }) {
+  const [apiComponents, loading] = useTransformComponents(api);
+  components = [...components, ...(apiComponents ?? [])];
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {loading && (
+        <Box>
+          <LinearProgress />
+        </Box>
+      )}
       <Grid container spacing={spacing}>
         {components.map((component, index) => {
           return (

@@ -36,6 +36,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
+import ComponentsAPI from "./api";
 
 const Code = dynamic(import("./Code"), {
   ssr: false,
@@ -66,7 +67,7 @@ export default function ResourceFormDialog({ type = "box" }) {
   const [{ images, tables } = { images: [], tables: [] }] = useApi();
   const loadingApi = usePagesStateValue("loaders.api");
 
-  const blackList = ["box", "container"];
+  const blackList = [];
 
   if (blackList.includes(type)) return null;
 
@@ -164,11 +165,9 @@ export default function ResourceFormDialog({ type = "box" }) {
                     <Grid container spacing={2}>
                       {tables?.map((table) => {
                         return (
-                          <Grid item xs={4} key={table.id}>
+                          <Grid item xs={6} key={table.id}>
                             <Stack spacing={1}>
-                              <Typography variant="h4">
-                                {table.name} Collection
-                              </Typography>
+                              <Typography variant="h4">{table.name}</Typography>
                               <BasicTabs collection={table} type={type} />
                             </Stack>
                           </Grid>
@@ -248,8 +247,38 @@ function BasicTabs({ type, collection, procedure = "" }) {
 
   const [labelKey, setLabelKey] = React.useState("");
   const [valueKey, setValueKey] = React.useState("");
+
   const isOptions = components[type]?.data?.api?.procedure === "options";
   const isTable = components[type]?.data?.api?.procedure === "table";
+  const isMap = components[type]?.data?.api?.procedure === "map";
+
+  const mapKeys = columns.map((col) => col.key);
+
+  const [componentMapType, setComponentMapType] = React.useState("text");
+
+  const component = components[componentMapType];
+
+  const omitMapComponentData = Object.keys(component?.data ?? {});
+
+  const omitMapOptions = ["components", "options", "items", "api", "actions"];
+
+  const mapComponentDataKeys = omitMapComponentData.filter(
+    (key) => !omitMapOptions.includes(key)
+  );
+
+  const componentDataObj = mapComponentDataKeys.reduce((prev, curr) => {
+    return { ...prev, [curr]: "" };
+  }, {});
+
+  const [mapState, setMapState] = React.useState({ ...componentDataObj });
+
+  const handleMapChange = (e) => {
+    setMapState((s) => ({ ...s, [e.target.name]: e.target.value }));
+  };
+  const handleMapTypeChange = ({ value }) => {
+    setComponentMapType(value);
+    setMapState(componentDataObj);
+  };
 
   function componentsApiTransform() {
     if (type === "form") {
@@ -307,6 +336,26 @@ function BasicTabs({ type, collection, procedure = "" }) {
           },
         },
       };
+    if (isMap)
+      return {
+        ...components[type],
+        data: {
+          ...components[type].data,
+          components: [],
+          options: [],
+          api: {
+            id: collection.id,
+            type: "collection",
+            procedure: "map",
+            mapType: componentMapType,
+            fields: checked.map((c) => {
+              const column = columns.find((col) => col.id === c);
+              return column?.key;
+            }),
+            mapState,
+          },
+        },
+      };
   }
 
   const submitButton = {
@@ -360,6 +409,39 @@ function BasicTabs({ type, collection, procedure = "" }) {
         error: "This component required the api",
       };
     }
+    if (isMap)
+      return {
+        ...components[type],
+        data: {
+          ...components[type].data,
+          components: [
+            ...(rows ?? []).map((row) => {
+              const typeKeys = Object.keys(
+                components[componentMapType]?.data ?? {}
+              );
+              const newValues = typeKeys.reduce((prev, curr) => {
+                return { ...prev, [curr]: mapState[curr] };
+              }, {});
+              return {
+                ...components[componentMapType],
+                data: { ...components[componentMapType]?.data, ...newValues },
+              };
+            }),
+          ],
+          options: [],
+          api: {
+            id: "",
+            type: "collection",
+            procedure: "map",
+            labelKey,
+            valueKey,
+            fields: checked.map((c) => {
+              const column = columns.find((col) => col.id === c);
+              return column?.key;
+            }),
+          },
+        },
+      };
     return {};
   }
 
@@ -407,6 +489,16 @@ function BasicTabs({ type, collection, procedure = "" }) {
             valueKey={valueKey}
             labelKey={labelKey}
             columns={columns}
+          />
+        )}
+        {isMap && (
+          <ComponentsAPI
+            handleMapTypeChange={handleMapTypeChange}
+            componentMapType={componentMapType}
+            mapComponentDataKeys={mapComponentDataKeys}
+            mapState={mapState}
+            handleMapChange={handleMapChange}
+            mapKeys={mapKeys}
           />
         )}
       </TabPanel>

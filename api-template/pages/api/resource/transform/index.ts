@@ -96,6 +96,34 @@ export default async function handler(
         ...table,
         rows: (table.rows as any).map((r) => JSON.parse(r.rowDraft ?? "{}")),
       });
+    } else if (procedure === "map") {
+      const componentMapType = resource.mapType;
+      const mapState = resource.mapState ?? {};
+      const data = [
+        ...((rows as any) ?? []).map((row) => {
+          const rowData = JSON.parse(row.rowDraft ?? "{}");
+          const typeKeys = Object.keys(
+            components[componentMapType]?.data ?? {}
+          );
+          const newValues = typeKeys.reduce((prev, curr) => {
+            return { ...prev, [curr]: rowData[curr] };
+          }, {});
+          const cps = (
+            Object.keys(mapState ?? {}).reduce((prev, curr) => {
+              if (curr === "variant") {
+                return { ...prev, curr: mapState["variant"] };
+              }
+              return { ...prev, [curr]: rowData[mapState[curr]] };
+            }, {})
+          );
+          return {
+            ...components[componentMapType],
+            data: { ...components[componentMapType]?.data, ...cps },
+          };
+        }),
+      ];
+
+      res.json(data);
     } else res.json([]);
   } else if (type === "media") {
     const app = await prisma.app.findUnique({

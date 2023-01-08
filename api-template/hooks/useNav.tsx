@@ -12,7 +12,6 @@ export default function useNav() {
         const type = "update_all";
         const payload = index;
         const key = "pageIndex";
-        console.log("yaay");
         dispatch({ type, key, payload });
       }
     },

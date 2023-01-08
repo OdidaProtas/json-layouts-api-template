@@ -17,20 +17,19 @@ export function SocketProvider({ children }) {
 
       setSocket(sock);
 
-      sock.on("connect", () => {
-        console.log("connect");
+      sock?.on("connect", () => {
         sock.emit("hello");
       });
 
-      sock.on("hello", (data) => {
+      sock?.on("hello", (data) => {
         console.log("hello", data);
       });
 
-      sock.on("a user connected", () => {
+      sock?.on("a user connected", () => {
         console.log("a user connected");
       });
 
-      sock.on("disconnect", () => {
+      sock?.on("disconnect", () => {
         console.log("disconnect");
       });
     });
@@ -52,10 +51,10 @@ export function useSocketEvent(event, callback) {
 
   useEffect(() => {
     if (socket) {
-      socket.on(event, (data) => callback(data));
+      socket?.on(event, (data) => callback(data));
     }
     return () => {
-      if (socket) socket.off(event, (data) => callback(data));
+      if (socket) socket?.off(event, (data) => callback(data));
     };
   }, [socket, event]);
 }

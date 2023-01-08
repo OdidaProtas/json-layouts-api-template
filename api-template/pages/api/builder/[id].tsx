@@ -37,7 +37,7 @@ export default async function handler(
           name: true,
           id: true,
           images: true,
-          tables: { select: { id: true, columns: true, rows: true } },
+          tables: { select: { id: true, columns: true, rows: true, name:true } },
         },
       },
     } as any,
