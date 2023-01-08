@@ -22,11 +22,11 @@ export default function useSubdomainApp(apps = []) {
 
   const { updatePages } = usePagesActions();
 
-  React.useEffect(() => {
-    if (app.id) {
-      updatePages(JSON.parse(app.drafts ?? "[]"));
-    }
-  }, [app]);
+  // React.useEffect(() => {
+  //   if (app.id) {
+  //     updatePages(JSON.parse(app.drafts ?? "[]"));
+  //   }
+  // }, [app]);
 
   return [subdomain, app, loadingApps];
 }

@@ -41,11 +41,13 @@ const Apps: React.FC<any> = () => {
     return <Marketplace />;
   }
 
+
   if (subdomain && !isWhiteListSubdomain) {
     if (loadingSubdomain) return <AuthSpinner />;
     if (subdomainApp?.id)
-      return <RenderApp subdomainData={subdomainApp ?? { ...helloWorld }} />;
+      return <RenderApp subdomainData={subdomainApp} />;
   }
+
 
   if (status === "loading" || loadingApps) {
     return <AuthSpinner />;

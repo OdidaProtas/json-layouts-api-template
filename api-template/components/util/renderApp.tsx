@@ -7,7 +7,7 @@ import usePages from "../../hooks/usePages";
 
 export default function RenderApp({ subdomainData }) {
   const pageIndex = usePagesStateValue("pageIndex") ?? 0;
-  const pages = usePages();
+  const pages = JSON.parse(subdomainData?.draft ?? "[]");
   const page = pages[pageIndex];
 
   return (
