@@ -12,9 +12,16 @@ const initialState = {
   appId: null,
   pageIndex: 0,
   navigation: {
-    page: "/",
+  page: "/",
     child: "/",
     history: ["/"],
+  },
+  details: {
+    resourceId: {
+      itemId: "",
+      data: null,
+      loading: null,
+    },
   },
 };
 

@@ -17,6 +17,7 @@ export default function ComponentsAPI({
   mapState,
   handleMapChange,
   mapKeys,
+  isDetail = false,
 }) {
   const variants = {
     button: ["outlined", "contained"],
@@ -25,11 +26,15 @@ export default function ComponentsAPI({
 
   return (
     <Box>
-      <Typography sx={{ mb: 2 }}>Select component to map to</Typography>
-      <ComponentSelect
-        onChange={handleMapTypeChange}
-        value={componentMapType}
-      />
+      {!isDetail && (
+        <>
+          <Typography sx={{ mb: 2 }}>Select component to map to</Typography>
+          <ComponentSelect
+            onChange={handleMapTypeChange}
+            value={componentMapType}
+          />
+        </>
+      )}
       {mapComponentDataKeys.map((key, index) => {
         return (
           <Grid sx={{ mt: 2 }} container key={index}>

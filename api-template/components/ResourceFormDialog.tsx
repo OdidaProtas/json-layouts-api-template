@@ -12,7 +12,6 @@ import {
   Box,
   Container,
   FormControl,
-  FormGroup,
   Grid,
   InputLabel,
   MenuItem,
@@ -251,6 +250,7 @@ function BasicTabs({ type, collection, procedure = "" }) {
   const isOptions = components[type]?.data?.api?.procedure === "options";
   const isTable = components[type]?.data?.api?.procedure === "table";
   const isMap = components[type]?.data?.api?.procedure === "map";
+  const isDetail = components[type]?.data?.api?.procedure === "item";
 
   const mapKeys = columns.map((col) => col.key);
 
@@ -356,6 +356,25 @@ function BasicTabs({ type, collection, procedure = "" }) {
           },
         },
       };
+    if (isDetail) {
+      return {
+        ...components[type],
+        data: {
+        ...components[type]?.data,
+          api: {
+            id: collection.id,
+            type: "collection",
+            procedure: "map",
+            mapType: componentMapType,
+            fields: checked.map((c) => {
+              const column = columns.find((col) => col.id === c);
+              return column?.key;
+            }),
+            mapState,
+          },
+        },
+      };
+    }
   }
 
   const submitButton = {
@@ -493,6 +512,17 @@ function BasicTabs({ type, collection, procedure = "" }) {
         )}
         {isMap && (
           <ComponentsAPI
+            handleMapTypeChange={handleMapTypeChange}
+            componentMapType={componentMapType}
+            mapComponentDataKeys={mapComponentDataKeys}
+            mapState={mapState}
+            handleMapChange={handleMapChange}
+            mapKeys={mapKeys}
+          />
+        )}
+        {isDetail && (
+          <ComponentsAPI
+            isDetail
             handleMapTypeChange={handleMapTypeChange}
             componentMapType={componentMapType}
             mapComponentDataKeys={mapComponentDataKeys}
