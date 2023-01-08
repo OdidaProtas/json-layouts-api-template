@@ -3,7 +3,7 @@ import React from "react";
 
 export default function renderStack(children: React.ReactNode, spacing = 3) {
   return (
-    <Stack sx={{ textAlign: "inherit" }} spacing={spacing}>
+    <Stack sx={{ textAlign: "inherit" }} spacing={Number(spacing)}>
       {children}
     </Stack>
   );

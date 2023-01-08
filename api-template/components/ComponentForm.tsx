@@ -494,6 +494,14 @@ export var components = {
     data: {
       text: "Hello world",
       variant: "body1",
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   box: {
@@ -656,6 +664,9 @@ export var components = {
         label: "Submit",
         labelKey: "",
         valueKey: "",
+      },
+      intents: {
+        click: ["nav.focus", "nav.push./:id"],
       },
     },
   },

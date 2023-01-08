@@ -55,6 +55,7 @@ import Paypal from "./components/Paypal";
 import ButtonGroup from "./components/ButtonGroup";
 import RenderTabs from "./renderTabs";
 import EnhancedTable from "./components/Table";
+import Text from "../Text";
 
 export default function renderComponents(components: any[] = []) {
   return components.map((component, index) => {
@@ -66,7 +67,7 @@ export default function renderComponents(components: any[] = []) {
     } = component;
     switch (type) {
       case "stack": {
-        const { direction, components = [], spacing, } = data;
+        const { direction, components = [], spacing } = data;
         return (
           <Stack key={index} spacing={spacing} direction={direction}>
             {renderComponents([...components])}
@@ -310,20 +311,20 @@ export default function renderComponents(components: any[] = []) {
         return <BasicChips />;
       }
       case "divider": {
-        return <Divider sx={{ my: 2 }} />;
+        return <Divider key={index} sx={{ my: 2 }} />;
       }
       // case "icons": {
       // }
       case "list": {
-        const { options = 0, api = {} } = data;
-        return renderList({ options, api });
+        const { options = 0, api = {}, intents = [] } = data;
+        return renderList({ options, api, intents });
       }
       case "tooltip": {
         return renderTooltip();
       }
       case "text": {
-        const { text, variant } = data as any;
-        return renderText(text, variant);
+        const { text, variant, api = {} } = data as any;
+        return <Text text={text} key={index} api={api} variant={variant} />;
       }
       case "alert": {
         return renderAlert();

@@ -88,13 +88,17 @@ export default async function handler(
         return {
           label: draft[labelKey],
           value: draft[valueKey],
+          id: row.id,
         };
       });
       res.json(options);
     } else if (procedure === "table") {
       res.json({
         ...table,
-        rows: (table.rows as any).map((r) => JSON.parse(r.rowDraft ?? "{}")),
+        rows: (table.rows as any).map((r) => ({
+          ...JSON.parse(r.rowDraft ?? "{}"),
+          id: r.id,
+        })),
       });
     } else if (procedure === "map") {
       const componentMapType = resource.mapType;
@@ -108,14 +112,12 @@ export default async function handler(
           const newValues = typeKeys.reduce((prev, curr) => {
             return { ...prev, [curr]: rowData[curr] };
           }, {});
-          const cps = (
-            Object.keys(mapState ?? {}).reduce((prev, curr) => {
-              if (curr === "variant") {
-                return { ...prev, curr: mapState["variant"] };
-              }
-              return { ...prev, [curr]: rowData[mapState[curr]] };
-            }, {})
-          );
+          const cps = Object.keys(mapState ?? {}).reduce((prev, curr) => {
+            if (curr === "variant") {
+              return { ...prev, curr: mapState["variant"] };
+            }
+            return { ...prev, [curr]: rowData[mapState[curr]] };
+          }, {});
           return {
             ...components[componentMapType],
             data: { ...components[componentMapType]?.data, ...cps },
