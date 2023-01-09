@@ -3,7 +3,6 @@ import useDetail from "../hooks/useRow";
 
 export default function Text({ text, variant = "body1", api = {} }: any) {
   const [row, loadingRow] = useDetail(api);
-  console.log(api, row);
 
   function getText() {
     if (api?.id) {
@@ -12,7 +11,8 @@ export default function Text({ text, variant = "body1", api = {} }: any) {
       }
       if (row) {
         const mapState = api?.mapState;
-        return row[mapState?.text];
+        const rowData = JSON.parse(row?.rowDraft ?? "{}");
+        return rowData[mapState?.text];
       }
       return "...";
     }
