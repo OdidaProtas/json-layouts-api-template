@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { Chip, Button, Typography, Box } from "@mui/material";
+import { Chip, Button, Typography, Box, AppBar, Toolbar } from "@mui/material";
 import { Home, Login, Store } from "@mui/icons-material";
 import AccountMenu from "./AccountMenu";
 
@@ -20,38 +20,22 @@ const Header: React.FC = () => {
         {/* <Typography variant="h5">DREAMVILLE</Typography> */}
       </div>
       <Link href="/">
-        <a className="bold" data-active={isActive("/")}>
+        <a
+          style={{ textDecoration: "none" }}
+          className="bold"
+          data-active={isActive("/")}
+        >
           <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
         </a>
       </Link>
       <a
+        style={{ textDecoration: "none" }}
         className="bold"
         target={"blank"}
         href={`https://marketplace.dreamfeel.me`}
       >
-        <Chip sx={{ cursor: "pointer" }} icon={<Store />} label="Marketplace" />
+        <Typography sx={{ ml: 1, display: "inline" }}>Marketplace</Typography>
       </a>
-      <style jsx>{`
-        .bold {
-          font-weight: bold;
-        }
-        .logo {
-          text-align: center;
-        }
-        a {
-          text-decoration: none;
-          color: var(--geist-foreground);
-          display: inline-block;
-        }
-
-        .left a[data-active="true"] {
-          color: gray;
-        }
-
-        a + a {
-          margin-left: 1rem;
-        }
-      `}</style>
     </div>
   );
 
@@ -64,42 +48,22 @@ const Header: React.FC = () => {
           {/* <Typography variant="h5">DREAMVILLE</Typography> */}
         </div>
         <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
+          <a
+            style={{ textDecoration: "none" }}
+            className="bold"
+            data-active={isActive("/")}
+          >
             <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
           </a>
         </Link>
         <a
+          style={{ textDecoration: "none" }}
           className="bold"
           target={"blank"}
           href={`https://marketplace.dreamfeel.me`}
         >
-          <Chip
-            sx={{ cursor: "pointer" }}
-            icon={<Store />}
-            label="Marketplace"
-          />
+          <Typography sx={{ ml: 1, display: "inline" }}>Marketplace</Typography>
         </a>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-          .logo {
-            text-align: center;
-          }
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
       </div>
     );
     right = (
@@ -116,7 +80,7 @@ const Header: React.FC = () => {
 
   if (!session) {
     right = (
-      <div className="right">
+      <div className="right" style={{ display: "flex" }}>
         <Link href="/about-us">
           <Typography
             sx={{ mr: 2, display: { xs: "none", md: "block", lg: "block" } }}
@@ -146,28 +110,6 @@ const Header: React.FC = () => {
             Sign in
           </Button>
         </Link>
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-            display: flex;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-        `}</style>
       </div>
     );
   }
@@ -179,110 +121,59 @@ const Header: React.FC = () => {
           {/* <Typography variant="h5">DREAMVILLE</Typography> */}
         </div>
         <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
+          <a
+            style={{ textDecoration: "none" }}
+            className="bold"
+            data-active={isActive("/")}
+          >
             <Chip sx={{ cursor: "pointer" }} icon={<Home />} label="Home" />
           </a>
         </Link>
         <a
+          style={{ textDecoration: "none" }}
           className="bold"
           target={"blank"}
           href={`https://marketplace.dreamfeel.me`}
         >
-          <Chip
-            sx={{ cursor: "pointer" }}
-            icon={<Store />}
-            label="Marketplace"
-          />
+          <Typography sx={{ ml: 1, display: "inline" }}>Marketplace</Typography>
         </a>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-          .logo {
-            text-align: center;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
       </div>
     );
     right = (
       <div className="right">
         <AccountMenu />
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          p {
-            display: inline-block;
-            font-size: 13px;
-            padding-right: 1rem;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-
-          button {
-            border: none;
-          }
-        `}</style>
       </div>
     );
   }
 
   return (
-    <nav>
-      {left}
-      <Box
-        sx={{
-          flexGrow: 1,
-          textAlign: "center",
-          display: { xs: "none", md: "block", lg: "block" },
-        }}
-      >
-        <Typography
-          sx={{ cursor: "pointer" }}
-          onClick={() => router.push("/")}
-          variant="h5"
+    <AppBar color="inherit" elevation={0}>
+      <Toolbar>
+        {left}
+        <Box
+          sx={{
+            flexGrow: 1,
+            textAlign: "center",
+            display: { xs: "none", md: "block", lg: "block" },
+          }}
         >
-          DREAMFEEL SPACES
-        </Typography>
-      </Box>
-      {right}
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
-      `}</style>
-    </nav>
+          <Typography
+            sx={{ cursor: "pointer" }}
+            onClick={() => router.push("/")}
+            variant="h5"
+          >
+            DREAMFEEL SPACES
+          </Typography>
+        </Box>
+        {right}
+        <style jsx>{`
+          nav {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
+      </Toolbar>
+    </AppBar>
   );
 };
 

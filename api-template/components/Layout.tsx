@@ -1,4 +1,4 @@
-import { Divider } from "@mui/material";
+import { Divider, Toolbar } from "@mui/material";
 import React, { ReactNode } from "react";
 import Header from "./Header";
 
@@ -9,6 +9,7 @@ type Props = {
 const Layout: React.FC<Props> = (props) => (
   <div>
     <Header />
+    <Toolbar/>
     <Divider />
     <div className="layout">{props.children}</div>
     <style jsx global>{`
