@@ -859,6 +859,9 @@ export var components = {
   grid: {
     type: "grid",
     data: {
+      xs: 6,
+      lg: 6,
+      md: 6,
       spacing: 2,
       components: [],
       api: {

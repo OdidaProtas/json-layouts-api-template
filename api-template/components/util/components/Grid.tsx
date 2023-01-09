@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function BasicGrid({ components, spacing, api = {} }) {
+export default function BasicGrid({ components, spacing, api = {}, lg=6, md=6, xs=6 }) {
   const [apiComponents, loading] = useTransformComponents(api);
   components = [...components, ...(apiComponents ?? [])];
   return (
@@ -28,7 +28,7 @@ export default function BasicGrid({ components, spacing, api = {} }) {
       <Grid container spacing={spacing}>
         {components.map((component, index) => {
           return (
-            <Grid item xs={component.xs ?? true} key={index}>
+            <Grid item xs={xs ?? true} md={md} lg={lg} key={index}>
               {renderComponents([component])}
             </Grid>
           );

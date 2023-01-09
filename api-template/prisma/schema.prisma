@@ -54,6 +54,7 @@ model Column {
   tableId   String?
   key       String
   tableData TableData[]
+  type      String?
 }
 
 model Table {

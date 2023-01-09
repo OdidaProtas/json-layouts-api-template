@@ -6,6 +6,9 @@ export default function renderGrid({
   components = [],
   spacing = 2,
   api = {},
+  xs,
+  md,
+  lg
 }: any) {
-  return <BasicGrid components={components} spacing={spacing} api={api} />;
+  return <BasicGrid xs={xs} md={md} lg={lg} components={components} spacing={spacing} api={api} />;
 }

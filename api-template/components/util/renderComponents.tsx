@@ -76,8 +76,15 @@ export default function renderComponents(components: any[] = []) {
         );
       }
       case "grid": {
-        const { components = [], spacing = 2, api = {} }: any = data;
-        return renderGrid({ components, spacing, api });
+        const {
+          components = [],
+          spacing = 2,
+          api = {},
+          xs = 6,
+          lg = 6,
+          md = 6,
+        }: any = data;
+        return renderGrid({ components, spacing, api, xs, md, lg });
       }
       case "autocomplete": {
         const { options = [], label = "Select", api = {} } = data;
