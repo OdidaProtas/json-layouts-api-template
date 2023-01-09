@@ -24,6 +24,7 @@ import renderBox from "./renderBox";
 import renderImage from "./renderImage";
 import renderForm from "./renderForm";
 import { IBox } from "./components/Box";
+import Markdown from "./components/Markdown";
 import DefaultComponent from "./components/DefaultComponent";
 import Autocomplete from "./components/AutoComplete";
 import Checkbox from "./components/Checkbox";
@@ -341,9 +342,9 @@ export default function renderComponents(components: any[] = []) {
         const { desc, value, handleChange, multiple } = data;
         return renderImageField({ desc, value, handleChange, multiple });
       }
-      case "markdow": {
-        const { text } = data;
-        return <ReactMarkdown>{text}</ReactMarkdown>;
+      case "markdown": {
+        const { text, api = {} } = data;
+        return <Markdown text={text} api={api} />;
       }
       default: {
         return (
