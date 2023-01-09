@@ -56,6 +56,7 @@ import ButtonGroup from "./components/ButtonGroup";
 import RenderTabs from "./renderTabs";
 import EnhancedTable from "./components/Table";
 import Text from "../Text";
+import ReactMarkdown from "react-markdown";
 
 export default function renderComponents(components: any[] = []) {
   return components.map((component, index) => {
@@ -332,6 +333,10 @@ export default function renderComponents(components: any[] = []) {
       case "imagefield": {
         const { desc, value, handleChange, multiple } = data;
         return renderImageField({ desc, value, handleChange, multiple });
+      }
+      case "markdow": {
+        const { text } = data;
+        return <ReactMarkdown>{text}</ReactMarkdown>;
       }
       default: {
         return (

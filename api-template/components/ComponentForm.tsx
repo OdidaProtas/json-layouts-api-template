@@ -615,6 +615,8 @@ export var components = {
       label: "Textfield",
       type: "text",
       name: "",
+      multiline: false,
+      rows: 8,
     },
   },
   transferlist: {
@@ -891,6 +893,12 @@ export var components = {
       height: 600,
       width: 600,
       options: [],
+    },
+  },
+  markdown: {
+    type: "markdown",
+    data: {
+      text: "Markdown text",
     },
   },
 };
