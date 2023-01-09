@@ -105,17 +105,62 @@ const CreateRecord: React.FC = () => {
             </Box>
             <h1>Table: {table?.name}</h1>
             {table?.columns?.map((column) => {
-              return (
-                <TextField
-                  key={column.key}
-                  autoFocus
-                  onChange={handleStateChange}
-                  type="text"
-                  label={column.key}
-                  value={state[column.key]}
-                  name={column.key}
-                />
-              );
+              if (column.type === "text") {
+                return (
+                  <TextField
+                    key={column.key}
+                    autoFocus
+                    onChange={handleStateChange}
+                    type="text"
+                    label={column.key}
+                    value={state[column.key]}
+                    name={column.key}
+                  />
+                );
+              }
+              if (column.type === "multiline") {
+                return (
+                  <TextField
+                    key={column.key}
+                    autoFocus
+                    onChange={handleStateChange}
+                    type="text"
+                    label={column.key}
+                    value={state[column.key]}
+                    name={column.key}
+                    multiline={true}
+                    rows={8}
+                  />
+                );
+              }
+              if (column.type === "password") {
+                return (
+                  <TextField
+                    key={column.key}
+                    autoFocus
+                    onChange={handleStateChange}
+                    type="password"
+                    label={column.key}
+                    value={state[column.key]}
+                    name={column.key}
+                    rows={8}
+                  />
+                );
+              }
+              if (column.type === "email") {
+                return (
+                  <TextField
+                    key={column.key}
+                    autoFocus
+                    onChange={handleStateChange}
+                    type="email"
+                    label={column.key}
+                    value={state[column.key]}
+                    name={column.key}
+                    rows={8}
+                  />
+                );
+              }
             })}
 
             <Button
