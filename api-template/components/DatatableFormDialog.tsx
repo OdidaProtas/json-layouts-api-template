@@ -11,7 +11,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import {
   Box,
   Container,
-  Divider,
+  Select,
   FormControl,
   InputLabel,
   MenuItem,
@@ -21,7 +21,6 @@ import {
 } from "@mui/material";
 import { useAxios } from "../hooks/useAxios";
 import { useResourceGroupActions } from "../hooks/useResourceGroup";
-import Select from "./util/components/Select";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -189,6 +188,7 @@ export default function DatatableFormDialog({ resourceGroup }) {
                                 Field type
                               </InputLabel>
                               <Select
+                                size="small"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={field.type}
