@@ -10,15 +10,7 @@ const helloWorld = {
           {
             type: "box",
             data: {
-              components: [
-                {
-                  type: "text",
-                  data: {
-                    text: "Hello World",
-                    variant: "h1",
-                  },
-                },
-              ],
+              components: [],
             },
           },
         ],

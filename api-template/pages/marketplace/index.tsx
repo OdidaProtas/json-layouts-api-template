@@ -269,17 +269,19 @@ export default Marketplace;
 
 export const AuthSpinner = () => {
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box sx={{ textAlign: "center" }}>
-        <CircularProgress />
+    <Layout>
+      <Box
+        sx={{
+          minHeight: "90vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ textAlign: "center" }}>
+          <CircularProgress />
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };

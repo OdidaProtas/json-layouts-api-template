@@ -236,6 +236,7 @@ export default Apps;
 
 export const AuthSpinner = () => {
   return (
+  <Layout>
     <Box
       sx={{
         minHeight: "100vh",
@@ -248,5 +249,7 @@ export const AuthSpinner = () => {
         <CircularProgress />
       </Box>
     </Box>
+  </Layout>
+    
   );
 };

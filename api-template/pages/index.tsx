@@ -41,13 +41,10 @@ const Apps: React.FC<any> = () => {
     return <Marketplace />;
   }
 
-
   if (subdomain && !isWhiteListSubdomain) {
     if (loadingSubdomain) return <AuthSpinner />;
-    if (subdomainApp?.id)
-      return <RenderApp subdomainData={subdomainApp} />;
+    if (subdomainApp?.id) return <RenderApp subdomainData={subdomainApp} />;
   }
-
 
   if (status === "loading" || loadingApps) {
     return <AuthSpinner />;
@@ -191,18 +188,26 @@ const Apps: React.FC<any> = () => {
 export default Apps;
 
 export const AuthSpinner = () => {
+  const { status } = useSession();
+  const loadingApps = usePagesStateValue("loaders.apps", false);
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box sx={{ textAlign: "center" }}>
-        <CircularProgress />
+    <Layout>
+      <Box
+        sx={{
+          minHeight: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ textAlign: "center" }}>
+          <CircularProgress />
+          {status === "loading" && (
+            <Typography>Checking authentication status...</Typography>
+          )}
+          {loadingApps && <Typography>Checking app updates...</Typography>}
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };

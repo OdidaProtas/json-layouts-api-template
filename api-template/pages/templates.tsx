@@ -155,7 +155,6 @@ const Marketplace: React.FC = () => {
                     </Carousel>
                   </Paper>
                 </Grid>
-                
               </Grid>
             </Box>
             <Box sx={{ display: "flex", my: 12 }}>
@@ -258,17 +257,19 @@ export default Marketplace;
 
 export const AuthSpinner = () => {
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box sx={{ textAlign: "center" }}>
-        <CircularProgress />
+    <Layout>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ textAlign: "center" }}>
+          <CircularProgress />
+        </Box>
       </Box>
-    </Box>
+    </Layout>
   );
 };
