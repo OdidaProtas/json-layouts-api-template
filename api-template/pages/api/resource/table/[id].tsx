@@ -30,7 +30,7 @@ export default async function handler(
   const app = await prisma.table.findMany({
     include: {
       columns: {
-        select: { key: true, id: true },
+        select: { key: true, id: true, type: true },
       },
       rows: {
         select: { id: true, rowDraft: true },

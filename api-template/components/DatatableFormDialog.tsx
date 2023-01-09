@@ -183,12 +183,12 @@ export default function DatatableFormDialog({ resourceGroup }) {
                               label="Field name"
                               fullWidth
                             />
-                            <FormControl fullWidth>
+                            <FormControl size="small" fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 Field type
                               </InputLabel>
                               <Select
-                                size="small"
+                                sx={{ mt: 2 }}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={field.type}
