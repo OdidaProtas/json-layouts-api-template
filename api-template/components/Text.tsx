@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import useDetail from "../hooks/useRow";
 
-export default function Text({ text, variant = "body1", api = {} }: any) {
+export default function Text({ text="", variant = "body1", api = {} }: any) {
   const [row, loadingRow] = useDetail(api);
 
   function getText() {
@@ -14,7 +14,7 @@ export default function Text({ text, variant = "body1", api = {} }: any) {
         const rowData = JSON.parse(row?.rowDraft ?? "{}");
         return rowData[mapState?.text];
       }
-      return "...";
+      return text;
     }
     return text;
   }

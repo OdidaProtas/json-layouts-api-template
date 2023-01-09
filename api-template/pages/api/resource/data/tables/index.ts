@@ -11,10 +11,11 @@ export default async function handle(req, res) {
   });
   let columns = [];
   for (let field of fields) {
-    const { key } = field;
+    const { key, type } = field;
     const column = await prisma.column.create({
       data: {
         key,
+        type,
         tableId: table.id,
       },
     });

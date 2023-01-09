@@ -12,12 +12,16 @@ import {
   Box,
   Container,
   Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
   Paper,
   Stack,
   TextField,
 } from "@mui/material";
 import { useAxios } from "../hooks/useAxios";
 import { useResourceGroupActions } from "../hooks/useResourceGroup";
+import Select from "./util/components/Select";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -39,10 +43,10 @@ export default function DatatableFormDialog({ resourceGroup }) {
     setOpen(false);
   };
 
-  const [fields, setFields] = React.useState([{ key: "" }]);
+  const [fields, setFields] = React.useState<any>([{ key: "", type: "" }]);
 
   const handleAddField = () => {
-    setFields((p) => [...p, { key: "" }]);
+    setFields((p) => [...p, { key: "", type: "text" }]);
   };
 
   const handleRemoveField = (index) => {
@@ -180,6 +184,33 @@ export default function DatatableFormDialog({ resourceGroup }) {
                               label="Field name"
                               fullWidth
                             />
+                            <FormControl fullWidth>
+                              <InputLabel id="demo-simple-select-label">
+                                Field type
+                              </InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={field.type}
+                                name="type"
+                                label="Field type"
+                                onChange={(e) => handleFieldChange(e, index)}
+                              >
+                                <MenuItem value={"text"}>Text</MenuItem>
+                                <MenuItem value={"email"}>Email</MenuItem>
+                                <MenuItem value={"number"}>Number</MenuItem>
+                                <MenuItem value={"password"}>Password</MenuItem>
+                                <MenuItem disabled value={"markdown"}>
+                                  markdown
+                                </MenuItem>
+                                <MenuItem disabled value={"richtext"}>
+                                  richtext
+                                </MenuItem>
+                                <MenuItem value={"multiline"}>
+                                  Multiline
+                                </MenuItem>
+                              </Select>
+                            </FormControl>
                           </Paper>
                         );
                       })}

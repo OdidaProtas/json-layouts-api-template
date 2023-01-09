@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import useDetail from "../../../hooks/useRow";
 
-export default function Markdown({ text, api = {} }: any) {
+export default function Markdown({ text="", api = {} }: any) {
   const [row, loadingRow] = useDetail(api);
 
   function getText() {
@@ -14,7 +14,7 @@ export default function Markdown({ text, api = {} }: any) {
         const rowData = JSON.parse(row?.rowDraft ?? "{}");
         return rowData[mapState?.text];
       }
-      return "...";
+      return text;
     }
     return text;
   }
