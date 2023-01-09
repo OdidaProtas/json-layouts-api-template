@@ -7,7 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/Inbox";
 import useTransformComponents from "../../hooks/useTransformComponents";
-import { LinearProgress } from "@mui/material";
+import { Stack, Skeleton } from "@mui/material";
 import { useSocketEvent } from "../../lib/socket";
 import useIntents from "../../hooks/useIntents";
 import useDetail from "../../hooks/useRow";
@@ -74,7 +74,13 @@ function BasicList({ options = [], api, intents = { click: [] } }) {
             );
           })}
         </List>
-        {loading && <LinearProgress />}
+        {loading && Boolean(api?.id) && (
+          <Stack spacing={3}>
+            {[1, 2, 3, 4].map((item) => {
+              return <Skeleton key={item} height="30" variant="rectangular" />;
+            })}
+          </Stack>
+        )}
       </nav>
     </Box>
   );

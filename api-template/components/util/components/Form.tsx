@@ -6,6 +6,7 @@ import useTransformComponents from "../../../hooks/useTransformComponents";
 import { useSocket } from "../../../lib/socket";
 import renderComponents from "../renderComponents";
 import renderStack from "../renderStack";
+import { Stack, Skeleton } from "@mui/material";
 
 export default function Form({ components = [], api = {} }: any) {
   const [saving, setSaving] = React.useState(false);
@@ -55,7 +56,7 @@ export default function Form({ components = [], api = {} }: any) {
       setSaving(false);
       socket.emit("add_to_collection", {
         id: recordId,
-        row:row
+        row: row,
       });
       return;
     }
@@ -95,10 +96,12 @@ export default function Form({ components = [], api = {} }: any) {
         </>
       )}
       {fieldStack}
-      {loadingApiComponents && (
-        <>
-          <LinearProgress />
-        </>
+      {loadingApiComponents && Boolean(api?.id) && (
+        <Stack spacing={3}>
+          {[1, 2, 3, 4].map((item) => {
+            return <Skeleton key={item} height="30" variant="rectangular" />;
+          })}
+        </Stack>
       )}
     </form>
   );
