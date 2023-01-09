@@ -24,7 +24,7 @@ export default function BasicGrid({ components, spacing, api = {}, lg=6, md=6, x
           <Grid spacing={3}>
             {[1, 2, 3, 4].map((item) => {
               return <Grid xs={xs ?? true} md={md} lg={lg} key={item} item>
-                <Skeleton variant="rectangular" height="200" >
+                <Skeleton variant="rectangular" height="200" />
               </Grid>
             })}
           </Grid>
