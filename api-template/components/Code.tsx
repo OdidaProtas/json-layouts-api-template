@@ -44,9 +44,8 @@ export default function Code({
   }
 
   React.useEffect(() => {
-    // if (theme) handleThemeChange(code);
-    // else 
-    update();
+    if (theme) handleThemeChange(code);
+    else update();
   }, [code, state]);
 
   return (
@@ -97,7 +96,7 @@ function useActions() {
     handleThemeChange(codeString) {
       const type = "update_all";
       try {
-        const theme = JSON.parse(codeString ?? "{}");
+        const theme = JSON.parse(codeString);
         dispatch({
           type: type,
           payload: theme,
