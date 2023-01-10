@@ -91,6 +91,9 @@ const App: React.FC<AppProps> = () => {
     }
   }
 
+
+  const theme = usePagesStateValue("theme")
+
   if (status === "loading" || loadingApps) {
     return <AuthSpinner />;
   }
@@ -108,6 +111,8 @@ const App: React.FC<AppProps> = () => {
   if (!props.published) {
     title = `${title} (Draft)`;
   }
+
+
 
   return (
     <Layout>
@@ -144,7 +149,7 @@ const App: React.FC<AppProps> = () => {
                   elevation={0}
                   sx={{ maxHeight: "40vh", overflow: "hidden", my: 2 }}
                 >
-                  <ThemeProvider theme={defaultTheme}>
+                  <ThemeProvider theme={theme}>
                     <Preview />
                   </ThemeProvider>
                 </Paper>

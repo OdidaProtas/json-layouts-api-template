@@ -2,10 +2,10 @@ import helloWorld from "../lib/defaultApp";
 import { Box, Grid, Paper, ThemeProvider, Typography } from "@mui/material";
 import renderPage from "./util/renderPage";
 import { usePagesStateValue } from "../lib/builder";
-import { defaultTheme } from "../lib/defaultheme";
 export default function NewPageForm() {
   const templates = [helloWorld];
   const { addPage } = useActions();
+  const theme = usePagesStateValue("theme");
   return (
     <Box>
       <Box sx={{ p: 8, bgcolor: "lightblue", borderRadius: "4px" }}>
@@ -16,7 +16,7 @@ export default function NewPageForm() {
           {templates.map((template, index) => {
             return (
               <Grid item key={index} xs={4}>
-                <ThemeProvider theme={defaultTheme}>
+                <ThemeProvider theme={theme}>
                   <Paper
                     onClick={() => addPage(template)}
                     sx={{

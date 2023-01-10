@@ -3,16 +3,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Themes from "./Themes";
 import ComponentsTab from "./PageComponents";
-import Pages from "./Pages";
-import Preferences from "./Preferences";
-
 import dynamic from "next/dynamic";
-import ComponentForm from "./ComponentForm";
-import ComponentFormTabs from "./ComponenentFormTabs";
-import defaultTheme from "../lib/defaultheme";
-import AddPage from "./AddPageDialog";
+import { usePagesStateValue } from "../lib/builder";
 const Code = dynamic(import("./Code"), {
   ssr: false,
 });
@@ -57,6 +50,8 @@ export default function BuilderTabs() {
     setValue(newValue);
   };
 
+  const theme = usePagesStateValue("theme");
+
   return (
     <Box sx={{ width: "100%", overflow: "auto" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -91,7 +86,7 @@ export default function BuilderTabs() {
         <ComponentsTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Code state={{ ...defaultTheme }} />
+        <Code theme state={{ ...theme }} />
       </TabPanel>
       {/* <TabPanel value={value} index={3}>
         <AddPage />

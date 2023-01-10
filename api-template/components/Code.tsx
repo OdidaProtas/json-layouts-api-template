@@ -12,9 +12,15 @@ interface ICode {
   state?: any;
   size?: string;
   setState?: any;
+  theme?: boolean;
 }
 
-export default function Code({ state, size = "large", setState }: ICode) {
+export default function Code({
+  state,
+  size = "large",
+  setState,
+  theme = false,
+}: ICode) {
   const editor = useRef();
 
   const pages = usePagesStateValue("pages") ?? [];
@@ -25,16 +31,21 @@ export default function Code({ state, size = "large", setState }: ICode) {
     state ? JSON.stringify(state, null, "\t") : JSON.stringify(page, null, "\t")
   );
 
-  const { handleChange: updatePage } = useActions();
+  const { handleChange: updatePage, handleThemeChange } = useActions();
   const handleChange = (value) => setCode(value);
 
-  React.useEffect(() => {
+  function update() {
     if (!state) updatePage(code);
     if (state && setState) {
       try {
         setState(JSON.parse(code));
       } catch (e) {}
     }
+  }
+
+  React.useEffect(() => {
+    if (theme) handleThemeChange(code);
+    else update();
   }, [code, state]);
 
   return (
@@ -81,6 +92,17 @@ function useActions() {
         payload: allPages,
         key: "pages",
       });
+    },
+    handleThemeChange(codeString) {
+      const type = "update_all";
+      try {
+        const theme = JSON.parse(codeString ?? "{}");
+        dispatch({
+          type: type,
+          payload: theme,
+          key: "theme",
+        });
+      } catch (e) {}
     },
   };
 }

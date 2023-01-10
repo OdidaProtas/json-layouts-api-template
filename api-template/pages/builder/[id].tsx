@@ -25,6 +25,8 @@ const App: React.FC = () => {
   const props = app ?? {}; // to ref
   const loadingApp = usePagesStateValue("loaders.apps");
 
+  const theme = usePagesStateValue("theme");
+
   if (status === "loading" || loadingApp) {
     return <AuthSpinner />;
   }
@@ -54,9 +56,7 @@ const App: React.FC = () => {
               overflow: "auto",
             }}
           >
-            
-
-            <ThemeProvider theme={defaultTheme}>
+            <ThemeProvider theme={theme}>
               <Preview />
             </ThemeProvider>
           </Paper>

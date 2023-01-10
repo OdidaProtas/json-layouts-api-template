@@ -1,6 +1,5 @@
 import React from "react";
 
-import defaultTheme from "../lib/defaultheme";
 import { AppProps } from "../components/App";
 import renderPage from "../components/util/renderPage";
 import { usePagesStateValue } from "../lib/builder";
@@ -16,7 +15,8 @@ import Preview from "../components/Preview";
 const App: React.FC<AppProps> = () => {
   const router = useRouter();
   const pages = usePages();
-  const loading = usePagesStateValue("loaders.pahes");
+  const loading = usePagesStateValue("loaders.pages");
+  const theme = usePagesStateValue("theme");
   const { status: authStatus } = useSession();
 
   const pageIndex = usePagesStateValue("pageIndex", 0);
@@ -27,7 +27,7 @@ const App: React.FC<AppProps> = () => {
   }
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       {renderPage(pageData ?? { ...helloWorld })}
     </ThemeProvider>
   );

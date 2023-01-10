@@ -9,9 +9,10 @@ export default function RenderApp({ subdomainData }) {
   const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   const pages = JSON.parse(subdomainData?.draft ?? "[]");
   const page = pages[pageIndex];
+  const theme = usePagesStateValue("theme")
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Head>
         <title>{subdomainData.name ?? "DREAMFEEL SPACES"}</title>
       </Head>
