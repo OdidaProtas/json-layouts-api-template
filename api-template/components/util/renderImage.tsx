@@ -1,12 +1,13 @@
 import useDetail from "../../hooks/useRow";
+import { Skeleton } from "@mui/material";
 
 export default function RenderImage({
   source,
   height = "100%",
   width = "100%",
   alt = "image",
-  api={}
-}:any) {
+  api = {},
+}: any) {
   const [row, loadingRow] = useDetail(api);
 
   function getVals() {
@@ -24,9 +25,9 @@ export default function RenderImage({
     return text;
   }
 
-  if(api?.id && loadingRow){
-    return 
+  if (api?.id && loadingRow) {
+    return <Skeleton variant="rectangular" />;
   }
 
-  return <img height={height} width={widgetth} src={getVals().src} alt={alt} />;
+  return <img height={height} width={width} src={source} alt={alt} />;
 }
