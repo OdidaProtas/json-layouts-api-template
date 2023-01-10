@@ -44,8 +44,9 @@ export default function Code({
   }
 
   React.useEffect(() => {
-    if (theme) handleThemeChange(code);
-    else update();
+    // if (theme) handleThemeChange(code);
+    // else 
+    update();
   }, [code, state]);
 
   return (
