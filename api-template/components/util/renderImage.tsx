@@ -26,7 +26,7 @@ export default function RenderImage({
   }
 
   if (api?.id && loadingRow) {
-    return <Skeleton variant="rectangular" />;
+    return <Skeleton  height={height}  variant="rectangular" />;
   }
 
   return <img height={height} width={width} src={source} alt={alt} />;
