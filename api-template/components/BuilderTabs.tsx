@@ -86,7 +86,7 @@ export default function BuilderTabs() {
         <ComponentsTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Code theme state={{ ...theme }} />
+        <Code theme state={{ theme }} />
       </TabPanel>
       {/* <TabPanel value={value} index={3}>
         <AddPage />
