@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
+import { Typography, Skeleton } from "@mui/material";
 import useDetail from "../hooks/useRow";
 
-export default function Text({ text="", variant = "body1", api = {} }: any) {
+export default function Text({ text = "", variant = "body1", api = {} }: any) {
   const [row, loadingRow] = useDetail(api);
 
   function getText() {
@@ -18,5 +18,10 @@ export default function Text({ text="", variant = "body1", api = {} }: any) {
     }
     return text;
   }
+
+  if (api?.id && loadingRow) {
+    return <Skeleton />;
+  }
+
   return <Typography variant={variant as any}>{getText()}</Typography>;
 }

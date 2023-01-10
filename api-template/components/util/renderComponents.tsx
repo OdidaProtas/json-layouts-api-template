@@ -155,10 +155,12 @@ export default function renderComponents(components: any[] = []) {
           height = "100%",
           width = "100%",
           alt = "image",
+          api = {},
         } = data;
         return (
           <RenderImage
             source={imageUrl}
+            api={api}
             height={height}
             alt={alt}
             width={width}
