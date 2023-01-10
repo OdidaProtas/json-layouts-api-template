@@ -65,9 +65,9 @@ function BasicList({ options = [], api, intents = { click: [] } }) {
                 disablePadding
               >
                 <ListItemButton>
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     <InboxIcon />
-                  </ListItemIcon>
+                  </ListItemIcon> */}
                   <ListItemText primary={option.label} />
                 </ListItemButton>
               </ListItem>
