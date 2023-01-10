@@ -15,24 +15,39 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function BasicGrid({ components, spacing, api = {}, lg=6, md=6, xs=6 }:any) {
+export default function BasicGrid({
+  components,
+  spacing,
+  api = {},
+  lg = 6,
+  md = 6,
+  xs = 6,
+}: any) {
   const [apiComponents, loading] = useTransformComponents(api);
   components = [...components, ...(apiComponents ?? [])];
   return (
     <Box sx={{ flexGrow: 1 }}>
-    {loading && Boolean(api?.id) && (
-          <Grid spacing={3}>
-            {[1, 2, 3, 4].map((item) => {
-              return <Grid xs={xs ?? true} md={md} lg={lg} key={item} item>
+      {loading && Boolean(api?.id) && (
+        <Grid spacing={3}>
+          {[1, 2, 3, 4].map((item) => {
+            return (
+              <Grid xs={xs ?? true} md={md} lg={lg} key={item} item>
                 <Skeleton variant="rectangular" height="200" />
               </Grid>
-            })}
-          </Grid>
-        )}
+            );
+          })}
+        </Grid>
+      )}
       <Grid container spacing={spacing}>
         {components.map((component, index) => {
           return (
-            <Grid item xs={xs ?? true} md={md} lg={lg} key={index}>
+            <Grid
+              item
+              xs={component.data?.xs ?? xs ?? true}
+              md={component.data?.xs ?? md ?? 6}
+              lg={component.data?.xs ?? lg ?? 6}
+              key={index}
+            >
               {renderComponents([component])}
             </Grid>
           );
