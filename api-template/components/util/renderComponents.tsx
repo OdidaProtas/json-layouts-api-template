@@ -58,6 +58,7 @@ import RenderTabs from "./renderTabs";
 import EnhancedTable from "./components/Table";
 import Text from "../Text";
 import ReactMarkdown from "react-markdown";
+import RenderImage from "./renderImage";
 
 export default function renderComponents(components: any[] = []) {
   return components.map((component, index) => {
@@ -149,8 +150,20 @@ export default function renderComponents(components: any[] = []) {
         );
       }
       case "image": {
-        const { imageUrl } = data;
-        return renderImage(imageUrl);
+        const {
+          imageUrl,
+          height = "100%",
+          width = "100%",
+          alt = "image",
+        } = data;
+        return (
+          <RenderImage
+            source={imageUrl}
+            height={height}
+            alt={alt}
+            width={width}
+          />
+        );
       }
       case "imagelist": {
         const { options = [], height = 450, width = 600 } = data;

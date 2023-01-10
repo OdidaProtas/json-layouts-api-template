@@ -464,6 +464,9 @@ export var components = {
     type: "image",
     data: {
       imageUrl: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+      height: "100%",
+      width: "100%",
+      alt: "",
     },
   },
   button: {
