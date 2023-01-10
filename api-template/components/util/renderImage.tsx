@@ -20,13 +20,13 @@ export default function RenderImage({
         const rowData = JSON.parse(row?.rowDraft ?? "{}");
         return rowData[mapState?.text];
       }
-      return text;
+      return row;
     }
-    return text;
+    return row;
   }
 
   if (api?.id && loadingRow) {
-    return <Skeleton  height={height}  variant="rectangular" />;
+    return <Skeleton height={height} variant="rectangular" />;
   }
 
   return <img height={height} width={width} src={source} alt={alt} />;
