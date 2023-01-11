@@ -90,9 +90,11 @@ export default function Form({ components = [], api = {} }: any) {
 
   React.useEffect(() => {
     if (row?.id && api?.update) {
-      setState(() => JSON.parse(row.rowDraft));
+      setState(JSON.parse(row.rowDraft));
     }
-  }, [row?.id]);
+  }, [row?.id, api]);
+
+  console.log(api?.update ? state : "debug");
 
   return (
     <form
