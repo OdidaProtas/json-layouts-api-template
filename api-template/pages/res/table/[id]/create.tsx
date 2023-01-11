@@ -143,7 +143,6 @@ const CreateRecord: React.FC = () => {
                     label={column.key}
                     value={state[column.key]}
                     name={column.key}
-                    rows={8}
                   />
                 );
               }
@@ -157,10 +156,33 @@ const CreateRecord: React.FC = () => {
                     label={column.key}
                     value={state[column.key]}
                     name={column.key}
-                    rows={8}
                   />
                 );
               }
+              if (column.type === "number") {
+                return (
+                  <TextField
+                    key={column.key}
+                    autoFocus
+                    onChange={handleStateChange}
+                    type="number"
+                    label={column.key}
+                    value={state[column.key]}
+                    name={column.key}
+                  />
+                );
+              }
+              return (
+                <TextField
+                  key={column.key}
+                  autoFocus
+                  onChange={handleStateChange}
+                  type="text"
+                  label={column.key}
+                  value={state[column.key]}
+                  name={column.key}
+                />
+              );
             })}
 
             <Button

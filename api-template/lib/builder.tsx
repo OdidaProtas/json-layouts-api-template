@@ -2,13 +2,13 @@ import React from "react";
 
 import reducer from "./reducer";
 import { nestedObjectReducer } from "./nestedObjectReducer";
-import helloWorld from "./defaultApp";
+import defaultTheme from "./defaultheme";
 
 const initialState = {
   pages: [],
   dispatch: () => {},
   loaders: {},
-  theme: null,
+  theme: {...defaultTheme},
   appId: null,
   pageIndex: 0,
   navigation: {

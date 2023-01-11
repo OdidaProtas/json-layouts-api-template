@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  createTheme,
   Paper,
   ThemeProvider,
   Toolbar,
@@ -18,6 +19,8 @@ export default function Preview({ fullScreen = false }) {
   const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   const pageData = pages[pageIndex];
   const loader = usePagesStateValue("loaders.pages");
+  const theme = usePagesStateValue("theme");
+  const muiTheme = createTheme(theme)
   if (!pageData)
     return (
       <Paper
@@ -37,7 +40,7 @@ export default function Preview({ fullScreen = false }) {
     );
   if (fullScreen) {
     return (
-      <ThemeProvider theme={defaultTheme}>{renderPage(pageData)}</ThemeProvider>
+      <ThemeProvider theme={muiTheme}>{renderPage(pageData)}</ThemeProvider>
     );
   }
   return (

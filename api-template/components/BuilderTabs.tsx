@@ -3,16 +3,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Themes from "./Themes";
 import ComponentsTab from "./PageComponents";
-import Pages from "./Pages";
-import Preferences from "./Preferences";
-
 import dynamic from "next/dynamic";
-import ComponentForm from "./ComponentForm";
-import ComponentFormTabs from "./ComponenentFormTabs";
-import defaultTheme from "../lib/defaultheme";
-import AddPage from "./AddPageDialog";
+import { usePagesStateValue } from "../lib/builder";
 const Code = dynamic(import("./Code"), {
   ssr: false,
 });
@@ -57,6 +50,10 @@ export default function BuilderTabs() {
     setValue(newValue);
   };
 
+  const theme = usePagesStateValue("theme");
+
+  const { handleThemeChange } = useCodeActions();
+
   return (
     <Box sx={{ width: "100%", overflow: "auto" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -71,12 +68,12 @@ export default function BuilderTabs() {
             label="Components"
             {...a11yProps(0)}
           /> */}
-          <Tab sx={{ textTransform: "none" }} label="JSON" {...a11yProps(0)} />
           <Tab
             sx={{ textTransform: "none" }}
             label="Components"
-            {...a11yProps(1)}
+            {...a11yProps(0)}
           />
+          <Tab sx={{ textTransform: "none" }} label="JSON" {...a11yProps(1)} />
           <Tab sx={{ textTransform: "none" }} label="Theme" {...a11yProps(2)} />
           {/* <Tab sx={{ textTransform: "none" }} label="Pages" {...a11yProps(3)} /> */}
         </Tabs>
@@ -85,17 +82,48 @@ export default function BuilderTabs() {
         <ComponentFormTabs />
       </TabPanel> */}
       <TabPanel value={value} index={0}>
-        <Code />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
         <ComponentsTab />
       </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Code />
+      </TabPanel>
       <TabPanel value={value} index={2}>
-        <Code state={{ ...defaultTheme }} />
+        <Code  theme state={{ theme }} />
       </TabPanel>
       {/* <TabPanel value={value} index={3}>
         <AddPage />
       </TabPanel> */}
     </Box>
   );
+}
+
+export function useCodeActions() {
+  const dispatch = usePagesStateValue("dispatch");
+  const pageIndex = usePagesStateValue("pageIndex") ?? 0;
+  const pages = usePagesStateValue("pages");
+
+  return {
+    handleChange(codeString) {
+      const type = "update_all";
+      let allPages = [...pages];
+      try {
+        allPages[pageIndex] = JSON.parse(codeString);
+      } catch (e) {}
+      dispatch({
+        type: type,
+        payload: allPages,
+        key: "pages",
+      });
+    },
+    handleThemeChange(theme) {
+      const type = "update_all";
+      try {
+        dispatch({
+          type: type,
+          payload: theme,
+          key: "theme",
+        });
+      } catch (e) {}
+    },
+  };
 }

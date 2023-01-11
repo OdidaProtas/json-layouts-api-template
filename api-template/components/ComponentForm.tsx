@@ -467,16 +467,35 @@ export var components = {
       height: "100%",
       width: "100%",
       alt: "",
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   button: {
     type: "button",
     data: {
       text: "Submit",
-      href: "href",
-      target: "blank",
+      href: "",
+      target: "",
       sx: "mt:4",
       type: "button",
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+      intents: {
+        click: ["nav.delete"],
+      },
     },
   },
   form: {
@@ -484,6 +503,7 @@ export var components = {
     data: {
       components: [],
       api: {
+        update: false,
         type: "form",
         id: "",
         fields: [],
@@ -584,6 +604,14 @@ export var components = {
     type: "rating",
     data: {
       initialValue: 3,
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   select: {
@@ -603,7 +631,16 @@ export var components = {
   },
   slider: {
     type: "slider",
-    data: {},
+    data: {
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+    },
   },
   switch: {
     type: "switch",
@@ -644,15 +681,41 @@ export var components = {
     type: "avatar",
     data: {
       imageUrl: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   badge: {
     type: "badge",
-    data: {},
+    data: {
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+    },
   },
   chip: {
     type: "chip",
-    data: {},
+    data: {
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+    },
   },
   divider: {
     type: "divider",
@@ -688,11 +751,29 @@ export var components = {
   },
   tooltip: {
     type: "tooltip",
-    data: {},
+    data: {
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+    },
   },
   alert: {
     type: "alert",
-    data: {},
+    data: {
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+    },
   },
   backdrop: {
     type: "backdrop",
@@ -704,11 +785,28 @@ export var components = {
       buttonText: "Open Dialog",
       components: [],
       actions: [],
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   progress: {
     type: "progress",
-    data: {},
+    data: {
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+    },
   },
   skeleton: {
     type: "skeleton",
@@ -721,6 +819,14 @@ export var components = {
       autoHideDuration: 6000,
       message: "Note Archived",
       buttonText: "Open Snackbar",
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   accordion: {
@@ -729,7 +835,16 @@ export var components = {
   },
   appbar: {
     type: "appbar",
-    data: {},
+    data: {
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
+    },
   },
   card: {
     type: "card",
@@ -738,6 +853,14 @@ export var components = {
       title: "A sample card",
       body: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all ",
       actions: ["share", "learn more"],
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   bottom_navigation: {
@@ -776,6 +899,14 @@ export var components = {
     data: {
       href: "#",
       text: "Link",
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
   paypal: {
@@ -905,6 +1036,14 @@ export var components = {
     type: "markdown",
     data: {
       text: "Markdown text",
+      api: {
+        type: "item",
+        id: "",
+        fields: [],
+        procedure: "item",
+        buttonText: "Submit",
+        mapState: {},
+      },
     },
   },
 };

@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 import { Box, DialogContent } from "@mui/material";
 import renderComponents from "../renderComponents";
+import useDetail from "../../../hooks/useRow";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
@@ -21,10 +22,13 @@ export interface SimpleDialogProps {
   selectedValue: string;
   onClose: (value: string) => void;
   components?: any;
+  api?: any;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
-  const { onClose, selectedValue, open, components = [] } = props;
+  const { onClose, selectedValue, open, components = [], api } = props;
+
+  const [row, loadingRow] = useDetail(api);
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -47,6 +51,7 @@ function SimpleDialog(props: SimpleDialogProps) {
 export default function SimpleDialogDemo({
   components = [],
   buttonText = "Open Dialog",
+  api: any,
 }) {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);

@@ -1,6 +1,5 @@
 import React from "react";
 
-import defaultTheme from "../lib/defaultheme";
 import { AppProps } from "../components/App";
 import renderPage from "../components/util/renderPage";
 import { usePagesStateValue } from "../lib/builder";
@@ -9,25 +8,28 @@ import { useRouter } from "next/router";
 import usePages from "../hooks/usePages";
 import { AuthSpinner } from ".";
 import { useSession } from "next-auth/react";
-import { ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import useApps from "../hooks/useApps";
 import Preview from "../components/Preview";
 
 const App: React.FC<AppProps> = () => {
   const router = useRouter();
   const pages = usePages();
-  const loading = usePagesStateValue("loaders.pahes");
+  const loading = usePagesStateValue("loaders.pages");
+  const theme = usePagesStateValue("theme");
   const { status: authStatus } = useSession();
 
   const pageIndex = usePagesStateValue("pageIndex", 0);
   const pageData = pages[pageIndex];
+
+  const muiTheme = createTheme(theme);
 
   if (loading || authStatus === "loading") {
     return <AuthSpinner />;
   }
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={muiTheme}>
       {renderPage(pageData ?? { ...helloWorld })}
     </ThemeProvider>
   );

@@ -7,12 +7,15 @@ import { useSocket } from "../../../lib/socket";
 import renderComponents from "../renderComponents";
 import renderStack from "../renderStack";
 import { Stack, Skeleton } from "@mui/material";
+import useDetail from "../../../hooks/useRow";
 
 export default function Form({ components = [], api = {} }: any) {
   const [saving, setSaving] = React.useState(false);
 
   const [apiComponents, loadingApiComponents, error] =
     useTransformComponents(api);
+
+  const [row, loadingRow] = useDetail(api);
 
   const recordId = api?.id;
 
@@ -43,25 +46,35 @@ export default function Form({ components = [], api = {} }: any) {
   const socket = useSocket();
 
   const handleSubmit = async () => {
-    setSaving(true);
-    const payload = {
-      tableId: recordId,
-      rowDraft: JSON.stringify(state ?? {}),
-    };
-    const res = await axios.post(`/api/resource/data/row`, { ...payload });
-    if (res.data) {
-      let row = JSON.parse(res.data.rowDraft ?? "");
-      // table.addRow(row);
-      showToast("success", "Record saved");
+    try {
+      setSaving(true);
+      const payload = {
+        tableId: recordId,
+        rowDraft: JSON.stringify(state ?? {}),
+      };
+      let res;
+      if (api.update)
+        res = await axios.put(`/api/resource/data/row`, {
+          ...payload,
+          id: row?.id,
+        });
+      else res = await axios.post(`/api/resource/data/row`, { ...payload });
+      if (res.data) {
+        let row = JSON.parse(res.data.rowDraft ?? "");
+        // table.addRow(row);
+        showToast("success", "Record saved");
+        setSaving(false);
+        socket.emit("add_to_collection", {
+          id: recordId,
+          row: row,
+        });
+        return;
+      }
       setSaving(false);
-      socket.emit("add_to_collection", {
-        id: recordId,
-        row: row,
-      });
-      return;
+      showToast("error", "An error occured, Record not saved");
+    } catch (e) {
+      showToast("error", "An error occured, Record not saved");
     }
-    setSaving(false);
-    showToast("error", "An error occured, Record not saved");
   };
 
   const componentData = () =>
@@ -80,8 +93,12 @@ export default function Form({ components = [], api = {} }: any) {
   const fieldStack = renderStack(fields);
 
   React.useEffect(() => {
-    // setState(() => keysObj);
-  }, []);
+    if (row?.id && api?.update) {
+      setState(JSON.parse(row.rowDraft));
+    }
+  }, [row?.id, api]);
+
+  console.log(api?.update ? state : "debug");
 
   return (
     <form
@@ -99,7 +116,7 @@ export default function Form({ components = [], api = {} }: any) {
       {loadingApiComponents && Boolean(api?.id) && (
         <Stack spacing={3}>
           {[1, 2, 3, 4].map((item) => {
-            return <Skeleton key={item} height="30" variant="rectangular" />;
+            return <Skeleton key={item} height={69} variant="rectangular" />;
           })}
         </Stack>
       )}
