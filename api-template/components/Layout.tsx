@@ -47,7 +47,8 @@ const Layout: React.FC<Props> = (props) => (
         background-image: url("https://raw.githubusercontent.com/OdidaProtas/pyTimetable/development/assets2/dd%5B1%5D.png");
         // background: rgba(0, 0, 0, 0.05);
         // background-size:cover;
-        // background-repeat:no-repeat;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
       }
     `}</style>
   </div>

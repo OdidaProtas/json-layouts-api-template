@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import renderComponents from "../renderComponents";
 import useTransformComponents from "../../../hooks/useTransformComponents";
 import { Skeleton } from "@mui/material";
+import useIntents from "../../../hooks/useIntents";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -25,6 +26,18 @@ export default function BasicGrid({
 }: any) {
   const [apiComponents, loading] = useTransformComponents(api);
   components = [...components, ...(apiComponents ?? [])];
+
+  const intentions = useIntents();
+
+  function handleFocus(e, intents) {
+    e.stopPropagation();
+    for (let intent of intents) {
+      if (intent) {
+        const intentArr = intent.split(".");
+        intentions[intentArr[0]][intentArr[1]](api?.id, intentArr[2]);
+      }
+    }
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       {loading && Boolean(api?.id) && (
@@ -43,6 +56,7 @@ export default function BasicGrid({
           return (
             <Grid
               item
+              onClick={(e) => handleFocus(e, component?.data?.intents?.focus)}
               xs={component.data?.xs ?? xs ?? true}
               md={component.data?.xs ?? md ?? 6}
               lg={component.data?.xs ?? lg ?? 6}

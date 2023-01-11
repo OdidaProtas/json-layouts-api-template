@@ -141,13 +141,14 @@ export default function renderComponents(components: any[] = []) {
           type,
           handleSubmit,
           api,
-          intents
+          intents,
         });
       }
       case "card": {
-        const { imageUrl = "", title, body, actions = [] } = data;
+        const { imageUrl = "", title, body, actions = [], api = {} } = data;
         return (
           <RenderCard
+            api={api}
             actions={actions}
             body={body}
             title={title}

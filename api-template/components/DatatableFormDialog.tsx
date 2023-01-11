@@ -18,6 +18,7 @@ import {
   Paper,
   Stack,
   TextField,
+  Grid,
 } from "@mui/material";
 import { useAxios } from "../hooks/useAxios";
 import { useResourceGroupActions } from "../hooks/useResourceGroup";
@@ -135,7 +136,9 @@ export default function DatatableFormDialog({ resourceGroup }) {
         <div>
           <Toolbar />
           <Container sx={{ mb: 6 }}>
-            <form onSubmit={handleSubmit}>
+            <Grid sx={{justfyContent:"center"}} container>
+              <Grid item xs={12} md={11} lg={8}>
+              <form onSubmit={handleSubmit}>
               <Stack spacing={3}>
                 <div></div>
                 <TextField
@@ -183,12 +186,11 @@ export default function DatatableFormDialog({ resourceGroup }) {
                               label="Field name"
                               fullWidth
                             />
-                            <FormControl size="small" fullWidth>
+                            <FormControl sx={{ mt: 2 }} size="small" fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 Field type
                               </InputLabel>
                               <Select
-                                sx={{ mt: 2 }}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={field.type}
@@ -230,6 +232,9 @@ export default function DatatableFormDialog({ resourceGroup }) {
                 </Button>
               </Stack>
             </form>
+              </Grid>
+            </Grid>
+           
           </Container>
         </div>
       </Dialog>

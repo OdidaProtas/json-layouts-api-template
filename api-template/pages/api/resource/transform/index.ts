@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import Cors from "cors";
 import prisma from "../../../../lib/prisma";
 import { components } from "../../../../components/ComponentForm";
-import Drafts from "@mui/icons-material/Drafts";
 
 const cors = Cors({
   methods: ["POST", "GET", "HEAD"],
@@ -120,7 +119,13 @@ export default async function handler(
           }, {});
           return {
             ...components[componentMapType],
-            data: { ...components[componentMapType]?.data, ...cps },
+            data: {
+              ...components[componentMapType]?.data,
+              ...cps,
+              intents: {
+                focus: [`nav.focus.${row.id}`],
+              },
+            },
           };
         }),
       ];

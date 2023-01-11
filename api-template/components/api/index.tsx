@@ -24,6 +24,25 @@ export default function ComponentsAPI({
     text: ["h1", "h2", "h3", "h4", "h5", "h6", "body1", "body2", "caption"],
   };
 
+  console.log(componentMapType);
+
+  const component = components[componentMapType];
+
+  const omitMapComponentData = Object.keys(component?.data ?? {});
+
+  const omitMapOptions = ["components", "options", "items", "api", "actions"];
+
+  const detailKeys = omitMapComponentData.filter(
+    (key) => !omitMapOptions.includes(key)
+  );
+
+  function getKeys() {
+    if (isDetail) {
+      return detailKeys;
+    }
+    return mapComponentDataKeys;
+  }
+
   return (
     <Box>
       {!isDetail && (
@@ -35,7 +54,7 @@ export default function ComponentsAPI({
           />
         </>
       )}
-      {mapComponentDataKeys.map((key, index) => {
+      {getKeys().map((key, index) => {
         return (
           <Grid sx={{ mt: 2 }} container key={index}>
             <Grid item xs>

@@ -528,7 +528,7 @@ function BasicTabs({ type, collection, procedure = "" }) {
           <ComponentsAPI
             isDetail
             handleMapTypeChange={handleMapTypeChange}
-            componentMapType={componentMapType}
+            componentMapType={type}
             mapComponentDataKeys={mapComponentDataKeys}
             mapState={mapState}
             handleMapChange={handleMapChange}
@@ -595,7 +595,7 @@ function OptionValue({ valueKey, labelKey, handleChange, columns = [] }) {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={labelKey}
-              label="Label"
+              label="Label key"
               onChange={(e) => handleChange(e.target.value, "label")}
             >
               {keys.map((key) => {

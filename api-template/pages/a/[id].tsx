@@ -92,10 +92,9 @@ const App: React.FC<AppProps> = () => {
     }
   }
 
+  const theme = usePagesStateValue("theme");
 
-  const theme = usePagesStateValue("theme")
-
-  const muiTheme = createTheme(theme)
+  const muiTheme = createTheme(theme);
 
   if (status === "loading" || loadingApps) {
     return <AuthSpinner />;
@@ -114,8 +113,6 @@ const App: React.FC<AppProps> = () => {
   if (!props.published) {
     title = `${title} (Draft)`;
   }
-
-
 
   return (
     <Layout>
@@ -148,19 +145,16 @@ const App: React.FC<AppProps> = () => {
                 </Box>
               </Box>
               <Stack sx={{ mt: 4 }} spacing={3}>
-                <Paper
-                  elevation={0}
-                  sx={{ maxHeight: "50vh", overflow: "hidden", mt: 4 }}
-                >
+                <Paper sx={{ maxHeight: "50vh", overflow: "hidden", mt: 4 }}>
                   <ThemeProvider theme={muiTheme}>
                     <Preview />
                   </ThemeProvider>
                 </Paper>
-                <Paper elevation={0} sx={{ p: 2 }}>
+                <Paper sx={{ p: 2 }}>
                   <Typography variant="h3">Description</Typography>
                   <ReactMarkdown>{props.description}</ReactMarkdown>
                 </Paper>
-                <Paper elevation={0} sx={{ p: 2 }}>
+                <Paper sx={{ p: 2 }}>
                   <Typography variant="h3">Channels</Typography>
                   <Typography variant="body1" sx={{ my: 2 }}>
                     Your app will only be available via the channels you select.
@@ -237,7 +231,7 @@ const App: React.FC<AppProps> = () => {
                   </Button>
                 </Paper>
 
-                <Paper elevation={0} sx={{ p: 2 }}>
+                <Paper sx={{ p: 2 }}>
                   <Typography variant="h3">Templates</Typography>
                   <Typography variant="body1" sx={{ my: 2 }}>
                     DREAMFEEL SPACES beautiful, fully customizable templates
@@ -256,7 +250,7 @@ const App: React.FC<AppProps> = () => {
                   </Button>
                 </Paper>
 
-                <Paper elevation={0} sx={{ p: 2 }}>
+                <Paper sx={{ p: 2 }}>
                   <Typography variant="h3">Editor</Typography>
                   <Typography variant="body1" sx={{ my: 2 }}>
                     DREAMFEEL SPACES code editor lets you customize your
@@ -273,7 +267,7 @@ const App: React.FC<AppProps> = () => {
                     Customize Application
                   </Button>
                 </Paper>
-                <Paper elevation={0} sx={{ p: 2 }}>
+                <Paper sx={{ p: 2 }}>
                   <Typography variant="h3">Resources</Typography>
                   <Typography variant="body1" sx={{ my: 2 }}>
                     Upload media and create datatables to store data for your
@@ -289,7 +283,7 @@ const App: React.FC<AppProps> = () => {
                     Resources
                   </Button>
                 </Paper>
-                <Paper elevation={0} sx={{ p: 2 }}>
+                <Paper sx={{ p: 2 }}>
                   <Typography variant="h3">Preferences</Typography>
                   <Typography variant="body1" sx={{ my: 2 }}>
                     Update app preferences, logo, favicon and channels.
@@ -305,7 +299,7 @@ const App: React.FC<AppProps> = () => {
                   </Button>
                 </Paper>
 
-                <Paper elevation={0} sx={{ p: 2 }}>
+                <Paper sx={{ p: 2 }}>
                   <Typography variant="h3">Publish</Typography>
                   <Typography variant="body1" sx={{ my: 2 }}>
                     Make your app available on your channels
