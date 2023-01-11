@@ -119,7 +119,7 @@ const Apps: React.FC<any> = () => {
                 spacing={2}
               >
                 <Grid item xs={12} md={9} lg={8}>
-                  <Grid sx={{ mt: 9 }} container spacing={2}>
+                  <Grid sx={{ mt: 14 }} container spacing={2}>
                     {apps.map((app) => (
                       <Grid key={app.id} item lg={3} md={3} xs={6}>
                         <Paper className="post">
