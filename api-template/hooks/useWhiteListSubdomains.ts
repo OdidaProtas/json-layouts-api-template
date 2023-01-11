@@ -3,7 +3,8 @@ export default function useIsWhiteListSubdomain(subdomain) {
     "www",
     "marketplace",
     "json-layouts-api-template",
-    "stilldrea-opulent-garbanzo-r967w5r9rq5fp4gg-3000",
+    "odidaprotas-orange-guacamole-grqq5jgx5xxfrvj-3000",
+    "localhost",
   ];
   return whiteLists.includes(subdomain);
 }
