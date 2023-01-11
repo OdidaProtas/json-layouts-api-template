@@ -26,11 +26,7 @@ export default function Button({
     if (intents?.click?.length) {
       for (let intent of intents.click) {
         const actionArr = intent.split(".");
-        if (actionArr[1] === "focus") {
-          intentions[actionArr[0]][actionArr[1]](api?.id, id);
-        } else if (actionArr[1] === "push") {
-          intentions[actionArr[0]][actionArr[1]](actionArr[3]);
-        }
+        intentions[actionArr[0]][actionArr[1]](row?.id);
       }
     }
   }

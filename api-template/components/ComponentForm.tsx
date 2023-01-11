@@ -494,7 +494,7 @@ export var components = {
         mapState: {},
       },
       intents: {
-        click: ["nav.focus", "nav.push./:id"],
+        click: ["nav.delete"],
       },
     },
   },

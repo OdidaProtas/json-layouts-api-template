@@ -1,6 +1,7 @@
 import { usePagesStateDisptch, usePagesStateValue } from "../lib/builder";
 import { useAxios } from "./useAxios";
 import { useDetailActions } from "./useRow";
+import useToast from "./useToast";
 
 export default function useNav() {
   const pages = usePagesStateValue("pages", []);
@@ -8,6 +9,7 @@ export default function useNav() {
   const dispatch = usePagesStateDisptch();
   const { addResourceId } = useDetailActions();
   const axios = useAxios();
+  const { showToast } = useToast();
   return {
     push(path) {
       const newPage = pages.find((page) => page.path === path);
@@ -26,10 +28,12 @@ export default function useNav() {
     canGoBack() {},
     async delete(id, onError = (err) => {}, onSuccess = (data) => {}) {
       try {
-        const res = await axios.delete(`/row/${id}`);
+        const res = await axios.delete(`/api/resource/detail/${id}`);
         onSuccess(res.data);
+        showToast("success", "Action sucessful");
       } catch (e) {
         onError(e);
+        showToast("error", "Action failed");
       }
     },
   };
