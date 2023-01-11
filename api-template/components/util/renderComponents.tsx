@@ -338,12 +338,14 @@ export default function renderComponents(components: any[] = []) {
         );
       }
       case "badge": {
-        const { api = {} } = data;
-        return <SimpleBadge key={index} api={api} />;
+        const { api = {}, badgeContent = 0 } = data;
+        return (
+          <SimpleBadge badgeContent={badgeContent} key={index} api={api} />
+        );
       }
       case "chip": {
-        const { api = {} } = data;
-        return <BasicChips api={api} key={index} />;
+        const { api = {}, label = "Chip" } = data;
+        return <BasicChips label={label} api={api} key={index} />;
       }
       case "divider": {
         return <Divider key={index} sx={{ my: 2 }} />;

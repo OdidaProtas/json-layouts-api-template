@@ -84,10 +84,7 @@ const Apps: React.FC = () => {
                       display: { xs: "none", lg: "block" },
                     }}
                   >
-                    <Paper
-                      elevation={0}
-                      sx={{ p: 2, height: 400, overflow: "auto" }}
-                    >
+                    <Paper sx={{ p: 2, height: 400, overflow: "auto" }}>
                       <Typography>Categories</Typography>
                       <Divider sx={{ my: 2 }} />
                       <List dense>
@@ -105,7 +102,7 @@ const Apps: React.FC = () => {
                     </Paper>
                   </Grid>
                   <Grid item xs={12} lg={9}>
-                    <Paper elevation={0} sx={{ width: "100%" }}>
+                    <Paper sx={{ width: "100%" }}>
                       <Carousel
                         showIndicators={false}
                         showStatus={false}
@@ -168,9 +165,9 @@ const Apps: React.FC = () => {
                   <Grid container spacing={2}>
                     {apps.map((app) => (
                       <Grid key={app.id} item lg={3} md={6} xs={6}>
-                        <div className="post">
+                        <Paper className="post">
                           <App noStatus app={app} />
-                        </div>
+                        </Paper>
                       </Grid>
                     ))}
                   </Grid>
@@ -236,20 +233,19 @@ export default Apps;
 
 export const AuthSpinner = () => {
   return (
-  <Layout>
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box sx={{ textAlign: "center" }}>
-        <CircularProgress />
+    <Layout>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ textAlign: "center" }}>
+          <CircularProgress />
+        </Box>
       </Box>
-    </Box>
-  </Layout>
-    
+    </Layout>
   );
 };

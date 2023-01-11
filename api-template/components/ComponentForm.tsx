@@ -694,6 +694,7 @@ export var components = {
   badge: {
     type: "badge",
     data: {
+      badgeContent: 0,
       api: {
         type: "item",
         id: "",
@@ -707,6 +708,7 @@ export var components = {
   chip: {
     type: "chip",
     data: {
+      label: "Chip",
       api: {
         type: "item",
         id: "",
@@ -852,7 +854,7 @@ export var components = {
       imageUrl: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
       title: "A sample card",
       body: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all ",
-      actions: ["share", "learn more"],
+      actions: [],
       api: {
         type: "item",
         id: "",

@@ -16,26 +16,46 @@ export default function ImgMediaCard({
   body = "",
   title = "",
   api = {},
-}) {
-  const [row, loading] = useDetail(api);
-  if (loading) {
+}: any) {
+  const [row, loadingRow] = useDetail(api);
+  function getValues() {
+    if (api?.id) {
+      if (loadingRow) {
+        return { imageUrl, title, body };
+      }
+      if (row) {
+        const mapState = api?.mapState;
+        const rowData = JSON.parse(row?.rowDraft ?? "{}");
+        return {
+          imageUrl: rowData[mapState?.imageUrl],
+          title: rowData[mapState?.title],
+          body: rowData[mapState?.body],
+        };
+      }
+      return { imageUrl, title, body };
+    }
+    return { imageUrl, title, body };
+  }
+
+  const { imageUrl: image, title: cardTitle, body: bodyText } = getValues();
+
+  if (loadingRow) {
     return <Skeleton variant="rectangular" height={100} width={345} />;
   }
-  console.log(row ?? "api");
   return (
     <Card>
       <CardMedia
         component="img"
         alt="green iguana"
         height="140"
-        image={imageUrl}
+        image={image}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {title}
+          {cardTitle}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {body}
+          {bodyText}
         </Typography>
       </CardContent>
       <CardActions>
