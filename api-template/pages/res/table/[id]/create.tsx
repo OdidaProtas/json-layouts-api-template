@@ -161,7 +161,7 @@ const CreateRecord: React.FC = () => {
                   />
                 );
               }
-              if (column.type === "nuber") {
+              if (column.type === "number") {
                 return (
                   <TextField
                     key={column.key}
