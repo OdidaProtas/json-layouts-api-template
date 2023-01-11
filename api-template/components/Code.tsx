@@ -31,7 +31,7 @@ export default function Code({
     state ? JSON.stringify(state, null, "\t") : JSON.stringify(page, null, "\t")
   );
 
-  const { handleChange: updatePage, handleThemeChange } = useActions();
+  const { handleChange: updatePage, handleThemeChange } = useCodeActions();
   const handleChange = (value) => setCode(value);
 
   function update() {
@@ -44,10 +44,14 @@ export default function Code({
   }
 
   React.useEffect(() => {
-    // if (theme) handleThemeChange(code);
-    // else 
     update();
   }, [code, state]);
+
+  React.useEffect(() => {
+    if (theme) {
+      handleThemeChange(code);
+    }
+  }, [code]);
 
   return (
     <>
@@ -76,7 +80,7 @@ export default function Code({
   );
 }
 
-function useActions() {
+export function useCodeActions() {
   const dispatch = usePagesStateValue("dispatch");
   const pageIndex = usePagesStateValue("pageIndex") ?? 0;
   const pages = usePagesStateValue("pages");
@@ -100,7 +104,7 @@ function useActions() {
         const theme = JSON.parse(codeString);
         dispatch({
           type: type,
-          payload: theme,
+          payload: {...theme},
           key: "theme",
         });
       } catch (e) {}

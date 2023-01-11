@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 import { green, grey, red } from "@mui/material/colors";
 
-const rawTheme = createTheme({
+const rawTheme = {
   palette: {
     primary: {
       light: "#69696a",
@@ -35,13 +35,8 @@ const rawTheme = createTheme({
     fontWeightRegular: 400, // Work Sans
     fontWeightMedium: 700, // Roboto Condensed
   },
-});
-
-const fontHeader = {
-  color: rawTheme.palette.text.primary,
-  fontWeight: rawTheme.typography.fontWeightMedium,
-  fontFamily: "'Roboto Condensed', sans-serif",
 };
+
 
 export const defaultTheme = {
   ...rawTheme,

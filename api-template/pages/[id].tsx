@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import usePages from "../hooks/usePages";
 import { AuthSpinner } from ".";
 import { useSession } from "next-auth/react";
-import { ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import useApps from "../hooks/useApps";
 import Preview from "../components/Preview";
 
@@ -22,12 +22,14 @@ const App: React.FC<AppProps> = () => {
   const pageIndex = usePagesStateValue("pageIndex", 0);
   const pageData = pages[pageIndex];
 
+  const muiTheme = createTheme(theme);
+
   if (loading || authStatus === "loading") {
     return <AuthSpinner />;
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={muiTheme}>
       {renderPage(pageData ?? { ...helloWorld })}
     </ThemeProvider>
   );

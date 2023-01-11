@@ -59,6 +59,7 @@ import EnhancedTable from "./components/Table";
 import Text from "../Text";
 import ReactMarkdown from "react-markdown";
 import RenderImage from "./renderImage";
+import { AppRegistration } from "@mui/icons-material";
 
 export default function renderComponents(components: any[] = []) {
   return components.map((component, index) => {
@@ -99,12 +100,13 @@ export default function renderComponents(components: any[] = []) {
         return <ButtonGroup api={api} options={options} key={index} />;
       }
       case "dialog": {
-        const { buttonText, components = [] } = data;
+        const { buttonText, components = [], api = {} } = data;
         return (
           <SimpleDialog
             key={index}
             components={components}
             buttonText={buttonText}
+            api={api}
           />
         );
       }
@@ -122,6 +124,7 @@ export default function renderComponents(components: any[] = []) {
           type,
           submitting,
           handleSubmit,
+          api = {},
         } = data;
         return renderButton({
           color,
@@ -136,6 +139,7 @@ export default function renderComponents(components: any[] = []) {
           loading: submitting,
           type,
           handleSubmit,
+          api,
         });
       }
       case "card": {
@@ -325,14 +329,18 @@ export default function renderComponents(components: any[] = []) {
         return <ControlledAccordions key={index} />;
       }
       case "avatar": {
-        const { clickAction = "", imageUrl } = data;
-        return <Avatar imageUrl={imageUrl} clickAction={clickAction} />;
+        const { clickAction = "", imageUrl, api = {} } = data;
+        return (
+          <Avatar api={api} imageUrl={imageUrl} clickAction={clickAction} />
+        );
       }
       case "badge": {
-        return <SimpleBadge />;
+        const { api = {} } = data;
+        return <SimpleBadge key={index} api={api} />;
       }
       case "chip": {
-        return <BasicChips />;
+        const { api = {} } = data;
+        return <BasicChips api={api} key={index} />;
       }
       case "divider": {
         return <Divider key={index} sx={{ my: 2 }} />;
@@ -344,14 +352,16 @@ export default function renderComponents(components: any[] = []) {
         return renderList({ options, api, intents });
       }
       case "tooltip": {
-        return renderTooltip();
+        const { api = {} } = data;
+        return renderTooltip({ api });
       }
       case "text": {
         const { text, variant, api = {} } = data as any;
         return <Text text={text} key={index} api={api} variant={variant} />;
       }
       case "alert": {
-        return renderAlert();
+        const { api = {} } = data;
+        return renderAlert({ api });
       }
       case "imagefield": {
         const { desc, value, handleChange, multiple } = data;

@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { Avatar, Box, Grid, Paper, Typography } from "@mui/material";
+import { Avatar, Box, createTheme, Grid, Paper, Typography } from "@mui/material";
 import Preview from "../../components/Preview";
 import BuilderTabs from "../../components/BuilderTabs";
 
@@ -26,6 +26,8 @@ const App: React.FC = () => {
   const loadingApp = usePagesStateValue("loaders.apps");
 
   const theme = usePagesStateValue("theme");
+
+  const muiTheme = createTheme(theme)
 
   if (status === "loading" || loadingApp) {
     return <AuthSpinner />;
@@ -56,7 +58,7 @@ const App: React.FC = () => {
               overflow: "auto",
             }}
           >
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={muiTheme}>
               <Preview />
             </ThemeProvider>
           </Paper>

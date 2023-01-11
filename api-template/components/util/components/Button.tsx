@@ -1,4 +1,6 @@
+import { Skeleton } from "@mui/material";
 import MuiButton from "@mui/material/Button";
+import useDetail from "../../../hooks/useRow";
 
 export default function Button({
   color = "primary",
@@ -12,7 +14,12 @@ export default function Button({
   type,
   loading = false,
   handleSubmit,
+  api = {},
 }: any) {
+  const [row, loadingRow] = useDetail(api);
+  if (loadingRow) {
+    return <Skeleton variant="rectangular" />;
+  }
   if (type === "submit") {
     return (
       <MuiButton

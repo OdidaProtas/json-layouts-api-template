@@ -22,6 +22,7 @@ import {
   FormGroup,
   FormControlLabel,
   Switch,
+  createTheme,
 } from "@mui/material";
 import { AuthSpinner } from "..";
 import useApp from "../../hooks/useApp";
@@ -94,6 +95,8 @@ const App: React.FC<AppProps> = () => {
 
   const theme = usePagesStateValue("theme")
 
+  const muiTheme = createTheme(theme)
+
   if (status === "loading" || loadingApps) {
     return <AuthSpinner />;
   }
@@ -147,9 +150,9 @@ const App: React.FC<AppProps> = () => {
               <Stack sx={{ mt: 4 }} spacing={3}>
                 <Paper
                   elevation={0}
-                  sx={{ maxHeight: "40vh", overflow: "hidden", my: 2 }}
+                  sx={{ maxHeight: "50vh", overflow: "hidden", mt: 4 }}
                 >
-                  <ThemeProvider theme={theme}>
+                  <ThemeProvider theme={muiTheme}>
                     <Preview />
                   </ThemeProvider>
                 </Paper>
