@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Avatar } from "@mui/material";
 import { OpenInNew, Settings, ShoppingBag } from "@mui/icons-material";
 
 export type AppProps = {
@@ -65,15 +65,14 @@ const App: React.FC<any> = ({
           </Box>
         )}
       </Box>
-      <img
-        height={height ? height : "120"}
-        width="100%"
-        style={{ borderRadius: "50%" }}
-        alt={app.name}
-        src={app.image}
-      />
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Avatar sx={{ width: 68, height: 68 }} src={app?.image}>
+          {app.name[0]}
+        </Avatar>
+      </Box>
+
       <Box sx={{ p: 1, textAlign: "center" }}>
-        <Typography variant="caption">{app.name}</Typography>
+        <Typography variant="caption">{app?.name}</Typography>
       </Box>
       {noStatus && product && (
         <Button
