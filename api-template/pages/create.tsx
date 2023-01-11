@@ -119,7 +119,9 @@ const Create: React.FC = () => {
         <Box sx={{ flexGrow: 1 }}></Box>
         <form style={{ flexGrow: 1 }} onSubmit={submitData}>
           <Stack spacing={4}>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}
+            >
               <Typography variant="h4">New App</Typography>
               <Box>{/* <Button>Go back</Button> */}</Box>
             </Box>
@@ -159,9 +161,7 @@ const Create: React.FC = () => {
               )}
 
               {isWhiteListSubdomain && (
-                <Alert severity="error">
-                  ${appId} cannot be set as appID.
-                </Alert>
+                <Alert severity="error">${appId} cannot be set as appID.</Alert>
               )}
             </Box>
             <TextField

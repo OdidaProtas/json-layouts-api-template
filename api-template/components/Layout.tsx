@@ -9,7 +9,7 @@ type Props = {
 const Layout: React.FC<Props> = (props) => (
   <div>
     <Header />
-    <Toolbar/>
+    <Toolbar />
     <Divider />
     <div className="layout">{props.children}</div>
     <style jsx global>{`
@@ -30,7 +30,6 @@ const Layout: React.FC<Props> = (props) => (
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
           "Segoe UI Symbol";
-        background: rgba(0, 0, 0, 0.05);
       }
 
       input,
@@ -45,6 +44,10 @@ const Layout: React.FC<Props> = (props) => (
     <style jsx>{`
       .layout {
         padding: 0 1rem;
+        background-image: url("https://raw.githubusercontent.com/OdidaProtas/pyTimetable/development/assets2/dd%5B1%5D.png");
+        // background: rgba(0, 0, 0, 0.05);
+        // background-size:cover;
+        // background-repeat:no-repeat;
       }
     `}</style>
   </div>

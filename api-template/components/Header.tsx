@@ -83,7 +83,10 @@ const Header: React.FC = () => {
       <div className="right" style={{ display: "flex" }}>
         <Link href="/about-us">
           <Typography
-            sx={{ mr: 2, display: { xs: "none", md: "block", lg: "block" } }}
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "block", lg: "block", minWidth: 100 },
+            }}
           >
             About us
           </Typography>

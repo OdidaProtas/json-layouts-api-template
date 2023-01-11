@@ -57,15 +57,28 @@ const Index: React.FC = () => {
                 </Grid>
               </Grid>
               {!hasApps && (
-                <div>
-                  <h6>You do not have any applications</h6>
-                  <Button
-                    variant={"outlined"}
-                    onClick={() => router.push("/create")}
-                  >
-                    Create app
-                  </Button>
-                </div>
+                <Box
+                  sx={{
+                    minHeight: "70vh",
+                    display: "flex",
+                    justifyContent: "Center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box>
+                    <Typography variant="h3">
+                      You do not have any applications
+                    </Typography>
+                    <Button
+                      sx={{ mt: 2 }}
+                      fullWidth
+                      variant={"outlined"}
+                      onClick={() => router.push("/create")}
+                    >
+                      Create app
+                    </Button>
+                  </Box>
+                </Box>
               )}
             </Box>
           </Box>

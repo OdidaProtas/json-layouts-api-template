@@ -69,7 +69,7 @@ const Apps: React.FC<any> = () => {
                       display: { xs: "none", md: "block", lg: "block" },
                     }}
                   >
-                    <Typography variant="h5">Mini apps</Typography>
+                    <Typography variant="h5">Spaces</Typography>
                   </Box>
                   <Box>
                     {Boolean(apps?.length) && (
@@ -131,16 +131,17 @@ const Apps: React.FC<any> = () => {
                 </Grid>
 
                 {!apps.length && (
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                       minHeight: 300,
+                      pt: 6,
                     }}
                   >
                     <div>
-                      <Typography variant="h4" sx={{ my: 3 }}>
+                      <Typography variant="h4" sx={{ mb: 3, mt: 12 }}>
                         There are no published apps
                       </Typography>
                       <Button
@@ -162,13 +163,13 @@ const Apps: React.FC<any> = () => {
                         My apps
                       </Button>
                     </div>
-                  </div>
+                  </Box>
                 )}
               </Grid>
             </Box>
           </Container>
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
       <style jsx>{`
         .post {
