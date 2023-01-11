@@ -37,7 +37,7 @@ const Index: React.FC = () => {
           <Box sx={{ display: "flex" }}>
             <Box sx={{ flexGrow: 1 }}>
               <Typography sx={{ mt: 3 }} variant="h3">
-                My apps
+                My spaces
               </Typography>
               <Grid
                 sx={{ mt: 2, justifyContent: "center" }}

@@ -121,7 +121,7 @@ export default function AccountMenu() {
           <ListItemIcon>
             <Apps fontSize="small" />
           </ListItemIcon>
-          My apps
+          My spaces
         </MenuItem>
         <MenuItem onClick={() => router.push("/create")}>
           <ListItemIcon>

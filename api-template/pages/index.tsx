@@ -160,7 +160,7 @@ const Apps: React.FC<any> = () => {
                         fullWidth
                         onClick={() => router.push("/m")}
                       >
-                        My apps
+                        My spaces
                       </Button>
                     </div>
                   </Box>

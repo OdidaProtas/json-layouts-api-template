@@ -203,7 +203,7 @@ const Apps: React.FC = () => {
                         variant={"outlined"}
                         onClick={() => router.push("/m")}
                       >
-                        My apps
+                        My spaces
                       </Button>
                     </div>
                   </div>
