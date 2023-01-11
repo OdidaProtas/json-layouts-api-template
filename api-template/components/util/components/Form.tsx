@@ -46,31 +46,35 @@ export default function Form({ components = [], api = {} }: any) {
   const socket = useSocket();
 
   const handleSubmit = async () => {
-    setSaving(true);
-    const payload = {
-      tableId: recordId,
-      rowDraft: JSON.stringify(state ?? {}),
-    };
-    let res;
-    if (api.update)
-      res = await axios.put(`/api/resource/data/row`, {
-        ...payload,
-        id: row?.id,
-      });
-    else res = await axios.post(`/api/resource/data/row`, { ...payload });
-    if (res.data) {
-      let row = JSON.parse(res.data.rowDraft ?? "");
-      // table.addRow(row);
-      showToast("success", "Record saved");
+    try {
+      setSaving(true);
+      const payload = {
+        tableId: recordId,
+        rowDraft: JSON.stringify(state ?? {}),
+      };
+      let res;
+      if (api.update)
+        res = await axios.put(`/api/resource/data/row`, {
+          ...payload,
+          id: row?.id,
+        });
+      else res = await axios.post(`/api/resource/data/row`, { ...payload });
+      if (res.data) {
+        let row = JSON.parse(res.data.rowDraft ?? "");
+        // table.addRow(row);
+        showToast("success", "Record saved");
+        setSaving(false);
+        socket.emit("add_to_collection", {
+          id: recordId,
+          row: row,
+        });
+        return;
+      }
       setSaving(false);
-      socket.emit("add_to_collection", {
-        id: recordId,
-        row: row,
-      });
-      return;
+      showToast("error", "An error occured, Record not saved");
+    } catch (e) {
+      showToast("error", "An error occured, Record not saved");
     }
-    setSaving(false);
-    showToast("error", "An error occured, Record not saved");
   };
 
   const componentData = () =>
