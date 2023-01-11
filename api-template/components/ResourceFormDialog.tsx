@@ -363,8 +363,8 @@ function BasicTabs({ type, collection, procedure = "" }) {
         ...components[type]?.data,
           api: {
             id: collection.id,
-            type: "collection",
-            procedure: "map",
+            type: "item",
+            procedure: "item",
             mapType: componentMapType,
             fields: checked.map((c) => {
               const column = columns.find((col) => col.id === c);
