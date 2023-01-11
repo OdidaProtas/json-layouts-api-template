@@ -51,7 +51,14 @@ export default function Form({ components = [], api = {} }: any) {
       tableId: recordId,
       rowDraft: JSON.stringify(state ?? {}),
     };
-    const res = await axios.post(`/api/resource/data/row`, { ...payload });
+    let res;
+    if (api.update)
+      res = await axios.post(`/api/resource/data/row`, { ...payload });
+    else
+      res = await axios.put(`/api/resource/data/row`, {
+        ...payload,
+        id: row?.id,
+      });
     if (res.data) {
       let row = JSON.parse(res.data.rowDraft ?? "");
       // table.addRow(row);
