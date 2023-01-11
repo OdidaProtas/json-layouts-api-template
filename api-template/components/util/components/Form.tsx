@@ -53,12 +53,11 @@ export default function Form({ components = [], api = {} }: any) {
     };
     let res;
     if (api.update)
-      res = await axios.post(`/api/resource/data/row`, { ...payload });
-    else
       res = await axios.put(`/api/resource/data/row`, {
         ...payload,
         id: row?.id,
       });
+    else res = await axios.post(`/api/resource/data/row`, { ...payload });
     if (res.data) {
       let row = JSON.parse(res.data.rowDraft ?? "");
       // table.addRow(row);
