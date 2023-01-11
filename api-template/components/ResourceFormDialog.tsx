@@ -343,6 +343,8 @@ function BasicTabs({ type, collection, procedure = "" }) {
           ...components[type].data,
           components: [],
           options: [],
+          variant:
+            (mapState as any)?.variant ?? components[type]?.data?.variant,
           api: {
             id: collection.id,
             type: "collection",
@@ -360,7 +362,9 @@ function BasicTabs({ type, collection, procedure = "" }) {
       return {
         ...components[type],
         data: {
-        ...components[type]?.data,
+          ...components[type]?.data,
+          variant:
+            (mapState as any)?.variant ?? components[type]?.data?.variant,
           api: {
             id: collection.id,
             type: "item",
