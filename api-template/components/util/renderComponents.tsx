@@ -125,6 +125,7 @@ export default function renderComponents(components: any[] = []) {
           submitting,
           handleSubmit,
           api = {},
+          intents = { click: [] },
         } = data;
         return renderButton({
           color,
@@ -140,6 +141,7 @@ export default function renderComponents(components: any[] = []) {
           type,
           handleSubmit,
           api,
+          intents
         });
       }
       case "card": {

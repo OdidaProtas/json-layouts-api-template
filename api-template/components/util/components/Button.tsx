@@ -1,5 +1,6 @@
 import { Skeleton } from "@mui/material";
 import MuiButton from "@mui/material/Button";
+import useIntents from "../../../hooks/useIntents";
 import useDetail from "../../../hooks/useRow";
 
 export default function Button({
@@ -15,8 +16,25 @@ export default function Button({
   loading = false,
   handleSubmit,
   api = {},
+  intents = { click: [] },
 }: any) {
   const [row, loadingRow] = useDetail(api);
+
+  const intentions = useIntents();
+
+  function handleClick(id) {
+    if (intents?.click?.length) {
+      for (let intent of intents.click) {
+        const actionArr = intent.split(".");
+        if (actionArr[1] === "focus") {
+          intentions[actionArr[0]][actionArr[1]](api?.id, id);
+        } else if (actionArr[1] === "push") {
+          intentions[actionArr[0]][actionArr[1]](actionArr[3]);
+        }
+      }
+    }
+  }
+
   if (loadingRow) {
     return <Skeleton variant="rectangular" />;
   }
@@ -60,7 +78,7 @@ export default function Button({
       variant={variant}
       color={color}
       disableElevation
-      onClick={() => {}}
+      onClick={handleClick}
     >
       {text}
     </MuiButton>

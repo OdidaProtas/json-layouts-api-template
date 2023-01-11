@@ -493,6 +493,9 @@ export var components = {
         buttonText: "Submit",
         mapState: {},
       },
+      intents: {
+        click: ["nav.focus", "nav.push./:id"],
+      },
     },
   },
   form: {
@@ -730,7 +733,7 @@ export var components = {
         valueKey: "",
       },
       intents: {
-        click: ["nav.focus", "nav.push./:id"],
+        click: ["nav.delete", "nav.push./:id"],
       },
     },
   },

@@ -14,6 +14,7 @@ export interface IButton {
   loading: boolean;
   handleSubmit: any;
   api?: any;
+  intents?: any;
 }
 
 export default function renderButton({
@@ -30,6 +31,7 @@ export default function renderButton({
   loading,
   handleSubmit,
   api,
+  intents = { click: [] },
 }: IButton) {
   return (
     <Button
@@ -46,6 +48,7 @@ export default function renderButton({
       handleSubmit={handleSubmit}
       target={target}
       api={api}
+      intents={intents}
     />
   );
 }
