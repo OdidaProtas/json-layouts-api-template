@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import App from "../components/App";
+import Footer from "../components/Footer";
 
 import { useSession } from "next-auth/react";
 import router from "next/router";
@@ -147,13 +148,15 @@ const Apps: React.FC<any> = () => {
                         variant={"outlined"}
                         onClick={() => router.push("/create")}
                         startIcon={<Add />}
+                        fullWidth
                       >
                         Create app
                       </Button>
                       <Button
                         startIcon={<AppRegistration />}
-                        sx={{ ml: 2, textTransform: "none" }}
+                        sx={{ mt: 2, textTransform: "none" }}
                         variant={"outlined"}
+                        fullWidth
                         onClick={() => router.push("/m")}
                       >
                         My apps
@@ -165,6 +168,7 @@ const Apps: React.FC<any> = () => {
             </Box>
           </Container>
         </main>
+        {/* <Footer /> */}
       </div>
       <style jsx>{`
         .post {
