@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 
 import useApps from "../hooks/useApps";
 import { usePagesStateValue } from "../lib/builder";
-import { Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { Add, AppRegistration, Explore } from "@mui/icons-material";
 import useSubdomainApp from "../hooks/useSubdomainApp";
 import RenderApp from "../components/util/renderApp";
@@ -122,9 +122,9 @@ const Apps: React.FC<any> = () => {
                   <Grid container spacing={2}>
                     {apps.map((app) => (
                       <Grid key={app.id} item lg={3} md={3} xs={6}>
-                        <div className="post">
+                        <Paper className="post">
                           <App noStatus app={app} />
-                        </div>
+                        </Paper>
                       </Grid>
                     ))}
                   </Grid>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSession } from "next-auth/react";
-import { Box, Grid, Container, Button, Typography } from "@mui/material";
+import { Box, Grid, Container, Button, Typography, Paper } from "@mui/material";
 import router from "next/router";
 import { AuthSpinner } from "..";
 import Layout from "../../components/Layout";
@@ -48,9 +48,9 @@ const Index: React.FC = () => {
                   <Grid container spacing={2}>
                     {apps.map((app) => (
                       <Grid item lg={3} md={4} xs={6} key={app.id}>
-                        <div className="post">
+                        <Paper className="post">
                           <App app={app} />
-                        </div>
+                        </Paper>
                       </Grid>
                     ))}
                   </Grid>
