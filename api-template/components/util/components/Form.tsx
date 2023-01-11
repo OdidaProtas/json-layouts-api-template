@@ -93,7 +93,7 @@ export default function Form({ components = [], api = {} }: any) {
     if (row?.id && api?.update) {
       setState(() => JSON.parse(row.rowDraft));
     }
-  }, [row.id]);
+  }, [row?.id]);
 
   return (
     <form
