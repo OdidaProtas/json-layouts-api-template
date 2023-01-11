@@ -143,7 +143,6 @@ const CreateRecord: React.FC = () => {
                     label={column.key}
                     value={state[column.key]}
                     name={column.key}
-                  
                   />
                 );
               }
@@ -157,7 +156,6 @@ const CreateRecord: React.FC = () => {
                     label={column.key}
                     value={state[column.key]}
                     name={column.key}
-                    
                   />
                 );
               }
@@ -171,10 +169,20 @@ const CreateRecord: React.FC = () => {
                     label={column.key}
                     value={state[column.key]}
                     name={column.key}
-                  
                   />
                 );
               }
+              return (
+                <TextField
+                  key={column.key}
+                  autoFocus
+                  onChange={handleStateChange}
+                  type="text"
+                  label={column.key}
+                  value={state[column.key]}
+                  name={column.key}
+                />
+              );
             })}
 
             <Button
