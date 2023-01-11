@@ -481,8 +481,8 @@ export var components = {
     type: "button",
     data: {
       text: "Submit",
-      href: "href",
-      target: "blank",
+      href: "",
+      target: "",
       sx: "mt:4",
       type: "button",
       api: {
@@ -503,6 +503,7 @@ export var components = {
     data: {
       components: [],
       api: {
+        update: false,
         type: "form",
         id: "",
         fields: [],

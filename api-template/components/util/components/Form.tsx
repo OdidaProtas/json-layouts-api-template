@@ -7,12 +7,15 @@ import { useSocket } from "../../../lib/socket";
 import renderComponents from "../renderComponents";
 import renderStack from "../renderStack";
 import { Stack, Skeleton } from "@mui/material";
+import useDetail from "../../../hooks/useRow";
 
 export default function Form({ components = [], api = {} }: any) {
   const [saving, setSaving] = React.useState(false);
 
   const [apiComponents, loadingApiComponents, error] =
     useTransformComponents(api);
+
+  const [row, loadingRow] = useDetail(api);
 
   const recordId = api?.id;
 
@@ -80,8 +83,10 @@ export default function Form({ components = [], api = {} }: any) {
   const fieldStack = renderStack(fields);
 
   React.useEffect(() => {
-    // setState(() => keysObj);
-  }, []);
+    if (row?.id && api?.update) {
+      setState(() => JSON.parse(row.rowDraft));
+    }
+  }, [row.id]);
 
   return (
     <form
@@ -99,7 +104,7 @@ export default function Form({ components = [], api = {} }: any) {
       {loadingApiComponents && Boolean(api?.id) && (
         <Stack spacing={3}>
           {[1, 2, 3, 4].map((item) => {
-            return <Skeleton key={item} height="30" variant="rectangular" />;
+            return <Skeleton key={item} height={69} variant="rectangular" />;
           })}
         </Stack>
       )}
