@@ -733,7 +733,7 @@ export var components = {
         valueKey: "",
       },
       intents: {
-        click: ["nav.delete", "nav.push./:id"],
+        click: ["nav.focus", "nav.push./:id"],
       },
     },
   },
