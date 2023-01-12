@@ -270,8 +270,8 @@ export default function renderComponents(components: any[] = []) {
         return <Skeleton />;
       }
       case "bottom_navigation": {
-        const { items = [] } = data;
-        return <BottomNav />;
+        const { options = [] } = data;
+        return <BottomNav options={options} />;
       }
       case "snackbar": {
         const { actionText, autoHideDuration, message, buttonText } = data;
@@ -338,9 +338,14 @@ export default function renderComponents(components: any[] = []) {
         );
       }
       case "badge": {
-        const { api = {}, badgeContent = 0 } = data;
+        const { api = {}, badgeContent = 0, icon = "shopping_basket" } = data;
         return (
-          <SimpleBadge badgeContent={badgeContent} key={index} api={api} />
+          <SimpleBadge
+            badgeContent={badgeContent}
+            icon={icon}
+            key={index}
+            api={api}
+          />
         );
       }
       case "chip": {

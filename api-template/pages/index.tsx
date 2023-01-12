@@ -137,11 +137,10 @@ const Apps: React.FC<any> = () => {
                       justifyContent: "center",
                       alignItems: "center",
                       minHeight: 300,
-                      pt: 6,
                     }}
                   >
                     <div>
-                      <Typography variant="h4" sx={{ mb: 3, mt: 12 }}>
+                      <Typography variant="h4" sx={{ mb: 3, mt: 2 }}>
                         There are no published apps
                       </Typography>
                       <Button

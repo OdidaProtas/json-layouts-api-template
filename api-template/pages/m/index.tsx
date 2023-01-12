@@ -45,7 +45,7 @@ const Index: React.FC = () => {
                 container
               >
                 <Grid item xs={12} md={10} lg={8}>
-                  <Grid sx={{ mt: 9 }} container spacing={2}>
+                  <Grid sx={{ my: 9 }} container spacing={2}>
                     {apps.map((app) => (
                       <Grid item lg={3} md={4} xs={6} key={app.id}>
                         <Paper className="post">

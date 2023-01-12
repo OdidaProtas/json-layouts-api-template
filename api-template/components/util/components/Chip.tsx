@@ -15,7 +15,7 @@ export default function BasicChips({ api, label = "Chip" }) {
       if (row) {
         const mapState = api?.mapState;
         const rowData = JSON.parse(row?.rowDraft ?? "{}");
-        return rowData[mapState?.label];
+        return { label: rowData[mapState?.label] };
       }
       return { label };
     }
@@ -28,7 +28,5 @@ export default function BasicChips({ api, label = "Chip" }) {
 
   const { label: chipLabel } = getValue();
 
-  return (
-      <Chip label={label} />
-  );
+  return <Chip label={chipLabel} />;
 }

@@ -679,6 +679,7 @@ export var components = {
   },
   avatar: {
     type: "avatar",
+    alt: "A",
     data: {
       imageUrl: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
       api: {
@@ -694,7 +695,8 @@ export var components = {
   badge: {
     type: "badge",
     data: {
-      badgeContent: 0,
+      badgeContent: 3,
+      icoh: "shopping_basket",
       api: {
         type: "item",
         id: "",
